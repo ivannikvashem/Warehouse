@@ -21,12 +21,75 @@ namespace Warehouse.View.Order.MakeOrder
     public partial class MakeOrderWindow : Window
     {
         public OrderList OrderList { get;private set; }
+        ApplicationContext context = new ApplicationContext();
+        public List<ProductList> ProductLists { get;private set; } 
+        bool restoreIfMove = false;
 
-        public MakeOrderWindow(Model.OrderList orderList)
+
+        public MakeOrderWindow(OrderList orderList)
         {
             InitializeComponent();
             OrderList = orderList;
             this.DataContext = orderList;
+            ComboBxItemsLoad();
+
+            ProductLists = context.ProductLists.ToList();
+            ProductListGrid.ItemsSource = ProductLists;
+        }
+
+        private void MakeOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+        }
+
+        private void ComboBxItemsLoad()
+        {
+            foreach (Client client in context.Clients)
+            {
+                ClientCmbBx.Items.Add(client.Name);
+            }
+        }
+
+
+
+
+
+        private void TurnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+
+        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+        // Метод реализующий перетаскивание окна
+        private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (WindowState == WindowState.Maximized)
+            {
+                restoreIfMove = true;
+            }
+
+            DragMove();
+        }
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.BorderThickness = new System.Windows.Thickness(7);
+                this.ResizeMode = ResizeMode.CanResize;
+            }
+            else
+            {
+                this.BorderThickness = new System.Windows.Thickness(0);
+                this.ResizeMode = ResizeMode.CanResize;
+            }
+        }
+
+        private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            restoreIfMove = false;
         }
     }
 }

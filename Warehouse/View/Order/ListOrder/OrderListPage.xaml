@@ -27,10 +27,10 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Top">
 
-                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding AddCommand}">
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding MakeOrderCommand}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Add96.png"/>
                     <Button.ToolTip>
-                        <ToolTip Content="Добавить клиента" Style="{StaticResource ToolTipStyle1}"/>
+                        <ToolTip Content="Оформить заказ" Style="{StaticResource ToolTipStyle1}"/>
                     </Button.ToolTip>
                 </Button>
                 <Separator Width="20" Opacity="0"/>
@@ -57,11 +57,17 @@
         </Grid>
 
         <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
-            <DataGrid ItemsSource="{Binding OrderLists}">
+            <DataGrid x:Name="StorageGrid" ItemsSource="{Binding OrderLists}" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
+                      VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
+                      CanUserResizeColumns="False" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}"
+                      RowHeight="30" AlternationCount="2" SelectionMode="Single">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="менеджер" Binding="{Binding UserLoginPasses.UserName}"/>
-                    <DataGridTextColumn Header="клиент" Binding="{Binding Client.Name}"/>
+                    <DataGridTextColumn Header="менеджер" Binding="{Binding UserLoginPasses.UserName}" Width="*"/>
+                    <DataGridTextColumn Header="клиент" Binding="{Binding Client.Name}" Width="*"/>
+                    <DataGridTextColumn Header="Общая сумма заказа" Binding="{Binding TotalPrice, StringFormat=C, ConverterCulture=ru-RU}" Width="*"/>
+                    <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}" Width="*"/>
 
                 </DataGrid.Columns>
             </DataGrid>

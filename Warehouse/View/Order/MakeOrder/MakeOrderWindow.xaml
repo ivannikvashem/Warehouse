@@ -7,6 +7,70 @@
         mc:Ignorable="d"
         Title="MakeOrderWindow" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="DarkSlateGray" BorderThickness="5" Grid.Row="0" Grid.RowSpan="2">
+            <Image Grid.Row="1" Source="../../../Images/InterfaceStuff/blu10.png" Stretch="Fill"/>
+        </Border>
+
+        <Border Background="DarkSlateGray" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
+
+                <Button Click="TurnBtn_Click" Width="40" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Content="—" FontSize="15">
+                    <!--<Image Source="././Images/InterfaceStuff/TitleBar/minimizeWindow96(White).png"/>-->
+                </Button>
+
+                <Button Click="ExitBtn_Click" Width="40" Style="{StaticResource  ExitBtnStyle}">
+                    <Image Source="../../../Images/InterfaceStuff/TitleBar/closeWindow96(White).png"/>
+                </Button>
+            </StackPanel>
+        </Border>
+        <Label Content="Клиент" Foreground="White" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <DockPanel Grid.Row="1">
+            <StackPanel Grid.Row="1" Margin="10">
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" HorizontalAlignment="Center">
+                    <TextBlock Text="Клиент" Foreground="White" Name="TitleLbl"/>
+                    <Separator Width="20" Opacity="0"/>
+                    <ComboBox x:Name="ClientCmbBx" Width="500" FontSize="26"/>
+                </StackPanel>
+
+                <Separator Height="20" Opacity="0"/>
+                
+                <Border BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0" Height="250">
+                    <DataGrid x:Name="ProductListGrid" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}" VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden" CanUserSortColumns="True" CanUserDeleteRows="False"
+                      CanUserReorderColumns="False" CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}" RowHeight="30"
+                      MinColumnWidth="65" AlternationCount="2" SelectionMode="Single" Width="800" CanUserAddRows="False">
+                        <DataGrid.Columns>
+                            <DataGridCheckBoxColumn IsReadOnly="False" Width="*" MaxWidth="35" CanUserResize="False"/>
+                            <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350" IsReadOnly="True"/>
+
+                            <DataGridTemplateColumn Header="Количество" Width="90" MinWidth="90" x:Name="yes" CanUserResize="False" IsReadOnly="False">
+
+                            </DataGridTemplateColumn>
+
+
+                            <DataGridTextColumn Header="Ед. Изм." Binding="{Binding Product.UnitOfMeasurement}" Width="65" CanUserResize="False" IsReadOnly="True"/>
+                            <DataGridTextColumn Header="Стоимость" Binding="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" Width="100" CanUserResize="False" IsReadOnly="True"/>
+
+                            <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name}" x:Name="CategoryColumn" IsReadOnly="True"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Border>
+
+
+
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" DockPanel.Dock="Bottom">
+                    <Button Width="200" Content="Сохранить" Style="{StaticResource MainBtnStyle}" Click="MakeOrderBtn_Click" Cursor="Hand"/>
+                    <Separator Width="20" Opacity="0"/>
+                    <Button Width="200" Content="Назад" Style="{StaticResource  MainBtnStyle}"/>
+                </StackPanel>
+            </StackPanel>
+        </DockPanel>
         
     </Grid>
 </Window>

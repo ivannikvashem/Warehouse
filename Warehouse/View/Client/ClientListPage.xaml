@@ -71,7 +71,7 @@
                     <DataGridTemplateColumn Header="" Width="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Name="OrderBtn" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Заказать"/>
+                                <Button  Name="OrderBtn" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Заказать"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
