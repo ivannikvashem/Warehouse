@@ -1,0 +1,27 @@
+﻿<Window x:Class="Warehouse.View.Storage.ChangeProductAmountWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warehouse.View.Storage"
+        mc:Ignorable="d"
+        Title="ChangeProductAmountWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBox Width="150" Text="{Binding Amount}" Name="AmountValue"/>
+            <Separator Opacity="0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="- -" Width="25" Height="20" FontSize="10" Name="MinusMinusValueBtn"/>
+                <Separator Opacity="0" Width="10"/>
+                <Button Content="-" Width="20" Height="20" FontSize="10" Name="MinusValueBtn" />
+                <Separator Opacity="0" Width="20"/>
+                <Button Content="Сохранить" Width="Auto" Height="20" FontSize="10" Name="SaveBtnClick" Click="SaveBtnClick_Click"/>
+                <Separator Opacity="0" Width="20"/>
+                <Button Content="+" Width="20" Height="20" FontSize="10" Name="PlusValueBtn"/>
+                <Separator Opacity="0" Width="10"/>
+                <Button Content="+ +" Width="25" Height="20" FontSize="10" Name="PlusPlusValueBtn" />
+            </StackPanel>
+            <TextBox Name ="nigger" Width="100"/>
+        </StackPanel>
+    </Grid>
+</Window>

@@ -1,0 +1,295 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C2E0A0AC-9A69-4D02-B31F-ACE934EF3987}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Warehouse</RootNamespace>
+    <AssemblyName>Warehouse</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\WarehouseLogoButSmaller.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CommonServiceLocator, Version=2.0.2.0, Culture=neutral, PublicKeyToken=489b6accfaf20ef0, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommonServiceLocator.2.0.2\lib\net47\CommonServiceLocator.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight, Version=5.4.1.0, Culture=neutral, PublicKeyToken=e7570ab207bcb616, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Extras, Version=5.4.1.0, Culture=neutral, PublicKeyToken=669f0b5e8f868abf, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Extras.dll</HintPath>
+    </Reference>
+    <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.4.1.0, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MvvmLightLibs.5.4.1.1\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="ApplicationContext.cs" />
+    <Compile Include="Authorization\LoginViewModel.cs" />
+    <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel\Client\ClientViewModel.cs" />
+    <Compile Include="ViewModel\Order\OrderViewModel.cs" />
+    <Compile Include="ViewModel\Storage\StorageListViewModel.cs" />
+    <Compile Include="ViewModel\Storage\StorageViewModel.cs" />
+    <Compile Include="View\Client\AddUpdateClientWindow.xaml.cs">
+      <DependentUpon>AddUpdateClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Client\ClientListPage.xaml.cs">
+      <DependentUpon>ClientListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Order\ListOrder\OrderListPage.xaml.cs">
+      <DependentUpon>OrderListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Order\MakeOrder\MakeOrderWindow.xaml.cs">
+      <DependentUpon>MakeOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Storage\Dictionary\AddProductToDictionaryWindow.xaml.cs">
+      <DependentUpon>AddProductToDictionaryWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Storage\Dictionary\MainDictionaryList.xaml.cs">
+      <DependentUpon>MainDictionaryList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Storage\ProductList\ChangeProductAmountWindow.xaml.cs">
+      <DependentUpon>ChangeProductAmountWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Storage\ProductList\MainProductList.xaml.cs">
+      <DependentUpon>MainProductList.xaml</DependentUpon>
+    </Compile>
+    <Page Include="LoginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Converters\AmountConverter.cs" />
+    <Compile Include="LoginWindow.xaml.cs">
+      <DependentUpon>LoginWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="View\Client\AddUpdateClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Client\ClientListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Order\ListOrder\OrderListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Order\MakeOrder\MakeOrderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Storage\Dictionary\AddProductToDictionaryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Storage\Dictionary\MainDictionaryList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Storage\ProductList\ChangeProductAmountWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Storage\ProductList\MainProductList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\Client.cs" />
+    <Compile Include="Model\OrderContent.cs" />
+    <Compile Include="Model\OrderList.cs" />
+    <Compile Include="Model\Product.cs" />
+    <Compile Include="Model\ProductList.cs" />
+    <Compile Include="Model\UserLoginPass.cs" />
+    <Compile Include="Model\UserRoleDictionary.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WarehouseLogo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WarehouseLogoButSmaller.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WarehouseLogo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\user96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\SideMenu\storage96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\SideMenu\order96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\SideMenu\clients96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\SideMenu\upcoming96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WarehouseLogoBlack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\TitleBar\closeWindow96%28White%29.png" />
+    <Resource Include="Images\InterfaceStuff\TitleBar\maximizeWindow96%28White%29.png" />
+    <Resource Include="Images\InterfaceStuff\TitleBar\minimizeWindow96%28White%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\TitleBar\lockWindow96%28White%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\SideMenu\order96%282%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\blu8.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\blu9.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\blu10.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\blu11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\SideMenu\storage96%28Gray%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\LeftArrow96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\RightArrow96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\DataGrid\settings96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\DataGrid\settings150.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\DataGrid\settings150Wh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\WareHouseLogoNoAccent.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\ProductDictionary.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\Search96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\search96toggl.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\Add96.png" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\Edit96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\Delete96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\DataGrid\settings.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\DataGrid\Edit96.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

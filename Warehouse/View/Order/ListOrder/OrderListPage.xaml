@@ -1,0 +1,67 @@
+﻿<Page x:Class="Warehouse.View.Order.ListOrder.OrderListPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Warehouse.View.Order.ListOrder"
+      xmlns:ui="clr-namespace:Warehouse.ViewModel.Order"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800" Background="{StaticResource TransparentBckgr}"
+      Title="OrderListPage">
+
+    <Page.DataContext>
+        <ui:OrderViewModel/>
+    </Page.DataContext>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Top">
+
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding AddCommand}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Add96.png"/>
+                    <Button.ToolTip>
+                        <ToolTip Content="Добавить клиента" Style="{StaticResource ToolTipStyle1}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Separator Width="20" Opacity="0"/>
+
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
+                    <Button.ToolTip>
+                        <ToolTip Content="Изменить клиента" Style="{StaticResource ToolTipStyle1}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Separator Width="20" Opacity="0"/>
+
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding DeleteCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Delete96.png"/>
+                    <Button.ToolTip>
+                        <ToolTip Content="Удалить клиента" Style="{StaticResource ToolTipStyle1}"/>
+                    </Button.ToolTip>
+                </Button>
+
+                <Separator Width="20" Opacity="0"/>
+
+
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
+            <ListBox ItemsSource="{Binding OrderLists}">
+                <ListBoxItem>
+                    <Label Content="{Binding Clients}"/>
+                </ListBoxItem>
+            </ListBox>
+        </Border>
+    </Grid>
+</Page>

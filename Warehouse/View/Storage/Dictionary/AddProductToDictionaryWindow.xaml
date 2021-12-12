@@ -1,0 +1,79 @@
+﻿<Window x:Class="Warehouse.View.Storage.Dictionary.AddProductToDictionaryWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warehouse.View.Storage.Dictionary"
+        mc:Ignorable="d"
+        Title="AddProductToDictionaryWindow" Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None" Foreground="White" Background="{StaticResource TransparentBckgr}"
+        AllowsTransparency="True" WindowStartupLocation="CenterScreen" FontSize="20" Topmost="False">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border BorderBrush="DarkSlateGray" BorderThickness="5" Grid.Row="0" Grid.RowSpan="2">
+            <Image Grid.Row="1" Source="../../../Images/InterfaceStuff/blu10.png" Stretch="Fill"/>
+        </Border>
+
+        <Border Background="DarkSlateGray" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
+
+                <Button Click="TurnBtn_Click" Width="40" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Content="—" FontSize="15">
+                    <!--<Image Source="././Images/InterfaceStuff/TitleBar/minimizeWindow96(White).png"/>-->
+                </Button>
+
+                <Button Click="ExitBtn_Click" Width="40" Style="{StaticResource ExitBtnStyle}">
+                    <Image Source="../../../Images/InterfaceStuff/TitleBar/closeWindow96(White).png"/>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <Label Content="Товар" Foreground="White" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Название" Foreground="White" Name="TitleLbl"/>
+                <Separator Width="20" Opacity="0"/>
+                <TextBox Text="{Binding Title}" Width="250" FontSize="20" MaxHeight="80" Name="TitleTxtBx" VerticalContentAlignment="Center" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+            </StackPanel>
+
+            <Separator Height="10" Opacity="0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Единица измерения" Foreground="White" Name="UnitOfMeasurementLbl"/>
+                <Separator Width="20" Opacity="0"/>
+                <TextBox Text="{Binding UnitOfMeasurement}" Width="250" Name="UnitOfMeasurementCmbBx" FontSize="20" VerticalContentAlignment="Center" TextWrapping="NoWrap" MaxLength="10"/>
+            </StackPanel>
+
+            <Separator Height="10" Opacity="0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Цена за единицу" Foreground="White" Name="PriceForUnitLbl"/>
+                <Separator Width="20" Opacity="0"/>
+                <TextBox Text="{Binding PriceForUnit, StringFormat=C,
+                    ConverterCulture=ru-RU}" Width="250" Name="PriceForUnitTxtBx" FontSize="20" VerticalContentAlignment="Center"/>
+            </StackPanel>
+
+            <Separator Height="10" Opacity="0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Категория" Foreground="White" Name="CategoryLbl"/>
+                <Separator Width="20" Opacity="0"/>
+                <ComboBox  Width="250" Name="CategoryCmbBx"/>
+            </StackPanel>
+
+            <Separator Height="10" Opacity="0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="Описание" Foreground="White" Name="DescriptionLbl"/>
+                <Separator Width="20" Opacity="0"/>
+                <TextBox Text="{Binding Description}" Width="250" MaxLines="10" Name="DescriptionTxtBx" TextWrapping="Wrap" MinLines="3" Height="80" VerticalScrollBarVisibility="Auto" FontSize="20" VerticalContentAlignment="Top"/>
+            </StackPanel>
+
+            <Separator Height="20" Opacity="0"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="200" Content="Сохранить" Style="{StaticResource MainBtnStyle}" Name="AddProductBtn" Click="AddProductBtn_Click" Cursor="Hand"/>
+                <Separator Width="20" Opacity="0"/>
+                <Button Width="200" Content="Назад" Style="{StaticResource  MainBtnStyle}" Click="ExitBtn_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>

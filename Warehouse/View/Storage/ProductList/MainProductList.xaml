@@ -1,0 +1,176 @@
+﻿<Page x:Class="Warehouse.View.Storage.ProductList.MainProductList"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Warehouse.View.Storage.ProductList"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MainProductList">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" >
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" VerticalAlignment="Top" HorizontalAlignment="Left" Name="GoToStorageDictionary" Click="GoToStorageDictionary_Click">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/ProductDictionary.png"/>
+                    <Button.ToolTip>
+                        <ToolTip x:Name="tt_Storage" Content="Словарь товаров" Style="{StaticResource ToolTipStyle1}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Separator Opacity="0" Width="20"/>
+
+                <Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
+
+                    <Button.ToolTip>
+                        <ToolTip Content="Изменить количество" Style="{StaticResource ToolTipStyle1}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Separator Opacity="0" Width="20"/>
+
+                <Border Background="{StaticResource TransparentBckgr}" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Right">
+                    <Grid x:Name="SearchPanel"
+              Grid.RowSpan="3"
+              VerticalAlignment="Top"
+              Background="Transparent"
+              Width="40"
+              Height="35"
+              Grid.Row="0">
+                        <StackPanel x:Name="SearchStckPnl" Orientation="Horizontal">
+
+                            <Grid Height="35">
+                                <ToggleButton x:Name="SearchBtn"
+                                  Grid.Column="0"
+                                  Margin="0,0,0,0"
+                                  HorizontalAlignment="Left"
+                                  Width="40"
+                                  Height="35"
+                                  BorderThickness="0"
+                                  Style="{StaticResource ToggleButtonStyle1}">
+
+                                    <ToggleButton.Background>
+                                        <ImageBrush ImageSource="../../../Images/InterfaceStuff/Navigation/Search96.png"/>
+                                    </ToggleButton.Background>
+
+                                    <ToggleButton.Triggers>
+                                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                            <BeginStoryboard>
+                                                <Storyboard x:Name="HideSearchPnl">
+                                                    <DoubleAnimation Storyboard.TargetName="SearchPanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="250" To="45"
+                                                         Duration="0:0:0.3">
+
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+
+
+                                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                            <BeginStoryboard>
+                                                <Storyboard x:Name="ShowSearchPnl">
+                                                    <DoubleAnimation Storyboard.TargetName="SearchPanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="40" To="250"
+                                                         Duration="0:0:0.3">
+
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+
+
+                                        </EventTrigger>
+
+                                    </ToggleButton.Triggers>
+
+                                    <ToggleButton.ToolTip>
+                                        <ToolTip Content="Поиск" Style="{StaticResource ToolTipStyle1}"/>
+                                    </ToggleButton.ToolTip>
+
+                                </ToggleButton>
+
+                                <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}"
+                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5">
+
+                                    <!--Storage-->
+                                    <ListViewItem>
+                                        <TextBox Name="SearchBox" Width="250" Height="30" FontSize="15"
+                                             FontWeight="Bold"  />
+
+                                        <!--TextChanged="SearchBox_TextChanged"-->
+                                    </ListViewItem>
+                                </ListView>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
+            <DataGrid ItemsSource="{Binding ProductLists, UpdateSourceTrigger=PropertyChanged}" x:Name="StorageGrid" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}" VerticalScrollBarVisibility="Auto"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden" CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True"
+                      CanUserReorderColumns="False" CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}" RowHeight="30"
+                      MinColumnWidth="65" AlternationCount="2" Grid.Row="1" SelectionMode="Single">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="№" Binding="{Binding ProductID}" Width="*" MaxWidth="35" CanUserResize="False"/>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350"/>
+
+                    <DataGridTemplateColumn Header="Количество" Width="90" MinWidth="90" x:Name="yes" CanUserResize="False">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="30"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Amount}" HorizontalAlignment="Center" x:Name="This"/>
+
+                                    <Button Grid.Column="1" Style="{StaticResource GridBtnsStyle}" Visibility="Visible" VerticalAlignment="Top" Width="25" Command="{Binding EditCommand1}" Tag="{Binding }" >
+                                        <Image Source="../../Images/InterfaceStuff/DataGrid/Edit96.png" Width="25"/>
+                                        <!--CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}-->
+                                        <Button.ToolTip>
+                                            <ToolTip x:Name="tt_Storage" Content="Изменить количество" Style="{StaticResource ToolTipStyle1}"/>
+                                        </Button.ToolTip>
+                                    </Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+
+                    <DataGridTextColumn Header="Ед. Изм." Binding="{Binding Product.UnitOfMeasurement}" Width="65" CanUserResize="False"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" Width="100" CanUserResize="False"/>
+
+                    <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name}" x:Name="CategoryColumn"/>
+
+                    <!--<DataGridTemplateColumn Header="" MinWidth="30">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Name="PayBtn">
+                                    <Image Source="../../Images/InterfaceStuff/DataGrid/settings150.png" VerticalAlignment="Top"/>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>-->
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+    </Grid>
+</Page>
