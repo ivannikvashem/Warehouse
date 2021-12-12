@@ -22,18 +22,18 @@ namespace Warehouse.Model
 
         [Key]
         [Column("UserID")]
-        public int UserID { get; set; }
+        public int ManagerId { get; set; }
 
 
         private string userName;
         private string userLogin;
         private string userPassword;
-        private string userRole;
+        private int userRole;
 
         private ICommand _clickCommand;
 
         [StringLength(50)]
-        private string UserName
+        public string UserName
         {
             get { return userName; }
             set
@@ -60,36 +60,30 @@ namespace Warehouse.Model
             get { return userPassword; }
             set
             {
-                userRole = value;
+                userPassword = value;
                 OnPropertyChanged("UserPassword");
             }
         }
 
-        public int? UserRole { get; set; }
+        [Column("UserRole")]
+        public int UserRoleId
+        {
+            get { return userRole; }
+            set
+            {
+                userRole = value;
+                OnPropertyChanged("UserRole");
+            }
+        }
+        //public int UserRole { get; set; }
 
-        //public ICommand ClickCommand
-        //{
-        //    get
-        //    {
-        //        if (_clickCommand == null)
-        //        {
-        //            _clickCommand = new RelayCommand(new Action<object>(ValidateClient));
-        //        }
-        //        return _clickCommand;
-        //    }
-        //    set
-        //    {
-        //        _clickCommand = value;
-        //        OnPropertyChanged("ClickCommand");
-
-        //    }
-        //}
 
        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderList> OrderList { get; set; }
 
+        [Column("UserRole")]
         public virtual UserRoleDictionary UserRoleDictionary { get; set; }
 
         private void OnPropertyChanged([CallerMemberName] string prop = "")

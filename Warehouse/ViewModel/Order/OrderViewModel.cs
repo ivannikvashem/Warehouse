@@ -18,7 +18,7 @@ namespace Warehouse.ViewModel.Order
         RelayCommand makeOrderCommand;
 
         IEnumerable<OrderList>  orderLists;
-        //IEnumerable<UserLoginPass> userLoginPasses;
+        IEnumerable<UserLoginPass> userLoginPasses;
         IEnumerable<Client> clients;
 
         public IEnumerable<OrderList> OrderLists
@@ -31,15 +31,15 @@ namespace Warehouse.ViewModel.Order
             }
         }
 
-        //public IEnumerable<UserLoginPass> UserLoginPasses
-        //{
-        //    get { return userLoginPasses; }
-        //    set
-        //    {
-        //        userLoginPasses = value;
-        //        OnPropertyChanged("UserLoginPasses");
-        //    }
-        //}
+        public IEnumerable<UserLoginPass> UserLoginPasses
+        {
+            get { return userLoginPasses; }
+            set
+            {
+                userLoginPasses = value;
+                OnPropertyChanged("UserLoginPasses");
+            }
+        }
 
         public IEnumerable<Client> Clients
         {
@@ -57,8 +57,9 @@ namespace Warehouse.ViewModel.Order
         {
             db = new ApplicationContext();
             OrderLists = db.OrderLists.Local.ToBindingList();
+            db.UserLoginPasses.ToList();
             db.OrderLists.ToList();
-            //db.UserLoginPasses.ToList();
+            
         }
 
 

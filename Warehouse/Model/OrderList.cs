@@ -16,12 +16,24 @@ namespace Warehouse.Model
         public decimal? totalPrice { get; set; }
 
         //[Column("ManagerID")]
-        public int ManagerID { get; set; }
+        public int managerID;
 
-        public int? ClientID { get; set; }
+        public int clientID;
 
         public int? OrderContentID { get; set; }
 
+        public DateTime orderDate;
+
+        [Column("ClientID")]
+        public int ClientId
+        {
+            get { return clientID; }
+            set
+            {
+                clientID = value;
+                OnPropertyChanged("ClientID");
+            }
+        }
 
         [Column(TypeName = "money")]
         public decimal? TotalPrice
@@ -34,23 +46,34 @@ namespace Warehouse.Model
             }
         }
 
-        //[Column("ManagerID")]
-        //public int ManagerID
-        //{
-        //    get { return managerID; }
-        //    set
-        //    {
-        //        managerID = value;
-        //        OnPropertyChanged("ManagerID");
-        //    }
-        //}
+        [Column("ManagerID")]
+        public int ManagerId
+        {
+            get { return managerID; }
+            set
+            {
+                managerID = value;
+                OnPropertyChanged("ManagerID");
+            }
+        }
 
+        public DateTime OrderDate
+        {
+            get { return orderDate; }
+            set
+            {
+                orderDate = value;
+                OnPropertyChanged("OrderDate");
+            }
+        }
+
+        [Column("ClientID")]
         public virtual Client Client { get; set; }
 
         public virtual OrderContent OrderContent { get; set; }
 
-        //[Column("ManagerID")]
-        public virtual UserLoginPass UserLoginPass { get; set; }
+        [Column("ManagerID")]
+        public virtual UserLoginPass UserLoginPasses { get; set; }
 
         private List<UserLoginPass> userLogins;
 

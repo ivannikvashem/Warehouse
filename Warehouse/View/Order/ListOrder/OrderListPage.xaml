@@ -57,11 +57,14 @@
         </Grid>
 
         <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
-            <ListBox ItemsSource="{Binding OrderLists}">
-                <ListBoxItem>
-                    <Label Content="{Binding Clients}"/>
-                </ListBoxItem>
-            </ListBox>
+            <DataGrid ItemsSource="{Binding OrderLists}">
+
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="менеджер" Binding="{Binding UserLoginPasses.UserName}"/>
+                    <DataGridTextColumn Header="клиент" Binding="{Binding Client.Name}"/>
+
+                </DataGrid.Columns>
+            </DataGrid>
         </Border>
     </Grid>
 </Page>
