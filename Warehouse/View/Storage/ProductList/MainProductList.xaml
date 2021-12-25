@@ -8,6 +8,10 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainProductList">
 
+    <!--<Page.CommandBindings>
+        <CommandBinding Command="{Binding SearchCommand}" />
+    </Page.CommandBindings>-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
@@ -98,21 +102,27 @@
 
                                     </ToggleButton.Triggers>
 
+                                    <ToggleButton.InputBindings>
+                                        <KeyBinding Command="{Binding OpenSearchBox}" Modifiers="Ctrl" Key="F"/>
+                                    </ToggleButton.InputBindings>
+                                    
                                     <ToggleButton.ToolTip>
                                         <ToolTip Content="Поиск" Style="{StaticResource ToolTipStyle1}"/>
                                     </ToggleButton.ToolTip>
 
                                 </ToggleButton>
 
-                                <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}"
-                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5">
+                                <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}" FocusVisualStyle="{x:Null}"
+                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5" >
 
                                     <!--Storage-->
-                                    <ListViewItem>
-                                        <TextBox Name="SearchBox" Width="250" Height="30" FontSize="15"
-                                             FontWeight="Bold"  />
+                                    <ListViewItem FocusVisualStyle="{x:Null}" >
+                                        <TextBox Name="SearchBox" Text="{Binding SearchResults, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="30" FontSize="15" FontWeight="Bold">
+                                            <TextBox.InputBindings>
+                                                <KeyBinding Command="{Binding SearchCommand}" Key="Return" />
+                                            </TextBox.InputBindings>
+                                        </TextBox>
 
-                                        <!--TextChanged="SearchBox_TextChanged"-->
                                     </ListViewItem>
                                 </ListView>
                             </Grid>

@@ -11,16 +11,25 @@ namespace Warehouse.Model
     [Table("OrderList")]
     public partial class OrderList
     {
+        public OrderList()
+        {
+            OrderContent = new HashSet<OrderContent>();
+        }
+
+
+        [Key]
+        [Column ("OrderListID")]
         public int OrderListID { get; set; }
 
-        public decimal? totalPrice { get; set; }
+        //public decimal? totalPrice { get; set; }
 
         //[Column("ManagerID")]
         public int managerID;
 
         public int clientID;
 
-        public int? OrderContentID { get; set; }
+        //[Column("OrderContentID")]
+        //public int? OrderContentID { get; set; }
 
         public DateTime orderDate;
 
@@ -35,16 +44,17 @@ namespace Warehouse.Model
             }
         }
 
-        [Column(TypeName = "money")]
-        public decimal? TotalPrice
-        {
-            get { return totalPrice; }
-            set
-            {
-                totalPrice = value;
-                OnPropertyChanged("TotalPrice");
-            }
-        }
+        //[Column(TypeName = "money")]
+        //[Column("TotalPrice")]
+        //public decimal? TotalPrice
+        //{
+        //    get { return totalPrice; }
+        //    set
+        //    {
+        //        totalPrice = value;
+        //        OnPropertyChanged("TotalPrice");
+        //    }
+        //}
 
         [Column("ManagerID")]
         public int ManagerId
@@ -70,10 +80,14 @@ namespace Warehouse.Model
         [Column("ClientID")]
         public virtual Client Client { get; set; }
 
-        public virtual OrderContent OrderContent { get; set; }
+        //[Column("OrderContentID")]
+        //public virtual OrderContent OrderContent { get; set; }
 
         [Column("ManagerID")]
         public virtual UserLoginPass UserLoginPasses { get; set; }
+
+        public virtual ICollection<OrderContent> OrderContent { get; set; }
+
 
         private List<UserLoginPass> userLogins;
 

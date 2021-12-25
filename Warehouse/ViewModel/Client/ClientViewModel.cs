@@ -119,12 +119,7 @@ namespace Warehouse.ViewModel.Client
                           db.Clients.Remove(client);
                           db.SaveChanges();
                       }
-                      if (Result == MessageBoxResult.No)
-                      {
-
-                      }
-
-
+                      if (Result == MessageBoxResult.No) { }
                   }));
             }
         }

@@ -8,9 +8,13 @@ using Warehouse.View.Order.MakeOrder;
 
 namespace Warehouse.ViewModel.Order
 {
+    using Microsoft.VisualBasic;
     using Model;
+    using System.Collections;
+    using System.Collections.ObjectModel;
     using System.Data.Entity;
     using System.Runtime.CompilerServices;
+    using System.Windows.Documents;
 
     public class OrderViewModel : INotifyPropertyChanged
     {
@@ -20,6 +24,19 @@ namespace Warehouse.ViewModel.Order
         IEnumerable<OrderList>  orderLists;
         IEnumerable<UserLoginPass> userLoginPasses;
         IEnumerable<Client> clients;
+
+        public bool? isChecked;
+        public bool? IsChecked
+        {
+            get { return isChecked; }
+            set
+            {
+                isChecked = value;
+                OnPropertyChanged("IsChecked");
+            }
+        }
+
+
 
         public IEnumerable<OrderList> OrderLists
         {
@@ -71,16 +88,40 @@ namespace Warehouse.ViewModel.Order
                     (makeOrderCommand = new RelayCommand((o) =>
                     {
                         MakeOrderWindow makeOrderWindow = new MakeOrderWindow(new OrderList());
+
                         if (makeOrderWindow.ShowDialog() == true)
                         {
-                            OrderList orderList = makeOrderWindow.OrderList;
+                            OrderList orderList = new OrderList()
+                            {
+                                ClientId = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
+                                managerID = 2,
+                                OrderDate = DateTime.Today
+
+                            };
+
+                            //OrderList orderList = makeOrderWindow.OrderList;
+                            //orderList.TotalPrice = 0;
+
                             db.OrderLists.Add(orderList);
+                            foreach (ProductList content in db.ProductLists)
+                            {
+                                if (content.IsChecked == true)
+                                {
+                                    OrderContent content1 = new OrderContent()
+                                    {
+                                        ProductListID = content.ProductListID,
+                                        OrderID = orderList.OrderListID,
+                                        ProductAmount = 2,
+                                    };
+                                    db.OrderContents.Add(content1);
+                                }
+                            }
+
                             db.SaveChanges();
                         }
                     }));
             }
         }
-
 
 
         public event PropertyChangedEventHandler PropertyChanged;
