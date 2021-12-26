@@ -8,13 +8,8 @@ namespace Warehouse.Model
     using System.Data.Entity.Spatial;
 
     [Table("ProductList")]
-    public partial class ProductList : INotifyPropertyChanged
+    public partial class ProductList
     {
-
-
-
-
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductList()
         {
@@ -22,9 +17,8 @@ namespace Warehouse.Model
         }
 
         public int ProductListID { get; set; }
-        public int? productID;
-        public int? amount;
 
+        public int? productID;
         [Column("ProductID")]
         public int? ProductID
         {
@@ -36,6 +30,7 @@ namespace Warehouse.Model
             }
         }
 
+        public int? amount;
         public int? Amount
         {
             get { return amount; }
@@ -61,7 +56,6 @@ namespace Warehouse.Model
         public virtual ICollection<OrderContent> OrderContent { get; set; }
 
         public virtual Product Product { get; set; }
-
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged(string prop)

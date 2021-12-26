@@ -14,7 +14,7 @@ namespace Warehouse.ViewModel.Client
     using Model;
     public class ClientViewModel : INotifyPropertyChanged
     {
-        ApplicationContext db;
+        Warehouse.ApplicationContext db;
         RelayCommand addCommand;
         RelayCommand editCommand1;
         RelayCommand deleteCommand1;
@@ -33,7 +33,7 @@ namespace Warehouse.ViewModel.Client
 
         public ClientViewModel()
         {
-            db = new ApplicationContext();
+            db = new Warehouse.ApplicationContext();
 
             Clients = db.Clients.Local.ToBindingList();
             db.Clients.ToList();

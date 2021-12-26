@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 namespace Warehouse
 {
     using Model;
+    using Authorization;
     /// <summary>
     /// Логика взаимодействия для LoginWindow.xaml
     /// </summary>
@@ -42,6 +43,7 @@ namespace Warehouse
             //{
             //    if (userLoginPasses.UserPassword.Contains(Password))
             //    {
+           // LoginStatus.LoggedIn;
                     MainWindow taskWindow = new MainWindow();
                     taskWindow.Show();
                     this.Close();

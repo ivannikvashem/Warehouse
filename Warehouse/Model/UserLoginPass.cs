@@ -7,9 +7,6 @@ namespace Warehouse.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
     using System.Runtime.CompilerServices;
-    using System.Windows.Controls;
-    using System.Windows.Input;
-    using Warehouse.Authorization;
 
     [Table("UserLoginPass")]
     public partial class UserLoginPass
@@ -24,14 +21,7 @@ namespace Warehouse.Model
         [Column("UserID")]
         public int ManagerId { get; set; }
 
-
         private string userName;
-        private string userLogin;
-        private string userPassword;
-        private int userRole;
-
-        private ICommand _clickCommand;
-
         [StringLength(50)]
         public string UserName
         {
@@ -43,6 +33,7 @@ namespace Warehouse.Model
             }
         }
 
+        private string userLogin;
         [StringLength(50)]
         public string UserLogin
         {
@@ -54,6 +45,8 @@ namespace Warehouse.Model
             }
         }
 
+
+        private string userPassword;
         [StringLength(50)]
         public string UserPassword
         {
@@ -65,8 +58,9 @@ namespace Warehouse.Model
             }
         }
 
+        private int? userRole;
         [Column("UserRole")]
-        public int UserRoleId
+        public int? UserRoleId
         {
             get { return userRole; }
             set
@@ -75,10 +69,6 @@ namespace Warehouse.Model
                 OnPropertyChanged("UserRole");
             }
         }
-        //public int UserRole { get; set; }
-
-
-       
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderList> OrderList { get; set; }
@@ -92,6 +82,5 @@ namespace Warehouse.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
         public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

@@ -21,7 +21,7 @@ namespace Warehouse.View.Order.MakeOrder
     public partial class MakeOrderWindow : Window
     {
         public OrderList OrderList { get;private set; }
-        ApplicationContext context = new ApplicationContext();
+        Warehouse.ApplicationContext context = new Warehouse.ApplicationContext();
         public List<ProductList> ProductLists { get;private set; } 
         bool restoreIfMove = false;
 

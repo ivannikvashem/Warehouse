@@ -17,11 +17,11 @@ namespace Warehouse.ViewModel.Storage
 
     public class StorageListViewModel : INotifyPropertyChanged
     {
-        ApplicationContext db;
-        RelayCommand addCommand;
-        RelayCommand editCommand1;
-        RelayCommand deleteCommand;
-        RelayCommand searchCommand;
+        Warehouse.ApplicationContext db;
+        //RelayCommand addCommand;
+        RelayCommand editCommand;
+        //RelayCommand deleteCommand;
+        //RelayCommand searchCommand;
         private string searchResults;
 
         IEnumerable<ProductList> productLists;
@@ -44,17 +44,17 @@ namespace Warehouse.ViewModel.Storage
 
         public StorageListViewModel()
         {
-            db = new ApplicationContext();
+            db = new Warehouse.ApplicationContext();
             ProductLists = db.ProductLists.Local.ToBindingList();
             db.ProductLists.ToList();
         }
 
-        public RelayCommand EditCommand1
+        public RelayCommand EditCommand
         {
             get
             {
-                return editCommand1 ??
-                    (editCommand1 = new RelayCommand((selectedItem) =>
+                return editCommand ??
+                    (editCommand = new RelayCommand((selectedItem) =>
                     {
                         if (selectedItem == null) return;
                         ProductList productList = selectedItem as ProductList;
@@ -72,7 +72,6 @@ namespace Warehouse.ViewModel.Storage
                             if (productList != null)
                             {
                                 productList.Amount = updateProductList.ProductList.Amount;
-
 
                                 db.Entry(productList).State = EntityState.Modified;
                                 db.SaveChanges();

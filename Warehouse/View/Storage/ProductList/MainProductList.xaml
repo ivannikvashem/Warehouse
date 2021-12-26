@@ -35,7 +35,7 @@
                 </Button>
                 <Separator Opacity="0" Width="20"/>
 
-                <Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                <Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
 
                     <Button.ToolTip>
@@ -116,7 +116,7 @@
                           BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5" >
 
                                     <!--Storage-->
-                                    <ListViewItem FocusVisualStyle="{x:Null}" >
+                                    <ListViewItem FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                                         <TextBox Name="SearchBox" Text="{Binding SearchResults, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="30" FontSize="15" FontWeight="Bold">
                                             <TextBox.InputBindings>
                                                 <KeyBinding Command="{Binding SearchCommand}" Key="Return" />

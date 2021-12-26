@@ -11,53 +11,20 @@ namespace Warehouse.Model
     [Table("OrderList")]
     public partial class OrderList
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public OrderList()
         {
             OrderContent = new HashSet<OrderContent>();
         }
 
-
         [Key]
-        [Column ("OrderListID")]
+        [Column("OrderListID")]
         public int OrderListID { get; set; }
 
-        //public decimal? totalPrice { get; set; }
+        public int? ClientID { get; set; }
 
-        //[Column("ManagerID")]
-        public int managerID;
-
-        public int clientID;
-
-        //[Column("OrderContentID")]
-        //public int? OrderContentID { get; set; }
-
-        public DateTime orderDate;
-
-        [Column("ClientID")]
-        public int ClientId
-        {
-            get { return clientID; }
-            set
-            {
-                clientID = value;
-                OnPropertyChanged("ClientID");
-            }
-        }
-
-        //[Column(TypeName = "money")]
-        //[Column("TotalPrice")]
-        //public decimal? TotalPrice
-        //{
-        //    get { return totalPrice; }
-        //    set
-        //    {
-        //        totalPrice = value;
-        //        OnPropertyChanged("TotalPrice");
-        //    }
-        //}
-
-        [Column("ManagerID")]
-        public int ManagerId
+        private int? managerID;
+        public int? ManagerID
         {
             get { return managerID; }
             set
@@ -67,7 +34,9 @@ namespace Warehouse.Model
             }
         }
 
-        public DateTime OrderDate
+        private DateTime? orderDate;
+        [Column(TypeName = "date")]
+        public DateTime? OrderDate
         {
             get { return orderDate; }
             set
@@ -80,16 +49,11 @@ namespace Warehouse.Model
         [Column("ClientID")]
         public virtual Client Client { get; set; }
 
-        //[Column("OrderContentID")]
-        //public virtual OrderContent OrderContent { get; set; }
-
-        [Column("ManagerID")]
-        public virtual UserLoginPass UserLoginPasses { get; set; }
-
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderContent> OrderContent { get; set; }
 
-
-        private List<UserLoginPass> userLogins;
+        [Column("ManangerID")]
+        public virtual UserLoginPass UserLoginPass { get; set; }
 
         private void OnPropertyChanged([CallerMemberName] string prop = "")
         {
@@ -97,6 +61,5 @@ namespace Warehouse.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
         public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

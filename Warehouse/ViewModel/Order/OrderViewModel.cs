@@ -18,23 +18,36 @@ namespace Warehouse.ViewModel.Order
 
     public class OrderViewModel : INotifyPropertyChanged
     {
-        ApplicationContext db;
+        Warehouse.ApplicationContext db;
         RelayCommand makeOrderCommand;
 
         IEnumerable<OrderList>  orderLists;
         IEnumerable<UserLoginPass> userLoginPasses;
         IEnumerable<Client> clients;
 
-        public bool? isChecked;
-        public bool? IsChecked
+
+        //class IsChecked
+        //{
+
+        //}
+        //ProductList IsChecked = new ProductList();
+
+        //public List<IsChecked> isCheckeds = new List<IsChecked>();
+
+        private bool isChecked;
+        public bool IsChecked
         {
             get { return isChecked; }
             set
             {
-                isChecked = value;
-                OnPropertyChanged("IsChecked");
+                if (isChecked == value) return;
+                {
+                    isChecked = value;
+                    OnPropertyChanged("IsChecked");
+                }
             }
         }
+
 
 
 
@@ -72,7 +85,7 @@ namespace Warehouse.ViewModel.Order
 
         public OrderViewModel()
         {
-            db = new ApplicationContext();
+            db = new Warehouse.ApplicationContext();
             OrderLists = db.OrderLists.Local.ToBindingList();
             db.UserLoginPasses.ToList();
             db.OrderLists.ToList();
@@ -93,30 +106,31 @@ namespace Warehouse.ViewModel.Order
                         {
                             OrderList orderList = new OrderList()
                             {
-                                ClientId = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
-                                managerID = 2,
-                                OrderDate = DateTime.Today
-
+                                ClientID = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
+                                ManagerID = 2,
+                                OrderDate = DateTime.Today,
                             };
+
 
                             //OrderList orderList = makeOrderWindow.OrderList;
                             //orderList.TotalPrice = 0;
 
                             db.OrderLists.Add(orderList);
+
                             foreach (ProductList content in db.ProductLists)
                             {
-                                if (content.IsChecked == true)
+                                //content.IsChecked.
+                                if (content.IsChecked == true && content.Amount > 0)
                                 {
                                     OrderContent content1 = new OrderContent()
                                     {
                                         ProductListID = content.ProductListID,
-                                        OrderID = orderList.OrderListID,
+                                        OrderListID = orderList.OrderListID,
                                         ProductAmount = 2,
                                     };
                                     db.OrderContents.Add(content1);
                                 }
                             }
-
                             db.SaveChanges();
                         }
                     }));

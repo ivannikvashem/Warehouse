@@ -35,7 +35,7 @@
                 </Button>
                 <Separator Width="20" Opacity="0"/>
 
-                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding }" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
                     <Button.ToolTip>
                         <ToolTip Content="Изменить клиента" Style="{StaticResource ToolTipStyle1}"/>
@@ -43,7 +43,7 @@
                 </Button>
                 <Separator Width="20" Opacity="0"/>
 
-                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding DeleteCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding }" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Delete96.png"/>
                     <Button.ToolTip>
                         <ToolTip Content="Удалить клиента" Style="{StaticResource ToolTipStyle1}"/>
@@ -64,9 +64,9 @@
                       RowHeight="30" AlternationCount="2" SelectionMode="Single">
 
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="менеджер" Binding="{Binding UserLoginPasses.UserName}" Width="*"/>
+                    <DataGridTextColumn Header="менеджер" Binding="{Binding UserLoginPass.UserName}" Width="*"/>
                     <DataGridTextColumn Header="клиент" Binding="{Binding Client.Name}" Width="*"/>
-                    <DataGridTextColumn Header="Общая сумма заказа" Binding="{Binding TotalPrice, StringFormat=C, ConverterCulture=ru-RU}" Width="*"/>
+                    <!--<DataGridTextColumn Header="Общая сумма заказа" Binding="{Binding TotalPrice, StringFormat=C, ConverterCulture=ru-RU}" Width="*"/>-->
                     <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}" Width="*"/>
 
                 </DataGrid.Columns>

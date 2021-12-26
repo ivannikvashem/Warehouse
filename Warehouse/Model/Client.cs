@@ -21,23 +21,18 @@ namespace Warehouse.Model
 
         [StringLength(50)]
         public string name;
-
-        [StringLength(50)]
-        public string phone;
-
-        [StringLength(50)]
-        public string address;
-
         public string Name
         {
             get { return name; }
             set
             {
                 name = value;
-                OnPropertyChanged("Name");
             }
         }
 
+
+        [StringLength(50)]
+        public string phone;
         public string Phone
         {
             get { return phone; }
@@ -48,6 +43,8 @@ namespace Warehouse.Model
             }
         }
 
+        [StringLength(50)]
+        public string address;
         public string Address
         {
             get { return address; }
@@ -67,6 +64,5 @@ namespace Warehouse.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
         public event PropertyChangedEventHandler PropertyChanged;
-
     }
 }

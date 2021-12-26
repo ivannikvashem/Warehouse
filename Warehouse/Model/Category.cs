@@ -21,7 +21,6 @@ namespace Warehouse.Model
 
         [StringLength(50)]
         public string name;
-
         public string Name
         {
             get { return name; }

@@ -46,7 +46,7 @@
                       CanUserReorderColumns="False" CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}" RowHeight="30"
                       MinColumnWidth="65" AlternationCount="2" SelectionMode="Single" Width="800" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Width="*" MaxWidth="35" CanUserResize="False" Binding="{Binding IsChecked}"/>
+                            <DataGridCheckBoxColumn Width="*" MaxWidth="35" CanUserResize="False" x:Name="ItemCheckBox" Binding="{Binding IsChecked, Mode=TwoWay}"  IsReadOnly="False" Selector.IsSelected="False"/>
                             <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350" IsReadOnly="True"/>
 
                             <DataGridTemplateColumn Header="Количество" Width="90" MinWidth="90" x:Name="yes" CanUserResize="False" IsReadOnly="False">

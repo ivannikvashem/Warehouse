@@ -21,5 +21,8 @@ namespace Warehouse
         public DbSet<ProductList> ProductLists { get; set; }
         public DbSet<UserLoginPass> UserLoginPasses { get; set; }
         public DbSet<UserRoleDictionary> UserRoleDictionaries { get; set; }
+
+        //public enum UserStatus ;
+        //public static UserStatus Status { get; set; }
     }
 }

@@ -28,7 +28,7 @@ namespace Warehouse.View.Storage.Dictionary
 
         bool restoreIfMove = false;
 
-        ApplicationContext context = new ApplicationContext();
+        Warehouse.ApplicationContext context = new Warehouse.ApplicationContext();
 
         public AddProductToDictionaryWindow(Product product)
         {
