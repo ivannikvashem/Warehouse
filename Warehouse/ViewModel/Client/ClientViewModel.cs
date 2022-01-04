@@ -94,7 +94,6 @@ namespace Warehouse.ViewModel.Client
                                 client.Phone = updateClient.Client.Phone;
                                 client.Address = updateClient.Client.Address;
 
-
                                 db.Entry(client).State = EntityState.Modified;
                                 db.SaveChanges();
                             }

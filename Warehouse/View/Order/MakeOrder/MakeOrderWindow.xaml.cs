@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Warehouse.ViewModel.Order;
 
 namespace Warehouse.View.Order.MakeOrder
 {
@@ -22,7 +23,7 @@ namespace Warehouse.View.Order.MakeOrder
     {
         public OrderList OrderList { get;private set; }
         Warehouse.ApplicationContext context = new Warehouse.ApplicationContext();
-        public List<ProductList> ProductLists { get;private set; } 
+        //public List<ProductList> ProductLists { get; set; } 
         bool restoreIfMove = false;
 
 
@@ -30,11 +31,12 @@ namespace Warehouse.View.Order.MakeOrder
         {
             InitializeComponent();
             OrderList = orderList;
-            this.DataContext = orderList;
+            //this.DataContext = orderList;
             ComboBxItemsLoad();
+            //this.DataContext = new OrderViewModel();
 
-            ProductLists = context.ProductLists.ToList();
-            ProductListGrid.ItemsSource = ProductLists;
+            //ProductLists = context.ProductLists.ToList();
+            //ProductListGrid.ItemsSource = ProductLists;
         }
 
         private void MakeOrderBtn_Click(object sender, RoutedEventArgs e)
@@ -90,6 +92,11 @@ namespace Warehouse.View.Order.MakeOrder
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             restoreIfMove = false;
+        }
+
+        private void IsCheckedBox_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

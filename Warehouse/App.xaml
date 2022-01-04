@@ -3,19 +3,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Warehouse"
              xmlns:converters="clr-namespace:Warehouse.Converters"
-             StartupUri="MainWindow.xaml">
+             StartupUri="LoginWindow.xaml">
     <Application.Resources>
 
-        <ControlTemplate x:Key="errorTemplate">
-            <Border BorderBrush="OrangeRed" BorderThickness="2">
-                <Grid>
-                    <AdornedElementPlaceholder/>
-                    <TextBlock Text="{Binding [0].ErrorContent}" Foreground="OrangeRed"
-                               VerticalAlignment="Center" HorizontalAlignment="Right"
-                               Margin="0,0,4,0" FontSize="12"/>
-                </Grid>
-            </Border>
-        </ControlTemplate>
+        <!--<converters:UserRoleConverter x:Name="UsrRoleConv"/>-->
+        
 
         <ImageBrush x:Key="tb_mouse_over" ImageSource="././Images/WarehouseLogo.png"/>
         <ImageBrush x:Key="SearchMouseOver" ImageSource="././Images/InterfaceStuff/Navigation/Search96toggl.png" Opacity="1"/>
@@ -35,6 +27,16 @@
             </Setter>
         </Style>
 
+        <Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="Transparent"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <converters:UserRoleConverter x:Key="UsrRoleConv"/>
+        <converters:UserRoleButtonConverter x:Key="BtnVisible"/>
 
         <!--Value Converters-->
 
@@ -119,7 +121,7 @@
 
             <Setter Property="Placement" Value="Right"/>
             <Setter Property="Height" Value="40"/>
-            <Setter Property="Width" Value="100"/>
+            <Setter Property="Width" Value="Auto"/>
             <Setter Property="Margin" Value="20,0,0,0"/>
             <Setter Property="Background" Value="DarkSlateGray"/>
             <Setter Property="BorderBrush" Value="#2ECC71"/>

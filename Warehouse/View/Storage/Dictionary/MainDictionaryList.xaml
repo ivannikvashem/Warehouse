@@ -5,15 +5,19 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Warehouse.View.Storage.Dictionary"
       xmlns:ui="clr-namespace:Warehouse.ViewModel.Storage"
+      xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Background="{StaticResource TransparentBckgr}"
       Title="MainDictionaryList">
-    
+
     <Page.DataContext>
         <ui:StorageViewModel/>
     </Page.DataContext>
-    
+
+
+
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="45"/>
             <RowDefinition/>

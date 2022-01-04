@@ -3,7 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:components="clr-namespace:Warehouse.Components"
         xmlns:local="clr-namespace:Warehouse"
+        xmlns:views="clr-namespace:Warehouse.View.Login"
         mc:Ignorable="d"
         Title="LoginWindow" Height="400" Width="300" ResizeMode="NoResize" WindowStyle="None" Foreground="White" Background="{StaticResource TransparentBckgr}"
         AllowsTransparency="True" WindowStartupLocation="CenterScreen">
@@ -12,47 +14,18 @@
             <RowDefinition Height="25"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <Border BorderBrush="DarkSlateGray" BorderThickness="5" Grid.Row="0" Grid.RowSpan="2">
-            <Image Grid.Row="1" Source="././Images/InterfaceStuff/blu10.png" Stretch="Fill"/>
-        </Border>
-
-        <Border Background="DarkSlateGray" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+        <Border Background="DarkSlateGray" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" MouseMove="Border_MouseMove">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
 
-                <Button Click="TurnBtn_Click" Width="40" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Content="—" FontSize="15">
+                <Button Click="TurnWindowBtn_Click" Width="40" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Content="—" FontSize="15">
                     <!--<Image Source="././Images/InterfaceStuff/TitleBar/minimizeWindow96(White).png"/>-->
                 </Button>
 
-                <Button Click="ExitBtn_Click" Width="40" Style="{StaticResource  ExitBtnStyle}">
+                <Button Click="CloseWindowBtn_Click" Width="40" Style="{StaticResource  ExitBtnStyle}">
                     <Image Source="././Images/InterfaceStuff/TitleBar/closeWindow96(White).png"/>
                 </Button>
             </StackPanel>
         </Border>
-
-        <StackPanel Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Image Source="././Images/WarehouseLogo.png" Width="100"/>
-
-            <StackPanel Margin="0,20">
-                <StackPanel Width="180">
-                    <Label Content="Логин" Foreground="White" FontSize="15" HorizontalAlignment="Left"/>
-                    <TextBox x:Name="LoginTxtBx" Height="40" FontSize="20" VerticalContentAlignment="Center"/>
-                </StackPanel>
-
-                <StackPanel Width="180">
-                    <Label Content="Пароль" Foreground="White" FontSize="15" HorizontalAlignment="Left"/>
-                    <PasswordBox x:Name="PasswordBx" Height="40" FontSize="20" VerticalContentAlignment="Center"/>
-                </StackPanel>
-
-
-                <Button Content="Войти" Margin="0,20,0,0" Name="LoginButton" Height="35" Width="150" Click="LoginButton_Click"/>
-                <ProgressBar  Height="5" Width="150"/>
-            </StackPanel>
-            
-
-        </StackPanel>
-        
-
-
+        <views:LoginView Grid.Row="1"/>
     </Grid>
 </Window>

@@ -9,7 +9,7 @@ namespace Warehouse.Model
     using System.Runtime.CompilerServices;
 
     [Table("Client")]
-    public partial class Client
+    public partial class Client : INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Client()
@@ -27,6 +27,7 @@ namespace Warehouse.Model
             set
             {
                 name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
 
@@ -39,7 +40,7 @@ namespace Warehouse.Model
             set
             {
                 phone = value;
-                OnPropertyChanged("Phone");
+                OnPropertyChanged(nameof(Phone));
             }
         }
 
@@ -51,7 +52,7 @@ namespace Warehouse.Model
             set
             {
                 address = value;
-                OnPropertyChanged("Address");
+                OnPropertyChanged(nameof(Address));
             }
         }
 

@@ -16,13 +16,11 @@ using Warehouse.View.Storage;
 using Warehouse.View.Client;
 using Warehouse.View.Order.ListOrder;
 using Warehouse.View.Storage.ProductList;
+using Warehouse.View.Storage.Dictionary;
 
 
 namespace Warehouse
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         bool restoreIfMove = false;
@@ -33,6 +31,10 @@ namespace Warehouse
             MainFrame.Navigate(new MainProductList());
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+            DataContext = ApplicationContext.Status;
+            //if (ApplicationContext.Status.ToString() == "Администратор") { GoToStorageDictionary.Visibility = Visibility.Visible; }
+            //else { GoToStorageDictionary.Visibility = Visibility.Collapsed; }
+
         }
 
         private void GoToStorageBtn_Click(object sender, RoutedEventArgs e)
@@ -48,6 +50,11 @@ namespace Warehouse
         private void GoToOrderBtn_Click(object sender, RoutedEventArgs e)
         {
              MainFrame.Navigate(new OrderListPage());
+        }
+
+        private void GoToStorageDictionary_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new MainDictionaryList());
         }
 
         private void GoToPreviousPage_Click(object sender, RoutedEventArgs e)
@@ -74,7 +81,7 @@ namespace Warehouse
                 tt_Clients.Visibility = Visibility.Collapsed;
                 tt_Orders.Visibility = Visibility.Collapsed;
                 tt_Upcoming.Visibility = Visibility.Collapsed;
-
+                tt_StorageDictionary.Visibility = Visibility.Collapsed;
             }
             else
             {
@@ -82,6 +89,7 @@ namespace Warehouse
                 tt_Clients.Visibility = Visibility.Visible;
                 tt_Orders.Visibility = Visibility.Visible;
                 tt_Upcoming.Visibility = Visibility.Visible;
+                tt_StorageDictionary.Visibility= Visibility.Visible;
             }
         }
         private void MainFrame_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -231,6 +239,18 @@ namespace Warehouse
         private void Tgl_Btn_Unchecked(object sender, RoutedEventArgs e)
         {
             Logo.Opacity = 1;
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult Result = MessageBox.Show("Вы действительно хотите завершить сеанс пользователя?", "Блокировка", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (Result == MessageBoxResult.Yes)
+            {
+                LoginWindow login = new LoginWindow();
+                login.Show();
+                this.Close();
+            }
+            else if (Result == MessageBoxResult.No) { }
         }
     }
 }

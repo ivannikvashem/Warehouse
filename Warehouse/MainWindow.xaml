@@ -8,6 +8,9 @@
         Title="Склад" Height="600" Width="900" MinHeight="550" MinWidth="800" WindowStartupLocation="CenterScreen"
         Background="{StaticResource TransparentBckgr}" Foreground="White"
         AllowsTransparency="True" WindowStyle="None" SizeChanged="Window_SizeChanged" PreviewKeyDown="Window_PreviewKeyDown">
+    <Window.DataContext>
+        <local:ApplicationContext/>
+    </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -33,7 +36,8 @@
         <!--Background="DarkSlateGray"-->
         <Border Background="DarkSlateGray" Grid.ColumnSpan="2" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" MouseMove="Border_MouseMove">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,6,0">
-                <Button Width="50" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Margin="10,0">
+                <TextBlock Text="{Binding Converter={StaticResource UsrRoleConv}}" FontSize="15"/>
+                <Button Width="50" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Margin="10,0" Click="LogOut_Click">
                     <Image Source="././Images/InterfaceStuff/TitleBar/lockWindow96(White).png"/>
                 </Button>
 
@@ -51,7 +55,11 @@
             </StackPanel>
         </Border>
 
-        <Label Content="Warehouse.exe" Grid.Column="1" HorizontalAlignment="Center" Foreground="White" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" Margin="366,0,368,0" Width="90"/>
+        
+        <!--<Run Text="Склад в режиме - ("/>
+        <Run Text="{Binding Converter={StaticResource UsrRoleConv}"/>
+        <Run Text=")"/>-->
+
 
         <Border Grid.Column="1" Grid.Row="1" Grid.RowSpan="2">
 
@@ -254,7 +262,7 @@
                                 <ColumnDefinition Width="65"/>
                                 <ColumnDefinition Width="165"/>
                             </Grid.ColumnDefinitions>
-                            <Image Source="././Images/InterfaceStuff/SideMenu/order96.png" Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
+                            <Image Source="././Images/InterfaceStuff/SideMenu/orderList.png" Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
                             <TextBlock Text="Заказы" Margin="25,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White"/>
                         </Grid>
                     </Button>
@@ -265,7 +273,7 @@
                 </ListViewItem>
 
                 <!--Clients-->
-                <ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15">
+                <ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15" Style="{StaticResource ListBoxItemStyle}">
                     <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Click="GoToClientBtn_Click">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -282,6 +290,26 @@
                     </ListViewItem.ToolTip>
                 </ListViewItem>
 
+                <!--Storage Dictionary-->
+                <ListBoxItem Margin="0,0,0,15" x:Name="GoToStorageDictionary" Visibility="{Binding Converter={StaticResource BtnVisible}}">
+                    <Button Width="230" BorderThickness="0" Background="{StaticResource TransparentBckgr}" Style="{StaticResource MenuBtnSyle}" Click="GoToStorageDictionary_Click">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="45"/>
+                                <ColumnDefinition Width="175"/>
+                            </Grid.ColumnDefinitions>
+                            <Border BorderBrush="#2ECC71" BorderThickness="3" Width="45" Height="50">
+                                <Image Source="././Images/InterfaceStuff/Navigation/list2.png" Width="40" Height="40" HorizontalAlignment="Stretch"/>
+                            </Border>
+                            <TextBlock Text="Словарь товаров" Margin="38,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White" TextWrapping="Wrap"/>
+                        </Grid>
+                        <Button.ToolTip>
+                            <ToolTip x:Name="tt_StorageDictionary" Content="Словарь товаров" Style="{StaticResource ToolTipStyle}"/>
+                        </Button.ToolTip>
+                    </Button>
+
+                </ListBoxItem>
+                
                 <!--Upcoming-->
                 <ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15">
                     <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0"  Width="230" Style="{StaticResource MenuBtnSyle}">
@@ -291,7 +319,7 @@
                                 <ColumnDefinition Width="165"/>
                             </Grid.ColumnDefinitions>
                             <Image Source="././Images/InterfaceStuff/SideMenu/upcoming96.png" Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
-                            <TextBlock Text="Поставки" Margin="25,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White"/>
+                            <TextBlock Text="Поставки" Margin="20,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White"/>
                         </Grid>
                     </Button>
 

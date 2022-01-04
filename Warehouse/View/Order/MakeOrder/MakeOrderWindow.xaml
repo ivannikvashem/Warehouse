@@ -4,8 +4,17 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Warehouse.View.Order.MakeOrder"
+        xmlns:t="http://schemas.telerik.com/2008/xaml/presentation"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:vm="clr-namespace:Warehouse.ViewModel.Order"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="MakeOrderWindow" Height="450" Width="800">
+
+    <!--<Window.DataContext>
+        <vm:OrderViewModel/>
+    </Window.DataContext>-->
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -39,14 +48,42 @@
                 </StackPanel>
 
                 <Separator Height="20" Opacity="0"/>
+
+
                 
                 <Border BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0" Height="250">
-                    <DataGrid x:Name="ProductListGrid" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}" VerticalScrollBarVisibility="Auto"
+                    <xctk:CheckListBox Name="ProductListGrid" ItemsSource="{Binding ProductLists}">
+
+                    </xctk:CheckListBox>
+
+
+                    <!--<DataGrid x:Name="ProductListGrid" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}" VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden" CanUserSortColumns="True" CanUserDeleteRows="False"
                       CanUserReorderColumns="False" CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}" RowHeight="30"
                       MinColumnWidth="65" AlternationCount="2" SelectionMode="Single" Width="800" CanUserAddRows="False">
                         <DataGrid.Columns>
-                            <DataGridCheckBoxColumn Width="*" MaxWidth="35" CanUserResize="False" x:Name="ItemCheckBox" Binding="{Binding IsChecked, Mode=TwoWay}"  IsReadOnly="False" Selector.IsSelected="False"/>
+
+                            --><!--<DataGridTemplateColumn x:Name="IsCheckedBoxxw">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        
+                                        <CheckBox x:Name="IsCheckedBox" IsChecked="{Binding IsCheckedI, Mode=TwoWay}" Content="Im chcd">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="Checked">
+                                                    <i:InvokeCommandAction Command="{Binding IsItemChecked}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                                <i:EventTrigger EventName="Unchecked">
+                                                    <i:InvokeCommandAction Command="{Binding IsItemUnChecked}" CommandParameter="{Binding}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            
+                                        </CheckBox>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>--><!--
+                            
+                            <DataGridCheckBoxColumn Width="*" MaxWidth="35" CanUserResize="False" x:Name="ItemCheckBox" Binding="{Binding IsCheckedI, Mode=TwoWay}"  IsReadOnly="False" Selector.IsSelected="False" />
+                            
                             <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350" IsReadOnly="True"/>
 
                             <DataGridTemplateColumn Header="Количество" Width="90" MinWidth="90" x:Name="yes" CanUserResize="False" IsReadOnly="False">
@@ -59,7 +96,7 @@
 
                             <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name}" x:Name="CategoryColumn" IsReadOnly="True"/>
                         </DataGrid.Columns>
-                    </DataGrid>
+                    </DataGrid>-->
                 </Border>
 
 

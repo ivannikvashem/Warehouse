@@ -57,7 +57,7 @@
         </Grid>
 
         <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
-            <DataGrid x:Name="StorageGrid" ItemsSource="{Binding Clients}" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
+            <DataGrid x:Name="StorageGrid" ItemsSource="{Binding Clients, Mode=OneWay,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
                       VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
                       CanUserResizeColumns="False" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}"

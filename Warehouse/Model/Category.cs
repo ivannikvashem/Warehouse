@@ -9,7 +9,7 @@ namespace Warehouse.Model
     using System.Runtime.CompilerServices;
 
     [Table("Category")]
-    public partial class Category
+    public partial class Category : INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()

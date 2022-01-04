@@ -14,83 +14,62 @@ using System.Windows.Shapes;
 
 namespace Warehouse
 {
-    using Model;
-    using Authorization;
-    /// <summary>
-    /// Логика взаимодействия для LoginWindow.xaml
-    /// </summary>
     public partial class LoginWindow : Window
     {
-        public List<UserLoginPass>  userLoginPasses { get; set; }
         bool restoreIfMove = false;
         public LoginWindow()
         {
             InitializeComponent();
-            this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-            this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
-            //Connection.model = new Model.Model1();
-            //userLoginPasses = Connection.model.UserLoginPass.ToList();
+            //this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
+            //this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
+            ////Connection.model = new Model.Model1();
+            ////userLoginPasses = Connection.model.UserLoginPass.ToList();
         }
 
-        private void LoginButton_Click(object sender, RoutedEventArgs e)
-        {
-            //bool? ValidationCode = false;
-
-            //string Login = LoginTxtBx.Text;
-            //string Password = PasswordBx.Password;
-
-            //if (userLoginPasses.F(Login.))
-            //{
-            //    if (userLoginPasses.UserPassword.Contains(Password))
-            //    {
-           // LoginStatus.LoggedIn;
-                    MainWindow taskWindow = new MainWindow();
-                    taskWindow.Show();
-                    this.Close();
-            //    }
-            //}
-
-            //if (ValidationCode == true)
-            //{
-            //    LoginConnection.Status =  UserType.Admin;
-
-            //}
-
-            //MainWindow taskWindow = new MainWindow();
-            //taskWindow.Show();
-            //this.Close();
-        }
-
-
-
-
-        // Метод реализующий сворачивание окна
-        private void TurnBtn_Click(object sender, RoutedEventArgs e)
+        private void TurnWindowBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
 
-        private void ExitBtn_Click(object sender, RoutedEventArgs e)
+        private void CloseWindowBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult Result = MessageBox.Show("Вы действительно хотите выйти?", "Выход", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (Result == MessageBoxResult.Yes)
-            {
-                Environment.Exit(0);
-            }
-            else if (Result == MessageBoxResult.No)
-            {
-
-            }
+            this.Close();
         }
-        // Метод реализующий перетаскивание окна
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
+            if (e.ClickCount == 2)
+            {
+                if ((ResizeMode == ResizeMode.CanResize) ||
+                    (ResizeMode == ResizeMode.CanResizeWithGrip))
+                {
+                    SwitchState();
+                }
+            }
+            else
+            {
                 if (WindowState == WindowState.Maximized)
                 {
                     restoreIfMove = true;
                 }
 
                 DragMove();
+            };
+        }
+        private void SwitchState()
+        {
+            switch (WindowState)
+            {
+                case WindowState.Normal:
+                    {
+                        WindowState = WindowState.Maximized;
+                        break;
+                    }
+                case WindowState.Maximized:
+                    {
+                        WindowState = WindowState.Normal;
+                        break;
+                    }
+            }
         }
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
@@ -105,10 +84,16 @@ namespace Warehouse
                 this.ResizeMode = ResizeMode.CanResize;
             }
         }
-
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             restoreIfMove = false;
+        }
+        private void Border_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                bool v = this.WindowState == WindowState.Minimized;
+            }
         }
     }
 }

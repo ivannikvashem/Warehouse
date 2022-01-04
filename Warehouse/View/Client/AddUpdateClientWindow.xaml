@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Warehouse.View.Client"
+        xmlns:local="clr-namespace:Warehouse.View.Client" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="AddUpdateClientWindow" Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None" Foreground="White" Background="{StaticResource TransparentBckgr}"
         AllowsTransparency="True" WindowStartupLocation="CenterScreen" FontSize="20" Topmost="False">
@@ -43,7 +43,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Телефон" Foreground="White" Name="UnitOfMeasurementLbl"/>
                 <Separator Width="20" Opacity="0"/>
-                <TextBox Text="{Binding Phone}" Width="250" Name="UnitOfMeasurementCmbBx"/>
+                <xctk:MaskedTextBox Text="{Binding Phone}" Width="250" Name="UnitOfMeasurementCmbBx" Mask="+0(000)000-00-00"/>
             </StackPanel>
 
             <Separator Height="10" Opacity="0"/>
