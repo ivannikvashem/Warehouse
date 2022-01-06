@@ -58,7 +58,7 @@
 
         <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
             <DataGrid x:Name="StorageGrid" ItemsSource="{Binding OrderLists}" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
-                      VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
                       CanUserResizeColumns="False" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}"
                       RowHeight="30" AlternationCount="2" SelectionMode="Single">
@@ -68,9 +68,11 @@
                     <DataGridTextColumn Header="клиент" Binding="{Binding Client.Name}" Width="*"/>
                     <!--<DataGridTextColumn Header="Общая сумма заказа" Binding="{Binding TotalPrice, StringFormat=C, ConverterCulture=ru-RU}" Width="*"/>-->
                     <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}" Width="*"/>
-
                 </DataGrid.Columns>
             </DataGrid>
+
         </Border>
+        <Rectangle Fill="#2ECC71" HorizontalAlignment="Right" Grid.Row="1"  Width="22" Height="25" VerticalAlignment="Top"/>
+
     </Grid>
 </Page>

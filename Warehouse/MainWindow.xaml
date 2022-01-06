@@ -251,67 +251,50 @@
                             <ToolTip x:Name="tt_Storage" Content="Склад" Style="{StaticResource ToolTipStyle}"/>
                         </ListViewItem.ToolTip>
                     </ListViewItem>
+
+                    <!--Orders-->
+                    <ListViewItem Margin="0,0,0,15">
+                        <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Name="GoToOrderBtn" Click="GoToOrderBtn_Click">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="65"/>
+                                    <ColumnDefinition Width="165"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="././Images/InterfaceStuff/SideMenu/orderList.png" Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
+                                <TextBlock Text="Заказы" Margin="25,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White"/>
+                            </Grid>
+                        </Button>
+
+                        <ListViewItem.ToolTip>
+                            <ToolTip x:Name="tt_Orders" Content="Заказы" Style="{StaticResource ToolTipStyle}"/>
+                        </ListViewItem.ToolTip>
+                    </ListViewItem>
+
+                    <!--Clients-->
+                    <ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15" Style="{StaticResource ListBoxItemStyle}">
+                        <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Click="GoToClientBtn_Click">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="65"/>
+                                    <ColumnDefinition Width="165"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="././Images/InterfaceStuff/SideMenu/clients96.png" Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
+                                <TextBlock Text="Клиенты" Margin="25,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White"/>
+                            </Grid>
+                        </Button>
+
+                        <ListViewItem.ToolTip>
+                            <ToolTip x:Name="tt_Clients" Content="Клиенты" Style="{StaticResource ToolTipStyle}"/>
+                        </ListViewItem.ToolTip>
+                    </ListViewItem>
+
+
                 </ListView>
 
 
-                <!--Orders-->
-                <ListViewItem Margin="0,0,0,15">
-                    <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Name="GoToOrderBtn" Click="GoToOrderBtn_Click">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="65"/>
-                                <ColumnDefinition Width="165"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="././Images/InterfaceStuff/SideMenu/orderList.png" Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
-                            <TextBlock Text="Заказы" Margin="25,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White"/>
-                        </Grid>
-                    </Button>
 
-                    <ListViewItem.ToolTip>
-                        <ToolTip x:Name="tt_Orders" Content="Заказы" Style="{StaticResource ToolTipStyle}"/>
-                    </ListViewItem.ToolTip>
-                </ListViewItem>
-
-                <!--Clients-->
-                <ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15" Style="{StaticResource ListBoxItemStyle}">
-                    <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Click="GoToClientBtn_Click">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="65"/>
-                                <ColumnDefinition Width="165"/>
-                            </Grid.ColumnDefinitions>
-                            <Image Source="././Images/InterfaceStuff/SideMenu/clients96.png" Height="65" Width="65" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
-                            <TextBlock Text="Клиенты" Margin="25,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White"/>
-                        </Grid>
-                    </Button>
-
-                    <ListViewItem.ToolTip>
-                        <ToolTip x:Name="tt_Clients" Content="Клиенты" Style="{StaticResource ToolTipStyle}"/>
-                    </ListViewItem.ToolTip>
-                </ListViewItem>
-
-                <!--Storage Dictionary-->
-                <ListBoxItem Margin="0,0,0,15" x:Name="GoToStorageDictionary" Visibility="{Binding Converter={StaticResource BtnVisible}}">
-                    <Button Width="230" BorderThickness="0" Background="{StaticResource TransparentBckgr}" Style="{StaticResource MenuBtnSyle}" Click="GoToStorageDictionary_Click">
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="45"/>
-                                <ColumnDefinition Width="175"/>
-                            </Grid.ColumnDefinitions>
-                            <Border BorderBrush="#2ECC71" BorderThickness="3" Width="45" Height="50">
-                                <Image Source="././Images/InterfaceStuff/Navigation/list2.png" Width="40" Height="40" HorizontalAlignment="Stretch"/>
-                            </Border>
-                            <TextBlock Text="Словарь товаров" Margin="38,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White" TextWrapping="Wrap"/>
-                        </Grid>
-                        <Button.ToolTip>
-                            <ToolTip x:Name="tt_StorageDictionary" Content="Словарь товаров" Style="{StaticResource ToolTipStyle}"/>
-                        </Button.ToolTip>
-                    </Button>
-
-                </ListBoxItem>
-                
                 <!--Upcoming-->
-                <ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15">
+                <!--<ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15">
                     <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0"  Width="230" Style="{StaticResource MenuBtnSyle}">
                         <Grid>
                             <Grid.ColumnDefinitions>
@@ -326,9 +309,29 @@
                     <ListViewItem.ToolTip>
                         <ToolTip x:Name="tt_Upcoming" Content="Поставки" Style="{StaticResource ToolTipStyle}"/>
                     </ListViewItem.ToolTip>
-                </ListViewItem>
+                </ListViewItem>-->
 
             </StackPanel>
+
+            <!--Settings-->
+            <ListBoxItem Margin="0,0,0,15" HorizontalAlignment="Left" Visibility="{Binding Converter={StaticResource BtnVisible}}" VerticalAlignment="Bottom">
+                <Button Width="230" BorderThickness="0" Background="{StaticResource TransparentBckgr}" Style="{StaticResource MenuBtnSyle}" Click="GoToSettings_Click">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="65"/>
+                            <ColumnDefinition Width="165"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="././Images/InterfaceStuff/SideMenu/settings96.png" Height="45" Width="45" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Margin="4,0,10,0"/>
+
+
+                        <TextBlock Text="Настройки" Margin="25,0,0,0" FontSize="20" VerticalAlignment="Center" Grid.Column="1" Foreground="White" TextWrapping="Wrap"/>
+                    </Grid>
+                    <Button.ToolTip>
+                        <ToolTip x:Name="tt_Settings" Content="Настройки" Style="{StaticResource ToolTipStyle}"/>
+                    </Button.ToolTip>
+                </Button>
+
+            </ListBoxItem>
         </Grid>
 
     </Grid>

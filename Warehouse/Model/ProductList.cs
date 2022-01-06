@@ -41,16 +41,16 @@ namespace Warehouse.Model
             }
         }
 
-        public bool? isChecked = false;
-        public bool? IsChecked
-        {
-            get { return isChecked; }
-            set
-            {
-                isChecked = value;
-                OnPropertyChanged("IsChecked");
-            }
-        }
+        //public bool? isChecked = false;
+        //public bool? IsChecked
+        //{
+        //    get { return isChecked; }
+        //    set
+        //    {
+        //        isChecked = value;
+        //        OnPropertyChanged("IsChecked");
+        //    }
+        //}
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderContent> OrderContent { get; set; }

@@ -21,22 +21,26 @@ namespace Warehouse.View.Order.MakeOrder
     /// </summary>
     public partial class MakeOrderWindow : Window
     {
+        public List<ProductList> CheckedItemsList = new List<ProductList>();
+
+
         public OrderList OrderList { get;private set; }
         Warehouse.ApplicationContext context = new Warehouse.ApplicationContext();
-        //public List<ProductList> ProductLists { get; set; } 
+        public List<ProductList> ProductLists { get; set; } 
         bool restoreIfMove = false;
 
 
         public MakeOrderWindow(OrderList orderList)
         {
             InitializeComponent();
+            //CheckedItemsList = null;
             OrderList = orderList;
             //this.DataContext = orderList;
             ComboBxItemsLoad();
             //this.DataContext = new OrderViewModel();
 
-            //ProductLists = context.ProductLists.ToList();
-            //ProductListGrid.ItemsSource = ProductLists;
+            ProductLists = context.ProductLists.ToList();
+            ProductListGrid.ItemsSource = ProductLists;
         }
 
         private void MakeOrderBtn_Click(object sender, RoutedEventArgs e)
@@ -94,9 +98,15 @@ namespace Warehouse.View.Order.MakeOrder
             restoreIfMove = false;
         }
 
-        private void IsCheckedBox_Click(object sender, RoutedEventArgs e)
+        private void SelectedItem_Click(object sender, RoutedEventArgs e)
         {
-
+            var cb = sender as CheckBox;
+            var item = cb.DataContext;
+            ProductListGrid.SelectedItem = item;
+            if (item != null)
+            {
+                CheckedItemsList.Add((ProductList)item);
+            }
         }
     }
 }

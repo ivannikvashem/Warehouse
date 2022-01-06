@@ -17,6 +17,7 @@ namespace Warehouse.ViewModel.Order
     using System.Runtime.CompilerServices;
     using System.Windows.Documents;
     using System.Windows.Input;
+    using System.Windows.Controls;
 
     public class OrderViewModel : INotifyPropertyChanged
     {
@@ -32,6 +33,8 @@ namespace Warehouse.ViewModel.Order
         IEnumerable<ProductList> productLists;
 
         public List<object> CheckedItemsList = new List<object>();
+
+        public ObservableCollection<object> SelectedItems = new ObservableCollection<object> { };
 
 
         //class IsChecked
@@ -106,14 +109,14 @@ namespace Warehouse.ViewModel.Order
             
         }
 
-        private bool _IsCheckedI = false;
-        public bool IsCheckedI
+        private bool _IsChecked = false;
+        public bool IsChecked
         {
-            get => _IsCheckedI;
+            get => _IsChecked;
             set
             {
-                _IsCheckedI = value;
-                OnPropertyChanged(nameof(IsCheckedI));
+                _IsChecked = value;
+                OnPropertyChanged(nameof(IsChecked));
             }
 
         }
@@ -134,7 +137,7 @@ namespace Warehouse.ViewModel.Order
                             ProductList product = (ProductList)selectedItem;
                             CheckedItemsList.Add(selectedItem);
                         }
-                        IsCheckedI = true;
+                        IsChecked = true;
                     }));
             }
         }
@@ -154,7 +157,7 @@ namespace Warehouse.ViewModel.Order
                             ProductList product = (ProductList)selectedItem;
                             CheckedItemsList.Remove(selectedItem);
                         }
-                        IsCheckedI = false;
+                        IsChecked = false;
                     }));
             }
         }
@@ -171,42 +174,28 @@ namespace Warehouse.ViewModel.Order
 
                         if (makeOrderWindow.ShowDialog() == true)
                         {
-                            if (selectedItem != null)
+                            OrderList orderList = new OrderList()
                             {
-                                OrderList orderList = new OrderList()
+                                ClientID = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
+                                ManagerID = 2,
+                                OrderDate = DateTime.Today,
+                            };
+                            db.OrderLists.Add(orderList);
+
+                            foreach (var content in makeOrderWindow.CheckedItemsList)
+                            {
+                                OrderContent contentToAdd = new OrderContent()
                                 {
-                                    ClientID = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
-                                    ManagerID = 2,
-                                    OrderDate = DateTime.Today,
+
+                                    ProductListID = content.ProductListID,
+                                    OrderListID = orderList.OrderListID,
+                                    ProductAmount = 2,
                                 };
-                                db.OrderLists.Add(orderList);
-
-                                foreach (ProductList content in db.ProductLists)
-                                {
-                                    //content.IsChecked.
-
-                                    if (content.IsChecked == true && content.Amount > 0)
-                                    {
-                                        OrderContent contentToAdd = new OrderContent()
-                                        {
-                                            ProductListID = content.ProductListID,
-                                            OrderListID = orderList.OrderListID,
-                                            ProductAmount = 2,
-                                        };
-                                        db.OrderContents.Add(contentToAdd);
-                                    }
-                                }
-                                db.SaveChanges();
+                                db.OrderContents.Add(contentToAdd);
                             }
-                            //else
-                            //{
-                            //    LoginWindow maeOrderWindow = new LoginWindow();
-                            //    maeOrderWindow.Show();
-                            //}
-
-                            //OrderList orderList = makeOrderWindow.OrderList;
-                            //orderList.TotalPrice = 0;
                         }
+                        db.SaveChanges();
+
                     }));
             }
         }

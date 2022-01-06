@@ -80,16 +80,16 @@ namespace Warehouse
                 tt_Storage.Visibility = Visibility.Collapsed;
                 tt_Clients.Visibility = Visibility.Collapsed;
                 tt_Orders.Visibility = Visibility.Collapsed;
-                tt_Upcoming.Visibility = Visibility.Collapsed;
-                tt_StorageDictionary.Visibility = Visibility.Collapsed;
+                //tt_Upcoming.Visibility = Visibility.Collapsed;
+                tt_Settings.Visibility = Visibility.Collapsed;
             }
             else
             {
                 tt_Storage.Visibility = Visibility.Visible;
                 tt_Clients.Visibility = Visibility.Visible;
                 tt_Orders.Visibility = Visibility.Visible;
-                tt_Upcoming.Visibility = Visibility.Visible;
-                tt_StorageDictionary.Visibility= Visibility.Visible;
+                //tt_Upcoming.Visibility = Visibility.Visible;
+                tt_Settings.Visibility= Visibility.Visible;
             }
         }
         private void MainFrame_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
@@ -247,10 +247,16 @@ namespace Warehouse
             if (Result == MessageBoxResult.Yes)
             {
                 LoginWindow login = new LoginWindow();
-                login.Show();
+                Application.Current.MainWindow = login;
+                Application.Current.MainWindow.Show();
                 this.Close();
             }
             else if (Result == MessageBoxResult.No) { }
+        }
+
+        private void GoToSettings_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

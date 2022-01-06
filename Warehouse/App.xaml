@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Warehouse"
              xmlns:converters="clr-namespace:Warehouse.Converters"
-             StartupUri="LoginWindow.xaml">
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
 
         <!--<converters:UserRoleConverter x:Name="UsrRoleConv"/>-->
@@ -49,6 +49,7 @@
         <SolidColorBrush x:Key="AccentBtnColor" Color="#65A6D1"/>
 
 
+        <!--Toggle Button Style-->
         <Style x:Key="ToggleButtonStyle" TargetType="{x:Type ToggleButton}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -82,6 +83,7 @@
             </Setter>
         </Style>
 
+        <!--Toggle Button Style 2-->
         <Style x:Key="ToggleButtonStyle1" TargetType="{x:Type ToggleButton}">
             <Setter Property="Template">
                 <Setter.Value>
@@ -115,7 +117,6 @@
             </Setter>
         </Style>
 
-
         <!--ToolTip Style-->
         <Style TargetType="ToolTip" x:Key="ToolTipStyle">
 
@@ -136,6 +137,7 @@
 
         </Style>
 
+        <!--ToolTip Style 2-->
         <Style TargetType="ToolTip" x:Key="ToolTipStyle1">
 
             <Setter Property="Placement" Value="Mouse"/>
@@ -156,10 +158,10 @@
 
         </Style>
 
-
+        <!--_____________-->
         <!--Button Styles-->
+        <!--|||||||||||||-->
 
-        <!--<ImageBrush x:Name="NavigationBtnMouseOver" ImageSource="././Images/WarehouseLogo.png"/>-->
         <!--Main Button-->
         <Style TargetType="Button" x:Key="MainBtnStyle">
             <Setter Property="Background" Value="DarkSlateGray"/>
@@ -181,39 +183,7 @@
             </Style.Triggers>
         </Style>
 
-        <!--<Style TargetType="TextBox" x:Key="InputTxtBx">
-            <Setter Property="Foreground" Value="Black"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border CornerRadius="12" Background="{TemplateBinding Background}">
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
-
-
-        <!--<Style TargetType="{x:Type TextBox}" x:Key="InputTxtBx">
-            <Style.Resources>
-                <Style TargetType="{x:Type Border}">
-                    <Setter Property="CornerRadius" Value="5" />
-                    <Setter Property="BorderThickness" Value="0"/>
-                </Style>
-            </Style.Resources>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Border>
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>-->
-
         <!--Exit Button-->
-
         <Style TargetType="Button" x:Key="ExitBtnStyle">
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Foreground" Value="White"/>
@@ -235,7 +205,6 @@
         </Style>
 
         <!--ResizeAndMinimize Button-->
-
         <Style TargetType="Button" x:Key="ResizeAndMinimizeBtnStyle">
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Foreground" Value="White"/>
@@ -322,20 +291,52 @@
         </Style>
 
 
-
-
         <SolidColorBrush x:Key="GotFocusColor" Color="Green" />
         <SolidColorBrush x:Key="LostFocusColor" Color="Transparent" />
 
+
+        <ControlTemplate x:Key="scroll_background" TargetType="RepeatButton">
+            <Border Background="Transparent">
+            </Border>
+        </ControlTemplate>
+
+        <Style x:Key="scroll_thumb_style" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Rectangle Width="10" Fill="White" RadiusX="0" RadiusY="0">
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="scroll_thumb_stylecrosswise" TargetType="Thumb">
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="IsTabStop" Value="false"/>
+            <Setter Property="Focusable" Value="false"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Rectangle  Fill="#7D7D7D" RadiusX="5" RadiusY="5">
+                        </Rectangle>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
         <!--Data grid style-->
-        
-        
         <Style TargetType="DataGrid" x:Key="MainGridStyle">
             <Setter Property="BorderBrush" Value="Red" />
             <Setter Property="HorizontalGridLinesBrush" Value="Black" />
             <Setter Property="VerticalGridLinesBrush" Value="#DDDDDD" />
             <Setter Property="HeadersVisibility" Value="Column"/>
-            
+
             <Setter Property="ColumnHeaderStyle">
                 <Setter.Value>
                     <Style TargetType="DataGridColumnHeader">
@@ -416,7 +417,69 @@
                     </Style>
                 </Setter.Value>
             </Setter>
+
+            <Style.Resources>
+                <Style TargetType="ScrollBar">
+                    <Setter Property="Width" Value="10"/>
+                    <Setter Property="MinWidth" Value="10"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="DarkSlateGray">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="0.00001*"/>
+                                    </Grid.RowDefinitions>
+                                    <Track HorizontalAlignment="Center" Name="PART_Track" Width="{TemplateBinding Width}" Maximum="{TemplateBinding Maximum}" Minimum="{TemplateBinding Minimum}"
+                                    Value="{TemplateBinding Value}"  IsDirectionReversed="true">
+                                        <Track.DecreaseRepeatButton>
+                                            <RepeatButton Template="{StaticResource scroll_background}" Command="ScrollBar.LineUpCommand"  />
+                                        </Track.DecreaseRepeatButton>
+                                        <Track.IncreaseRepeatButton>
+                                            <RepeatButton Template="{StaticResource scroll_background}" Command="ScrollBar.LineDownCommand" />
+                                        </Track.IncreaseRepeatButton>
+                                        <Track.Thumb>
+                                            <Thumb Style="{StaticResource scroll_thumb_style}" >
+                                            </Thumb>
+                                        </Track.Thumb>
+                                    </Track>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                    <Style.Triggers>
+                        <Trigger Property="Orientation" Value="Horizontal">
+                            <Setter Property="Width" Value="Auto"/>
+                            <Setter Property="MinWidth" Value="0"/>
+                            <Setter Property="Height" Value="10"/>
+                            <Setter Property="MinHeight" Value="10"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ScrollBar}">
+                                        <Grid x:Name="Bg" SnapsToDevicePixels="true" Background="#7FA7A7A7">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="0.00001*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <Track x:Name="PART_Track" Grid.Column="1" IsEnabled="{TemplateBinding IsMouseOver}">
+                                                <Track.DecreaseRepeatButton>
+                                                    <RepeatButton Template="{StaticResource scroll_background}" Command="ScrollBar.LineUpCommand"  />
+                                                </Track.DecreaseRepeatButton>
+                                                <Track.IncreaseRepeatButton>
+                                                    <RepeatButton Template="{StaticResource scroll_background}" Command="ScrollBar.LineDownCommand" />
+                                                </Track.IncreaseRepeatButton>
+                                                <Track.Thumb>
+                                                    <Thumb  Style="{DynamicResource scroll_thumb_stylecrosswise}" Height="8"/>
+                                                </Track.Thumb>
+                                            </Track>
+                                        </Grid>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Style.Resources>
         </Style>
 
+        
     </Application.Resources>
 </Application>

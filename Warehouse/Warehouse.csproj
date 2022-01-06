@@ -340,5 +340,8 @@
   <ItemGroup>
     <Resource Include="Images\InterfaceStuff\SideMenu\orderList.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\SideMenu\settings96.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

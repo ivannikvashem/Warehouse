@@ -52,10 +52,17 @@
 
                 
                 <Border BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0" Height="250">
-                    <xctk:CheckListBox Name="ProductListGrid" ItemsSource="{Binding ProductLists}">
+                    <ListBox Name="ProductListGrid">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <CheckBox x:Name="SelectedItem" IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" Click="SelectedItem_Click"/>
+                                    <Label Content="{Binding Product.Title}" Foreground="Red"/>
+                                </StackPanel>
 
-                    </xctk:CheckListBox>
-
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
 
                     <!--<DataGrid x:Name="ProductListGrid" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}" VerticalScrollBarVisibility="Auto"
                       ScrollViewer.HorizontalScrollBarVisibility="Hidden" CanUserSortColumns="True" CanUserDeleteRows="False"
@@ -63,7 +70,7 @@
                       MinColumnWidth="65" AlternationCount="2" SelectionMode="Single" Width="800" CanUserAddRows="False">
                         <DataGrid.Columns>
 
-                            --><!--<DataGridTemplateColumn x:Name="IsCheckedBoxxw">
+                            <DataGridTemplateColumn x:Name="IsCheckedBoxxw">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         
@@ -80,7 +87,7 @@
                                         </CheckBox>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>--><!--
+                            </DataGridTemplateColumn>
                             
                             <DataGridCheckBoxColumn Width="*" MaxWidth="35" CanUserResize="False" x:Name="ItemCheckBox" Binding="{Binding IsCheckedI, Mode=TwoWay}"  IsReadOnly="False" Selector.IsSelected="False" />
                             
