@@ -18,6 +18,7 @@ namespace Warehouse.ViewModel.Order
     using System.Windows.Documents;
     using System.Windows.Input;
     using System.Windows.Controls;
+    using Warehouse.View.Order.ListOrder;
 
     public class OrderViewModel : INotifyPropertyChanged
     {
@@ -25,7 +26,7 @@ namespace Warehouse.ViewModel.Order
         RelayCommand makeOrderCommand;
         RelayCommand isItemChecked;
         RelayCommand isItemUnChecked;
-
+        RelayCommand showOrderInfoCommand;
 
         IEnumerable<OrderList>  orderLists;
         IEnumerable<UserLoginPass> userLoginPasses;
@@ -62,7 +63,7 @@ namespace Warehouse.ViewModel.Order
 
         public IEnumerable<ProductList> ProductLists
         {
-            get { return productLists; }
+            get     { return productLists; }
             set
             {
                 productLists = value;
@@ -170,29 +171,37 @@ namespace Warehouse.ViewModel.Order
                 return makeOrderCommand ??
                     (makeOrderCommand = new RelayCommand((selectedItem) =>
                     {
-                        MakeOrderWindow makeOrderWindow = new MakeOrderWindow(new OrderList());
+                        View.Order.MakeOrder.OrderInfoWindow makeOrderWindow = new View.Order.MakeOrder.OrderInfoWindow(new OrderList());
 
                         if (makeOrderWindow.ShowDialog() == true)
                         {
-                            OrderList orderList = new OrderList()
+                            if (makeOrderWindow.ClientCmbBx.SelectedItem != null)
                             {
-                                ClientID = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
-                                ManagerID = 2,
-                                OrderDate = DateTime.Today,
-                            };
-                            db.OrderLists.Add(orderList);
-
-                            foreach (var content in makeOrderWindow.CheckedItemsList)
-                            {
-                                OrderContent contentToAdd = new OrderContent()
+                                OrderList orderList = new OrderList()
                                 {
-
-                                    ProductListID = content.ProductListID,
-                                    OrderListID = orderList.OrderListID,
-                                    ProductAmount = 2,
+                                    ClientID = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
+                                    ManagerID = (int)ApplicationContext.Status,
+                                    OrderDate = DateTime.Today,
                                 };
-                                db.OrderContents.Add(contentToAdd);
+                                db.OrderLists.Add(orderList);
+
+
+                                if (makeOrderWindow.CheckedItemsList != null)
+                                {
+                                    foreach (var content in makeOrderWindow.CheckedItemsList)
+                                    {
+                                        OrderContent contentToAdd = new OrderContent()
+                                        {
+                                            ProductListID = content.ProductListID,
+                                            OrderListID = orderList.OrderListID,
+                                            ProductAmount = content.Amount,
+                                        };
+                                        db.OrderContents.Add(contentToAdd);
+                                    }
+                                }
+                                else { return; }
                             }
+                            else { return; }
                         }
                         db.SaveChanges();
 
@@ -200,6 +209,73 @@ namespace Warehouse.ViewModel.Order
             }
         }
 
+
+        public RelayCommand ShowOrderInfoCommand
+        {
+            get
+            {
+                return showOrderInfoCommand ??
+                    (showOrderInfoCommand = new RelayCommand((selectedItem) =>
+                    {
+                        if (selectedItem == null) return;
+                        OrderList orderlsts = selectedItem as OrderList;
+                        
+                        OrderList orderList = new OrderList()
+                        {
+                            OrderListID = orderlsts.OrderListID,
+                            Client = orderlsts.Client,
+                            UserLoginPass = orderlsts.UserLoginPass,
+                            OrderDate = orderlsts.OrderDate,
+                            OrderContent = orderlsts.OrderContent,
+                        };
+                        OrderInfoWindow orderInfoWindow = new OrderInfoWindow(orderList);
+                        if (orderInfoWindow.ShowDialog() == true)
+                        {
+                            orderInfoWindow.Close();
+                        };
+
+                        //if (orderInfoWindow.ShowDialog() == true)
+                        //{
+                        //    if (orderInfoWindow.ClientCmbBx.SelectedItem != null)
+                        //    {
+                        //        OrderList orderList = new OrderList()
+                        //        {
+                        //            ClientID = db.Clients.First(cl => cl.Name == orderInfoWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
+                        //            ManagerID = (int)ApplicationContext.Status,
+                        //            OrderDate = DateTime.Today,
+                        //        };
+                        //        db.OrderLists.Add(orderList);
+
+
+                        //        if (orderInfoWindow.CheckedItemsList != null)
+                        //        {
+                        //            foreach (var content in orderInfoWindow.CheckedItemsList)
+                        //            {
+                        //                OrderContent contentToAdd = new OrderContent()
+                        //                {
+                        //                    ProductListID = content.ProductListID,
+                        //                    OrderListID = orderList.OrderListID,
+                        //                    ProductAmount = content.Amount,
+                        //                };
+                        //                db.OrderContents.Add(contentToAdd);
+                        //            }
+                        //        }
+                        //        else { return; }
+                        //    }
+                        //    else { return; }
+                        //}
+                        //db.SaveChanges();
+
+                    }));
+            }
+        }
+
+
+        public static ObservableCollection<ProductList> GetProductList()
+        {
+            ApplicationContext context = new ApplicationContext();
+            return new ObservableCollection<ProductList>(context.ProductLists.Select(p => p).ToList<ProductList>());
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

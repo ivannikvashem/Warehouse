@@ -48,9 +48,9 @@ namespace Warehouse.View.Storage.ProductList
                 }
             }
         }
-        private void GoToStorageDictionary_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new View.Storage.Dictionary.MainDictionaryList());
-        }
+
+        private void GoToStorageDictionary_Click(object sender, RoutedEventArgs e) { NavigationService.Navigate(new Dictionary.MainDictionaryList()); }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e) { if (SearchBtn.IsChecked == false) { SearchBox.Text = null; } }
     }
 }

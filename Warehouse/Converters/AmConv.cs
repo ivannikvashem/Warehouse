@@ -8,25 +8,20 @@ using System.Windows.Data;
 
 namespace Warehouse.Converters
 {
-    class AmountConverter : IValueConverter
+    public class AmConv : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             //string amount = value.ToString().Trim();
-            if (value != null)
-            {
-                return value.ToString();
-            }
-            else
-            {
-                int amount = 0;
-                return amount;
-            }
+            int amount = 0;
+
+            return amount;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            throw new NotImplementedException();
+            //return value;
         }
     }
 }

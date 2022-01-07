@@ -46,7 +46,7 @@ namespace Warehouse.Model
             }
         }
 
-        [Column("ClientID")]
+        //[Column("ClientID")]
         public virtual Client Client { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

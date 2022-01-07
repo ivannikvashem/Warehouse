@@ -55,13 +55,13 @@ namespace Warehouse.ViewModel.Client
                                 //Category category = productWindow.Category;
                                 Client client = updateClient.Client;
                                 db.Clients.Add(client);
-                                db.SaveChanges();
                             }
                             catch
                             {
 
                             }
                         }
+                        db.SaveChanges();
                     }));
             }
         }
@@ -95,9 +95,9 @@ namespace Warehouse.ViewModel.Client
                                 client.Address = updateClient.Client.Address;
 
                                 db.Entry(client).State = EntityState.Modified;
-                                db.SaveChanges();
                             }
                         }
+                        db.SaveChanges();
                     }));
             }
         }
@@ -122,6 +122,26 @@ namespace Warehouse.ViewModel.Client
                   }));
             }
         }
+
+        private string searchResults;
+        public string SearchResults
+        {
+            get { return searchResults; }
+            set { searchResults = value; OnPropertyChanged(nameof(SearchResults)); }
+        }
+        public RelayCommand SearchCommand => new RelayCommand((i) =>
+        {
+            if (string.IsNullOrEmpty(SearchResults))
+            {
+                Clients = db.Clients.ToList();
+            }
+            else
+            {
+                var found = SearchResults.ToString().Trim();
+                Clients = db.Clients.Where(x => x.Name.Contains(found) || x.Address.Contains(found) || x.Phone.Contains(found)).ToList();
+            }
+        });
+
 
         public event PropertyChangedEventHandler PropertyChanged;
 

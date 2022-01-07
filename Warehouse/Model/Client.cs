@@ -44,7 +44,7 @@ namespace Warehouse.Model
             }
         }
 
-        [StringLength(50)]
+        [StringLength(9999)]
         public string address;
         public string Address
         {

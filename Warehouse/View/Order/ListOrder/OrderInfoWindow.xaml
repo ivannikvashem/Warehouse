@@ -1,0 +1,151 @@
+﻿<Window x:Class="Warehouse.View.Order.ListOrder.OrderInfoWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Warehouse.View.Order.ListOrder"
+        mc:Ignorable="d"
+        Title="OrderInfoWindow" Height="Auto" Width="560" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" FontSize="15" ScrollViewer.VerticalScrollBarVisibility="Visible">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Background="DarkSlateGray" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" MouseMove="Border_MouseMove">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
+
+                <Button Click="TurnWindowBtn_Click" Width="40" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Content="—" FontSize="15">
+                    <!--<Image Source="././Images/InterfaceStuff/TitleBar/minimizeWindow96(White).png"/>-->
+                </Button>
+
+                <Button Click="CloseWindowBtn_Click" Width="40" Style="{StaticResource  ExitBtnStyle}">
+                    <Image Source="../../../Images/InterfaceStuff/TitleBar/closeWindow96(White).png"/>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <StackPanel Grid.Row="1" Background="Gray">
+            <Button Width="35" Height="35"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="2" Margin="5" Name="CheckInfo">
+                <StackPanel>
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock Text="ООО 'Чест'" HorizontalAlignment="Center"/>
+                        <TextBlock Text="ПРОДАЖА МЕБЕЛИ"/>
+                        <TextBlock Text="Товарный чек" HorizontalAlignment="Center"/>
+
+
+                        <!--<TextBlock Text="{Binding OrderListID}"/>
+                <TextBlock Text="{Binding Client.Name}"/>
+                <TextBlock Text="{Binding UserLoginPass.UserName}"/>
+                <TextBlock Text="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}"/>-->
+                    </StackPanel>
+
+
+                    <DataGrid x:Name="StorageGrid" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
+                      VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
+                      CanUserResizeColumns="False" FontSize="15" AutoGenerateColumns="False"
+                      AlternationCount="2" SelectionMode="Single" Width="500" Margin="0,15">
+
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Width="*" Header="Товар">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ProductList.Product.Title}" TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <!--<DataGridTextColumn Header="клиент" Binding="{Binding OrderListsID.Client.Name}" Width="*"/>-->
+                            <DataGridTemplateColumn Header="Количество"  Width="90">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ProductAmount}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Цена"  Width="110">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding ProductList.Product.PriceForUnit,StringFormat=C,ConverterCulture=ru-RU}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTemplateColumn Header="Сумма"  Width="110">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="s" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <TextBlock Text="Полный расчёт" HorizontalAlignment="Right" Margin="15,5"/>
+                    <TextBlock Text="ИТОГ" HorizontalAlignment="Left" Margin="20,0"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5"/>
+                    <TextBlock Text="НАЛИЧНЫМИ:" Margin="20,0"/>
+                    <TextBlock Text="ПОЛУЧЕНО:" Margin="20,20,0,0"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5"/>
+                    <Grid Margin="20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Покупатель:" Margin="0,5"/>
+                        <TextBlock Text="Адрес" Grid.Row="1" Margin="0,5"/>
+                        <TextBlock Text="Место расчётов" Grid.Row="2" Margin="0,5"/>
+                        <TextBlock Text="Кассир" Grid.Row="3" Margin="0,5"/>
+                        <TextBlock Text="ОФД" Grid.Row="4" Margin="0,5"/>
+
+                        <TextBlock Text="{Binding Client.Name}" Grid.Column="1" Margin="0,5"/>
+                        <TextBlock Text="{Binding Client.Address}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="0,5"/>
+                        <TextBlock Text="Свердловская область, г.Екатеринбург ул.Готвальда 6/1" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Margin="0,5"/>
+                        <TextBlock Text="{Binding UserLoginPass.UserName}" Grid.Column="1" Grid.Row="3" Margin="0,5"/>
+                        <TextBlock Text="ООО 'ЧЕСТ'" Grid.Column="1" Grid.Row="5"/>
+                    </Grid>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5"/>
+                    <Grid Margin="20,-5" Height="170">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <StackPanel>
+                            <Label Content="СМЕНА №"/>
+                            <TextBlock Name="CheckNumber" Margin="5,0">
+                            <Run Text="ЧЕК №"/>
+                            <Run Text="{Binding OrderListID}"/>
+                            </TextBlock>
+
+                            <TextBlock Margin="5,0">
+                            <Run Text="ДАТА"/>
+                            <Run Text="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}"/>
+                            </TextBlock>
+                            <Label Content="ПРИХОД"/>
+                            <Label Content="СНО:ЕНВД"/>
+                        </StackPanel>
+                        <StackPanel Grid.Column="1">
+                            <Label Content="ИНН:89012206814" HorizontalAlignment="Right"/>
+                            <Image Source="../../../Images/QRCode.gif" Height="120" Width="120"/>
+                        </StackPanel>
+                    </Grid>
+
+                </StackPanel>
+            </Border>
+        </ScrollViewer>
+
+    </Grid>
+</Window>

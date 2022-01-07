@@ -108,6 +108,7 @@
     <Compile Include="Components\BindablePasswordBox.xaml.cs">
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\AmConv.cs" />
     <Compile Include="Converters\UserRoleButtonConverter.cs" />
     <Compile Include="Converters\UserRoleConverter.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -124,6 +125,9 @@
     </Compile>
     <Compile Include="View\Login\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Order\ListOrder\OrderInfoWindow.xaml.cs">
+      <DependentUpon>OrderInfoWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Order\ListOrder\OrderListPage.xaml.cs">
       <DependentUpon>OrderListPage.xaml</DependentUpon>
@@ -176,6 +180,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Login\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Order\ListOrder\OrderInfoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -342,6 +350,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\InterfaceStuff\SideMenu\settings96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\Info96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\QRCode.gif" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

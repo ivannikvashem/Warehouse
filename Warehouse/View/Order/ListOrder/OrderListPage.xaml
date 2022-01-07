@@ -35,10 +35,10 @@
                 </Button>
                 <Separator Width="20" Opacity="0"/>
 
-                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding }" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
-                    <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding ShowOrderInfoCommand}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Info96.png"/>
                     <Button.ToolTip>
-                        <ToolTip Content="Изменить клиента" Style="{StaticResource ToolTipStyle1}"/>
+                        <ToolTip Content="Информация о заказе" Style="{StaticResource ToolTipStyle1}"/>
                     </Button.ToolTip>
                 </Button>
                 <Separator Width="20" Opacity="0"/>

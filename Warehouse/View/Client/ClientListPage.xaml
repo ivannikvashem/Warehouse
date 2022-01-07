@@ -4,9 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Warehouse.View.Client"
-      xmlns:ui="clr-namespace:Warehouse.ViewModel.Client"
+      xmlns:ui="clr-namespace:Warehouse.ViewModel.Client" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" Background="{StaticResource TransparentBckgr}"
+      d:DesignHeight="450" d:DesignWidth="800" Background="{StaticResource TransparentBckgr}" PreviewKeyDown="Window_PreviewKeyDown"
       Title="ClientListPage">
 
     <!--<Page.DataContext>
@@ -52,6 +52,97 @@
 
                 <Separator Width="20" Opacity="0"/>
 
+                <Border Background="{StaticResource TransparentBckgr}" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Right">
+                    <Grid x:Name="SearchPanel"
+              Grid.RowSpan="3"
+              VerticalAlignment="Top"
+              Background="Transparent"
+              Width="40"
+              Height="35"
+              Grid.Row="0">
+                        <StackPanel x:Name="SearchStckPnl" Orientation="Horizontal">
+
+                            <Grid Height="35">
+                                <ToggleButton x:Name="SearchBtn"
+                                  Grid.Column="0"
+                                  Margin="0,0,0,0"
+                                  HorizontalAlignment="Left"
+                                  Width="40"
+                                  Height="35"
+                                  BorderThickness="0"
+                                  Style="{StaticResource ToggleButtonStyle1}" Click="SearchBtn_Click">
+
+                                    <ToggleButton.Background>
+                                        <ImageBrush ImageSource="../../../Images/InterfaceStuff/Navigation/Search96.png"/>
+                                    </ToggleButton.Background>
+
+                                    <ToggleButton.Triggers>
+                                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                            <BeginStoryboard>
+                                                <Storyboard x:Name="HideSearchPnl">
+                                                    <DoubleAnimation Storyboard.TargetName="SearchPanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="250" To="45"
+                                                         Duration="0:0:0.3">
+
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+
+
+                                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                            <BeginStoryboard>
+                                                <Storyboard x:Name="ShowSearchPnl">
+                                                    <DoubleAnimation Storyboard.TargetName="SearchPanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="40" To="250"
+                                                         Duration="0:0:0.3">
+
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+
+
+                                        </EventTrigger>
+
+                                    </ToggleButton.Triggers>
+
+                                    <ToggleButton.InputBindings>
+                                        <KeyBinding Command="{Binding OpenSearchBox}" Modifiers="Ctrl" Key="F"/>
+                                    </ToggleButton.InputBindings>
+
+                                    <ToggleButton.ToolTip>
+                                        <ToolTip Content="Поиск" Style="{StaticResource ToolTipStyle1}"/>
+                                    </ToggleButton.ToolTip>
+
+                                </ToggleButton>
+
+                                <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}" FocusVisualStyle="{x:Null}"
+                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5" >
+
+                                    <!--Storage-->
+                                    <ListViewItem FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                        <TextBox Name="SearchBox" Text="{Binding SearchResults, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="30" FontSize="15" FontWeight="Bold">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="TextChanged">
+                                                    <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <!--<TextBox.InputBindings>
+                                                <KeyBinding Command="{Binding SearchCommand}" Key="Return" />
+                                            </TextBox.InputBindings>-->
+                                        </TextBox>
+
+                                    </ListViewItem>
+                                </ListView>
+                            </Grid>
+                        </StackPanel>
+                    </Grid>
+
+                </Border>
 
             </StackPanel>
         </Grid>
@@ -63,18 +154,18 @@
                       CanUserResizeColumns="False" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}"
                       RowHeight="30" AlternationCount="2" SelectionMode="Single">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="#" Binding="{Binding ClientID}"/>
+                    <DataGridTextColumn Header="№" Binding="{Binding ClientID}"/>
                     <DataGridTextColumn Header="Название организации"  Binding="{Binding Name}" MinWidth="280" Width="*"/>
-                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="*"/>
+                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="150"/>
                     <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" Width="*"/>
 
-                    <DataGridTemplateColumn Header="" Width="80">
+                    <!--<DataGridTemplateColumn Header="" Width="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <Button  Name="OrderBtn" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Заказать"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn>-->
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

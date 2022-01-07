@@ -39,7 +39,7 @@ namespace Warehouse.ViewModel.Storage
         public string SearchResults
         {
             get { return searchResults; }
-            set { searchResults = value; OnPropertyChanged("SearchResults"); }
+            set { searchResults = value; OnPropertyChanged(nameof(SearchResults)); }
         }
 
         public StorageListViewModel()

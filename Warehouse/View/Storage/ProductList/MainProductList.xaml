@@ -4,9 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Warehouse.View.Storage.ProductList"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="MainProductList">
+      Title="MainProductList" PreviewKeyDown="Window_PreviewKeyDown">
 
     <!--<Page.CommandBindings>
         <CommandBinding Command="{Binding SearchCommand}" />
@@ -28,6 +29,15 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" >
 
+                <Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding AddCommand}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Add96.png"/>
+
+                    <Button.ToolTip>
+                        <ToolTip Content="Добавить товар из словаря" Style="{StaticResource ToolTipStyle1}"/>
+                    </Button.ToolTip>
+                </Button>
+                <Separator Opacity="0" Width="20"/>
+                
                 <Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
 
@@ -55,7 +65,7 @@
                                   Width="40"
                                   Height="35"
                                   BorderThickness="0"
-                                  Style="{StaticResource ToggleButtonStyle1}">
+                                  Style="{StaticResource ToggleButtonStyle1}" Click="SearchBtn_Click">
 
                                     <ToggleButton.Background>
                                         <ImageBrush ImageSource="../../../Images/InterfaceStuff/Navigation/Search96.png"/>
@@ -106,14 +116,19 @@
                                 </ToggleButton>
 
                                 <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}" FocusVisualStyle="{x:Null}"
-                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5" >
+                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5">
 
                                     <!--Storage-->
-                                    <ListViewItem FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                    <ListViewItem FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ListBoxStyle1}">
                                         <TextBox Name="SearchBox" Text="{Binding SearchResults, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="30" FontSize="15" FontWeight="Bold">
-                                            <TextBox.InputBindings>
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="TextChanged">
+                                                    <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                            <!--<TextBox.InputBindings>
                                                 <KeyBinding Command="{Binding SearchCommand}" Key="Return" />
-                                            </TextBox.InputBindings>
+                                            </TextBox.InputBindings>-->
                                         </TextBox>
 
                                     </ListViewItem>

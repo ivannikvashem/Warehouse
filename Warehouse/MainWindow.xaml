@@ -149,12 +149,12 @@
 
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Grid.Row="1" Grid.Column="1" Margin="0,3" VerticalAlignment="Top">
 
-            <Button Width="80" Height="25" Style="{StaticResource ArrowsBtnStyle}"
+            <Button Width="80" Height="30" Style="{StaticResource ArrowsBtnStyle}"
                     Name="GoToPreviousPage" Click="GoToPreviousPage_Click">
                 <Image Source="././Images/InterfaceStuff/Navigation/LeftArrow96.png" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
 
-            <Button Width="80" Height="25" Style="{StaticResource ArrowsBtnStyle}"
+            <Button Width="80" Height="30" Style="{StaticResource ArrowsBtnStyle}"
                     Name="GoToNextPage" Click="GoToNextPage_Click" Margin="5,0">
                 <Image Source="././Images/InterfaceStuff/Navigation/RightArrow96.png" Height="30" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </Button>
@@ -173,7 +173,7 @@
 
                 <Grid Height="90">
 
-                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="73,-45,0,0"
+                    <TextBlock Grid.Row="1" Grid.Column="0" Margin="85,-45,0,0"
                                Text="М Е Н Ю" Foreground="White" FontSize="22"
                                Background="{StaticResource TransparentBckgr}"
                                HorizontalAlignment="Left" VerticalAlignment="Center">
@@ -233,7 +233,7 @@
                           BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
                     <!--Storage-->
-                    <ListViewItem Margin="0,0,0,15" Name="sg">
+                    <ListViewItem Margin="5,0,0,15" Name="sg" Style="{StaticResource ListBoxStyle1}">
                         <!--<StackPanel Orientation="Horizontal">-->
                         <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Click="GoToStorageBtn_Click">
                             <Grid>
@@ -253,7 +253,7 @@
                     </ListViewItem>
 
                     <!--Orders-->
-                    <ListViewItem Margin="0,0,0,15">
+                    <ListViewItem Margin="5,0,0,15" Style="{StaticResource ListBoxStyle1}">
                         <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Name="GoToOrderBtn" Click="GoToOrderBtn_Click">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -271,7 +271,7 @@
                     </ListViewItem>
 
                     <!--Clients-->
-                    <ListViewItem HorizontalAlignment="Left" Margin="0,0,0,15" Style="{StaticResource ListBoxItemStyle}">
+                    <ListViewItem HorizontalAlignment="Left" Margin="5,0,0,15" Style="{StaticResource ListBoxStyle1}">
                         <Button Background="{StaticResource TransparentBckgr}" BorderThickness="0" Width="230" Style="{StaticResource MenuBtnSyle}" Click="GoToClientBtn_Click">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -314,7 +314,7 @@
             </StackPanel>
 
             <!--Settings-->
-            <ListBoxItem Margin="0,0,0,15" HorizontalAlignment="Left" Visibility="{Binding Converter={StaticResource BtnVisible}}" VerticalAlignment="Bottom">
+            <ListBoxItem Margin="0,0,0,15" HorizontalAlignment="Left" Visibility="{Binding Converter={StaticResource BtnVisible}}" VerticalAlignment="Bottom" Style="{StaticResource ListBoxStyle}">
                 <Button Width="230" BorderThickness="0" Background="{StaticResource TransparentBckgr}" Style="{StaticResource MenuBtnSyle}" Click="GoToSettings_Click">
                     <Grid>
                         <Grid.ColumnDefinitions>

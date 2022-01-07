@@ -19,34 +19,39 @@ namespace Warehouse.View.Order.MakeOrder
     /// <summary>
     /// Логика взаимодействия для MakeOrderWindow.xaml
     /// </summary>
-    public partial class MakeOrderWindow : Window
+    public partial class OrderInfoWindow : Window
     {
         public List<ProductList> CheckedItemsList = new List<ProductList>();
 
 
         public OrderList OrderList { get;private set; }
         Warehouse.ApplicationContext context = new Warehouse.ApplicationContext();
-        public List<ProductList> ProductLists { get; set; } 
+        public List<ProductList> ProductLists { get; set; }
+        public List<ProductList> ProductList1 = new List<ProductList>();
         bool restoreIfMove = false;
 
 
-        public MakeOrderWindow(OrderList orderList)
+        public OrderInfoWindow(OrderList orderList)
         {
             InitializeComponent();
             //CheckedItemsList = null;
             OrderList = orderList;
             //this.DataContext = orderList;
             ComboBxItemsLoad();
-            //this.DataContext = new OrderViewModel();
 
+
+
+            ProductList1 = context.ProductLists.ToList();
             ProductLists = context.ProductLists.ToList();
-            ProductListGrid.ItemsSource = ProductLists;
+            ProductListGrid.ItemsSource = ProductList1;
+
+            foreach (ProductList productList in ProductList1)
+            {
+                productList.Amount = 0;
+            }
         }
 
-        private void MakeOrderBtn_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
-        }
+        private void MakeOrderBtn_Click(object sender, RoutedEventArgs e) { this.DialogResult = true; }
 
         private void ComboBxItemsLoad()
         {
@@ -55,9 +60,6 @@ namespace Warehouse.View.Order.MakeOrder
                 ClientCmbBx.Items.Add(client.Name);
             }
         }
-
-
-
 
 
         private void TurnBtn_Click(object sender, RoutedEventArgs e)
@@ -103,10 +105,20 @@ namespace Warehouse.View.Order.MakeOrder
             var cb = sender as CheckBox;
             var item = cb.DataContext;
             ProductListGrid.SelectedItem = item;
-            if (item != null)
+            if ((bool)!cb.IsChecked)
+            {
+                CheckedItemsList.Remove((ProductList)item);
+            }
+            else if (CheckedItemsList.Contains(item)) { return; }
+            else if (item != null)
             {
                 CheckedItemsList.Add((ProductList)item);
             }
+        }
+
+        private void EditAmount_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

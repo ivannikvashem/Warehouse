@@ -23,5 +23,25 @@ namespace Warehouse.View.Client
             InitializeComponent();
             this.DataContext = new ClientViewModel();
         }
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
+            {
+                if (SearchBtn.IsChecked == true)
+                {
+                    SearchBtn.IsChecked = false;
+                    SearchBox.Text = null;
+                    return;
+                }
+                else if (SearchBtn.IsChecked == false)
+                {
+                    SearchBtn.IsChecked = true;
+                    SearchBox.Focus();
+                    return;
+
+                }
+            }
+        }
+        private void SearchBtn_Click(object sender, RoutedEventArgs e) { if (SearchBtn.IsChecked == false) { SearchBox.Text = null; } }
     }
 }

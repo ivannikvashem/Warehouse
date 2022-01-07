@@ -36,7 +36,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Организация" Foreground="White" Name="TitleLbl"/>
                 <Separator Width="20" Opacity="0"/>
-                <TextBox Text="{Binding Name}" Width="250" FontSize="26" Name="TitleTxtBx"/>
+                <TextBox Text="{Binding Name}" Width="250" FontSize="20" Name="TitleTxtBx" TextWrapping="Wrap" MaxHeight="100"/>
             </StackPanel>
 
             <Separator Height="10" Opacity="0"/>
@@ -50,7 +50,7 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Адрес" Foreground="White" Name="PriceForUnitLbl"/>
                 <Separator Width="20" Opacity="0"/>
-                <TextBox Text="{Binding Address}" Width="250" FontSize="26" Name="PriceForUnitTxtBx"/>
+                <TextBox Text="{Binding Address}" Width="250" FontSize="20" Name="PriceForUnitTxtBx" TextWrapping="Wrap" MaxHeight="100"/>
             </StackPanel>
 
             <Separator Height="20" Opacity="0"/>
