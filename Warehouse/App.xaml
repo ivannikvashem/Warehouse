@@ -5,6 +5,7 @@
              xmlns:converters="clr-namespace:Warehouse.Converters"
              xmlns:Order="clr-namespace:Warehouse.View.Order.MakeOrder"
              xmlns:OrdInfo="clr-namespace:Warehouse.View.Order.ListOrder"
+             xmlns:Strg="clr-namespace:Warehouse.View.Storage.ProductList"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
 
@@ -42,6 +43,14 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Style TargetType="Strg:AddProductFromDictionary">
+            <Setter Property="WindowChrome.WindowChrome">
+                <Setter.Value>
+                    <WindowChrome CaptionHeight="0" CornerRadius="10" GlassFrameThickness="0" NonClientFrameEdges="None"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
 
         <Style x:Key="ListBoxItemStyle" TargetType="{x:Type ListBoxItem}">
             <Style.Triggers>
@@ -55,6 +64,10 @@
         <converters:UserRoleButtonConverter x:Key="BtnVisible"/>
         <converters:AmountConverter x:Key="AmntConv"/>
         <converters:AmConv x:Key="AmConv"/>
+        <converters:ProductStatusConverter x:Key="PrStsConv"/>
+        <converters:ProductStatusMessageConverter x:Key="PrStsMsgConv"/>
+        <converters:MakeOrderCheckBoxIsEnabledConverter x:Key="MkOrderChckBxEnbl"/>
+        <converters:TotalAmountConverter x:Key="TtlAmontConv"/>
 
         <!--Value Converters-->
 
@@ -308,7 +321,6 @@
             </Style.Triggers>
         </Style>
 
-        
         <!--List Box Style-->
         <Style x:Key="ListBoxStyle" TargetType="ListBoxItem">
 
@@ -443,7 +455,6 @@
 
         <!--Data grid style-->
         <Style TargetType="DataGrid" x:Key="MainGridStyle">
-            <Setter Property="BorderBrush" Value="Red" />
             <Setter Property="HorizontalGridLinesBrush" Value="Black" />
             <Setter Property="VerticalGridLinesBrush" Value="#DDDDDD" />
             <Setter Property="HeadersVisibility" Value="Column"/>
@@ -590,6 +601,89 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+
+        <!--DataGridCheckStyle-->
+        <Style TargetType="DataGrid" x:Key="GridCheckStyle">
+            <Setter Property="HorizontalGridLinesBrush" Value="Black" />
+            <Setter Property="VerticalGridLinesBrush" Value="Black" />
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="EnableRowVirtualization" Value="True"/>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="White"/>
+                        <Setter Property="BorderBrush" Value="Black"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Setter Property="FontWeight" Value="SemiBold"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="RowStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridRow">
+                        <Setter Property="IsHitTestVisible" Value="False"/>
+                        <Setter Property="BorderBrush" Value="{x:Null}"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="{x:Null}"/>
+                                <Setter Property="BorderBrush" Value="{x:Null}"/>
+                            </Trigger>
+
+                        </Style.Triggers>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="CellStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridCell">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="White" />
+                                <Setter Property="BorderBrush" Value="{x:Null}" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="BorderThickness" Value="0"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter Property="Background" Value="White" />
+                                <Setter Property="BorderBrush" Value="{x:Null}" />
+                                <Setter Property="BorderThickness" Value="0"/>
+                                <Setter Property="Foreground" Value="Black" />
+                            </Trigger>
+                        </Style.Triggers>
+                        <Setter Property="Padding" Value="4,3,4,3" />
+                        <Setter Property="BorderBrush" Value="Transparent"/>
+                        <Setter Property="BorderThickness" Value="1"/>
+
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="DataGridCell">
+                                    <Border Padding="{TemplateBinding Padding}" 
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            Background="{TemplateBinding Background}">
+                                        <ContentPresenter />
+                                    </Border>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                        <Setter Property="FocusVisualStyle">
+                            <Setter.Value>
+                                <Style TargetType="Control">
+                                    <Setter Property="BorderBrush" Value="Transparent" />
+                                </Style>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
 
         <!-- Flat ComboBox -->
         <SolidColorBrush x:Key="ComboBoxNormalBorderBrush" Color="#e3e9ef" />

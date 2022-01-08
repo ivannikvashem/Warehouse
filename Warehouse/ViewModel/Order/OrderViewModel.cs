@@ -28,10 +28,14 @@ namespace Warehouse.ViewModel.Order
         RelayCommand isItemUnChecked;
         RelayCommand showOrderInfoCommand;
 
-        IEnumerable<OrderList>  orderLists;
+        IEnumerable<OrderList> orderLists;
         IEnumerable<UserLoginPass> userLoginPasses;
         IEnumerable<Client> clients;
         IEnumerable<ProductList> productLists;
+
+        public decimal? totalValueOfItems { get; set; } = 0;
+        public int? OldAmount { get; set; }
+        //public int? currentAmount1 { get; set; } = 0;
 
         public List<object> CheckedItemsList = new List<object>();
 
@@ -81,6 +85,7 @@ namespace Warehouse.ViewModel.Order
             }
         }
 
+
         public IEnumerable<UserLoginPass> UserLoginPasses
         {
             get { return userLoginPasses; }
@@ -103,11 +108,10 @@ namespace Warehouse.ViewModel.Order
 
         public OrderViewModel()
         {
-            db = new Warehouse.ApplicationContext();
+            db = new ApplicationContext();
             OrderLists = db.OrderLists.Local.ToBindingList();
             db.UserLoginPasses.ToList();
             db.OrderLists.ToList();
-            
         }
 
         private bool _IsChecked = false;
@@ -171,7 +175,7 @@ namespace Warehouse.ViewModel.Order
                 return makeOrderCommand ??
                     (makeOrderCommand = new RelayCommand((selectedItem) =>
                     {
-                        View.Order.MakeOrder.OrderInfoWindow makeOrderWindow = new View.Order.MakeOrder.OrderInfoWindow(new OrderList());
+                        View.Order.MakeOrder.OrderInfoWindow makeOrderWindow = new View.Order.MakeOrder.OrderInfoWindow(new OrderList(), OldAmount);
 
                         if (makeOrderWindow.ShowDialog() == true)
                         {
@@ -182,9 +186,9 @@ namespace Warehouse.ViewModel.Order
                                     ClientID = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
                                     ManagerID = (int)ApplicationContext.Status,
                                     OrderDate = DateTime.Today,
+                                    TotalValue = totalValueOfItems,
                                 };
                                 db.OrderLists.Add(orderList);
-
 
                                 if (makeOrderWindow.CheckedItemsList != null)
                                 {
@@ -194,9 +198,19 @@ namespace Warehouse.ViewModel.Order
                                         {
                                             ProductListID = content.ProductListID,
                                             OrderListID = orderList.OrderListID,
-                                            ProductAmount = content.Amount,
+                                            ProductAmount = content.CurrentAmount,
+                                            TotalAmount = content.CurrentAmount * content.Product.PriceForUnit,
                                         };
+                                        ProductList prdctLstAmount = new ProductList(){};
+                                        prdctLstAmount = db.ProductLists.Find(contentToAdd.ProductListID);
+                                        if (prdctLstAmount != null)
+                                        {
+                                            prdctLstAmount.Amount -= content.CurrentAmount;
+                                        }
+                                        db.Entry(prdctLstAmount).State = EntityState.Modified;
                                         db.OrderContents.Add(contentToAdd);
+                                        totalValueOfItems = orderList.TotalValue += contentToAdd.TotalAmount;
+                                       
                                     }
                                 }
                                 else { return; }
@@ -204,7 +218,6 @@ namespace Warehouse.ViewModel.Order
                             else { return; }
                         }
                         db.SaveChanges();
-
                     }));
             }
         }
@@ -227,6 +240,7 @@ namespace Warehouse.ViewModel.Order
                             UserLoginPass = orderlsts.UserLoginPass,
                             OrderDate = orderlsts.OrderDate,
                             OrderContent = orderlsts.OrderContent,
+                            TotalValue = orderlsts.TotalValue,
                         };
                         OrderInfoWindow orderInfoWindow = new OrderInfoWindow(orderList);
                         if (orderInfoWindow.ShowDialog() == true)

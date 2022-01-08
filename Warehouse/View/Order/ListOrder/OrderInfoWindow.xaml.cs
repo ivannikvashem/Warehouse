@@ -38,7 +38,6 @@ namespace Warehouse.View.Order.ListOrder
                 }
             }
             StorageGrid.ItemsSource = content;
-
             //ClientTxtBx.Text = orderList.Client.Name;
             //ClientTxtBx.Text = db.OrderLists.First(x => x.Client.ClientID == orderList.Client.ClientID).Client.Name;
             //StorageGrid.ItemsSource = OrderList1.ToString();
@@ -47,7 +46,6 @@ namespace Warehouse.View.Order.ListOrder
         {
             WindowState = WindowState.Minimized;
         }
-
         private void CloseWindowBtn_Click(object sender, RoutedEventArgs e)
         {
             this.DialogResult = true;
@@ -110,6 +108,18 @@ namespace Warehouse.View.Order.ListOrder
             if (this.WindowState == WindowState.Maximized)
             {
                 bool v = this.WindowState == WindowState.Minimized;
+            }
+        }
+
+        private void PrintCheck_Click(object sender, RoutedEventArgs e)
+        {
+            PrintDialog printDialog = new PrintDialog();
+            bool? PrntResult = printDialog.ShowDialog();
+            {
+                if (PrntResult == true)
+                {
+                    printDialog.PrintVisual(CheckInfo, "Чек");
+                }
             }
         }
     }

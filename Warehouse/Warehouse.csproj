@@ -109,6 +109,10 @@
       <DependentUpon>BindablePasswordBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\AmConv.cs" />
+    <Compile Include="Converters\MakeOrderCheckBoxIsEnabledConverter.cs" />
+    <Compile Include="Converters\ProductStatusConverter.cs" />
+    <Compile Include="Converters\ProductStatusMessageConverter.cs" />
+    <Compile Include="Converters\TotalAmountConverter.cs" />
     <Compile Include="Converters\UserRoleButtonConverter.cs" />
     <Compile Include="Converters\UserRoleConverter.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -140,6 +144,9 @@
     </Compile>
     <Compile Include="View\Storage\Dictionary\MainDictionaryList.xaml.cs">
       <DependentUpon>MainDictionaryList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Storage\ProductList\AddProductFromDictionary.xaml.cs">
+      <DependentUpon>AddProductFromDictionary.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Storage\ProductList\ChangeProductAmountWindow.xaml.cs">
       <DependentUpon>ChangeProductAmountWindow.xaml</DependentUpon>
@@ -200,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Storage\Dictionary\MainDictionaryList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Storage\ProductList\AddProductFromDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -356,6 +367,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\QRCode.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\InterfaceStuff\Navigation\Print96.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

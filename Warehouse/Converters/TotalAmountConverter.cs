@@ -4,24 +4,33 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 
 namespace Warehouse.Converters
 {
-    public class AmConv : IValueConverter
+    class TotalAmountConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            decimal amount = (decimal)value;
-            decimal result = 20 * amount / 100;  
+            if (parameter != null)
+            {
+                decimal? one = value as decimal?;
+                int? two = parameter as int?;
 
-            return result;
+                decimal? Result = one * two;
+                return Result.ToString();
+            }
+            else
+            {
+                return 0;
+            }
+            
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-            //return value;
         }
     }
 }

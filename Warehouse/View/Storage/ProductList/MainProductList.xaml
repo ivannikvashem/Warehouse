@@ -160,33 +160,23 @@
                                     </Grid.ColumnDefinitions>
                                     <TextBlock Text="{Binding Amount}" HorizontalAlignment="Center" x:Name="This"/>
 
-                                    <Button Grid.Column="1" Style="{StaticResource GridBtnsStyle}" Visibility="Visible" VerticalAlignment="Top" Width="25" Command="{Binding EditCommand1}" Tag="{Binding }" >
-                                        <Image Source="../../Images/InterfaceStuff/DataGrid/Edit96.png" Width="25"/>
-                                        <!--CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}-->
-                                        <Button.ToolTip>
-                                            <ToolTip x:Name="tt_Storage" Content="Изменить количество" Style="{StaticResource ToolTipStyle1}"/>
-                                        </Button.ToolTip>
-                                    </Button>
+                                    <Border Background="{Binding Amount, Converter={StaticResource PrStsConv}}" BorderBrush="Black" BorderThickness="2" Grid.Column="1" Height="20" Width="20">
+                                        <Border.ToolTip>
+                                            <ToolTip Content="{Binding Amount, Converter={StaticResource PrStsMsgConv}}" Style="{StaticResource ToolTipStyle1}" FontSize="15"/>
+                                        </Border.ToolTip>
+                                    </Border>
+                                   
                                 </Grid>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
 
-                    <DataGridTextColumn Header="Ед. Изм." Binding="{Binding Product.UnitOfMeasurement}" Width="65" CanUserResize="False"/>
-                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" Width="100" CanUserResize="False"/>
+                    <DataGridTextColumn Header="Ед. Изм." Binding="{Binding Product.UnitOfMeasurement}" Width="65" />
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" Width="100" />
 
                     <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name}" x:Name="CategoryColumn"/>
 
-                    <!--<DataGridTemplateColumn Header="" MinWidth="30">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Name="PayBtn">
-                                    <Image Source="../../Images/InterfaceStuff/DataGrid/settings150.png" VerticalAlignment="Top"/>
-                                </Button>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>-->
                 </DataGrid.Columns>
             </DataGrid>
         </Border>

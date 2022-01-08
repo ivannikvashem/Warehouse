@@ -27,7 +27,7 @@
             <Image Source="././Images/InterfaceStuff/blu10.png"  Stretch="Fill"/>
         </Border>
 
-        <Border Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Background="DarkSlateGray" PreviewMouseLeftButtonDown="TopBorder_PreviewMouseLeftButtonDown">
+        <Border Grid.Row="1" Grid.Column="1" Margin="0,0,5,0" Background="DarkSlateGray" >
         </Border>
 
         <Frame Grid.Row="1" Grid.Column="1" Name="MainFrame" Grid.RowSpan="2" NavigationUIVisibility="Hidden" Margin="0,0,5,5" PreviewMouseLeftButtonDown="MainFrame_PreviewMouseLeftButtonDown">

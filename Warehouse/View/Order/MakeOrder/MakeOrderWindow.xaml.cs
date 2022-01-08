@@ -31,7 +31,7 @@ namespace Warehouse.View.Order.MakeOrder
         bool restoreIfMove = false;
 
 
-        public OrderInfoWindow(OrderList orderList)
+        public OrderInfoWindow(OrderList orderList, int? oldAmount)
         {
             InitializeComponent();
             //CheckedItemsList = null;
@@ -43,12 +43,12 @@ namespace Warehouse.View.Order.MakeOrder
 
             ProductList1 = context.ProductLists.ToList();
             ProductLists = context.ProductLists.ToList();
-            ProductListGrid.ItemsSource = ProductList1;
+            ProductListGrid.ItemsSource = ProductList1.Where(x => x.Amount > 0);
 
-            foreach (ProductList productList in ProductList1)
-            {
-                productList.Amount = 0;
-            }
+            //foreach (ProductList productList in ProductList1)
+            //{
+            //    productList.Amount = 0;
+            //}
         }
 
         private void MakeOrderBtn_Click(object sender, RoutedEventArgs e) { this.DialogResult = true; }

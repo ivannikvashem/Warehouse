@@ -3,25 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Warehouse.View.Storage"
+        xmlns:local="clr-namespace:Warehouse.View.Storage" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="ChangeProductAmountWindow" Height="450" Width="800">
+        Title="ChangeProductAmountWindow" Height="150" Width="200" ResizeMode="NoResize" WindowStyle="None" Foreground="White" Background="{StaticResource TransparentBckgr}"
+        AllowsTransparency="True" WindowStartupLocation="CenterOwner">
     <Grid>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBox Width="150" Text="{Binding Amount}" Name="AmountValue"/>
-            <Separator Opacity="0"/>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="- -" Width="25" Height="20" FontSize="10" Name="MinusMinusValueBtn"/>
-                <Separator Opacity="0" Width="10"/>
-                <Button Content="-" Width="20" Height="20" FontSize="10" Name="MinusValueBtn" />
-                <Separator Opacity="0" Width="20"/>
-                <Button Content="Сохранить" Width="Auto" Height="20" FontSize="10" Name="SaveBtnClick" Click="SaveBtnClick_Click"/>
-                <Separator Opacity="0" Width="20"/>
-                <Button Content="+" Width="20" Height="20" FontSize="10" Name="PlusValueBtn"/>
-                <Separator Opacity="0" Width="10"/>
-                <Button Content="+ +" Width="25" Height="20" FontSize="10" Name="PlusPlusValueBtn" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Grid.RowSpan="3" BorderBrush="DarkSlateGray" Name="TopBorder" BorderThickness="5">
+            <Image Source="../../../Images/InterfaceStuff/blu10.png"  Stretch="Fill"/>
+        </Border>
+        <Border Background="DarkSlateGray" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" MouseMove="Border_MouseMove">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,5,0">
+
+                <Button Click="TurnWindowBtn_Click" Width="30" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Content="—" FontSize="15">
+                    <!--<Image Source="././Images/InterfaceStuff/TitleBar/minimizeWindow96(White).png"/>-->
+                </Button>
+
+                <Button Click="CloseWindowBtn_Click" Width="30" Style="{StaticResource  ExitBtnStyle}">
+                    <Image Source="../../../Images/InterfaceStuff/TitleBar/closeWindow96(White).png"/>
+                </Button>
             </StackPanel>
-            <TextBox Name ="nigger" Width="100"/>
+        </Border>
+
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1">
+            <TextBlock Name="Amnt"/>
+            <xctk:ShortUpDown Name="CheangeAmountUpDown" Height="50" Width="120" Value="{Binding Amount}" FontSize="20" TextAlignment="Center" Margin="0,10" Minimum="{Binding OldAmount}"/>
+            <Button Click="SaveBtnClick_Click" Content="Сохранить" Style="{StaticResource MainBtnStyle}"/>
         </StackPanel>
     </Grid>
 </Window>

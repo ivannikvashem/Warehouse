@@ -46,6 +46,17 @@ namespace Warehouse.Model
             }
         }
 
+        [Column(TypeName = "money")]
+        private decimal? totalValue;
+        public decimal? TotalValue
+        {
+            get { return totalValue; }
+            set
+            {
+                totalValue = value;
+                OnPropertyChanged("TotalValue");
+            }
+        }
         //[Column("ClientID")]
         public virtual Client Client { get; set; }
 

@@ -25,8 +25,13 @@
             </StackPanel>
         </Border>
 
-        <StackPanel Grid.Row="1" Background="Gray">
-            <Button Width="35" Height="35"/>
+        <StackPanel Grid.Row="1" Background="DarkSlateGray">
+            <Button Width="Auto" Height="35" Style="{StaticResource ArrowsBtnStyle}" Margin="2" Click="PrintCheck_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Print96.png"/>
+                    <TextBlock Text="Распечатать чек" VerticalAlignment="Center" Margin="5,0"/>
+                </StackPanel>
+            </Button>
         </StackPanel>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
@@ -49,13 +54,13 @@
                       VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
                       CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
                       CanUserResizeColumns="False" FontSize="15" AutoGenerateColumns="False"
-                      AlternationCount="2" SelectionMode="Single" Width="500" Margin="0,15">
+                      AlternationCount="2" SelectionMode="Single" Width="500" Margin="0,15" Style="{StaticResource GridCheckStyle}">
 
                         <DataGrid.Columns>
                             <DataGridTemplateColumn Width="*" Header="Товар">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding ProductList.Product.Title}" TextWrapping="Wrap"/>
+                                        <TextBlock Text="{Binding ProductList.Product.Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -79,7 +84,7 @@
                             <DataGridTemplateColumn Header="Сумма"  Width="110">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="s" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding TotalAmount, StringFormat=C, ConverterCulture=ru-RU}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -87,10 +92,39 @@
                     </DataGrid>
 
                     <TextBlock Text="Полный расчёт" HorizontalAlignment="Right" Margin="15,5"/>
-                    <TextBlock Text="ИТОГ" HorizontalAlignment="Left" Margin="20,0"/>
+                    
+                    <Grid Margin="20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="ИТОГ"/>
+                        <TextBlock Text="{Binding TotalValue, StringFormat=C,ConverterCulture=ru-RU}" Grid.Column="1"/>
+                        <TextBlock Text="Сумма НДС" Grid.Row="1"/>
+                        <TextBlock Text="{Binding TotalValue, StringFormat=C,ConverterCulture=ru-RU, Converter={StaticResource AmConv}}" Grid.Row="1" Grid.Column="1"/>
+                    </Grid>
+
+                    
                     <Border BorderBrush="Black" BorderThickness="1" Margin="5"/>
-                    <TextBlock Text="НАЛИЧНЫМИ:" Margin="20,0"/>
-                    <TextBlock Text="ПОЛУЧЕНО:" Margin="20,20,0,0"/>
+                    <Grid Margin="20,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="30"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="НАЛИЧНЫМИ:"/>
+                        <TextBlock Text="ПОЛУЧЕНО:" Grid.Row="1"/>
+                        <TextBlock Text="{Binding TotalValue, StringFormat=C, ConverterCulture=ru-RU}" Grid.Column="1"/>
+                        <TextBlock Text="{Binding TotalValue, StringFormat=C, ConverterCulture=ru-RU}" Grid.Column="1" Grid.Row="1"/>
+                    </Grid>
+                    
                     <Border BorderBrush="Black" BorderThickness="1" Margin="5"/>
                     <Grid Margin="20,0">
                         <Grid.ColumnDefinitions>

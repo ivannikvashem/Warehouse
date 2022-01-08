@@ -48,6 +48,19 @@ namespace Warehouse.Model
             }
         }
 
+        [Column(TypeName = "money")]
+        private decimal? totalAmount;
+        public decimal? TotalAmount
+        {
+            get { return totalAmount; }
+            set
+            {
+                totalAmount = value;
+                OnPropertyChanged("TotalAmount");
+            }
+        }
+
+
         [Column("OrderID")]
         public virtual OrderList OrderListsID { get; set; }
 

@@ -62,26 +62,62 @@
                         <DataTemplate>
                         <Grid MinHeight="40">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="350"/>
                                 <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="160"/>
                                 <ColumnDefinition/> 
                             </Grid.ColumnDefinitions>
-                            <CheckBox x:Name="SelectedItem" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" Click="SelectedItem_Click"/>
+                            <CheckBox x:Name="SelectedItem" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" IsEnabled="{Binding Amount, Converter={StaticResource MkOrderChckBxEnbl}}" Click="SelectedItem_Click">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
                             <StackPanel Orientation="Horizontal" Grid.Column="1">
                                 <Border Height="50" Width="0" Background="Black"/>
                                 <TextBlock Text="{Binding Product.Title}" Foreground="White" FontSize="20" Margin="5,0" TextWrapping="Wrap" Width="330"/>
-                                <Border Height="50" Width="2" Background="Red"/>
+                                <!--<Border Height="50" Width="2" Background="Red"/>-->
                             </StackPanel>
-                            <StackPanel Grid.Column="2">
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                 <!--<Label x:Name="Am" Content="{Binding ProductLists.Amount}" Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>-->
-                                <xctk:ShortUpDown Watermark="yes" Height="50"  Value="{Binding Amount, Converter={StaticResource AmntConv}}" AllowTextInput="True" TextAlignment="Center" Minimum="0" Maximum="{Binding ProductList.Amount}"/>
+                                <xctk:ShortUpDown Name="amount" Height="50" Value="{Binding CurrentAmount}" AllowTextInput="False" DefaultValue="0" TextAlignment="Center" Minimum="0" Maximum="{Binding Amount}" IsEnabled="{Binding Amount,Converter={StaticResource MkOrderChckBxEnbl}}" BorderThickness="2" BorderBrush="White" Background="Transparent" Foreground="White" FontSize="20"/>
                             </StackPanel>
-                            <Button Width="50" Grid.Column="3" Name="EditAmount"/>
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="В наличии" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Foreground="White">
+                                    <Run Text="{Binding Amount}" FontSize="20"/>
+                                    <Run Text="шт" />
+                                </TextBlock>
+
+                            </StackPanel>
+
+                            <!--<Button Width="50" Grid.Column="3" Name="EditAmount"/>-->
+                            <StackPanel Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <TextBlock Text="Категория" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Product.Categories.Name}" Foreground="White" FontSize="20"/>
+                            </StackPanel>
 
 
-                            <Label Content="{Binding Product.Categories.Name}" Grid.Column="4" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
+                            <StackPanel Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="Стоимость" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Foreground="White">
+                                    <Run Text="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" FontSize="20"/>
+                                    <Run Text="/ шт"/>
+                                </TextBlock>
+                            </StackPanel>
+
+                            <!--<StackPanel Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text=" Общая стоимость" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Foreground="White">
+                                 <Run Text="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" FontSize="20"/>
+                                    --><!--<Run Text="{MultiBinding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU, Mode=OneWay, Converter={StaticResource TtlAmontConv}, ConverterParameter={Binding CurrentAmount}}" FontSize="20">
+                                        <Run.Text>
+                                        </Run.Text>
+                                    </Run>--><!--
+                                </TextBlock>
+                            </StackPanel>-->
 
                         </Grid>
                     </DataTemplate>

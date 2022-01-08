@@ -14,14 +14,16 @@ namespace Warehouse.ViewModel.Storage
     using Model;
     using System.Collections.ObjectModel;
     using System.Windows.Controls.Primitives;
+    using Warehouse.View.Storage.ProductList;
 
     public class StorageListViewModel : INotifyPropertyChanged
     {
         Warehouse.ApplicationContext db;
-        //RelayCommand addCommand;
+        RelayCommand addCommand;
         RelayCommand editCommand;
         //RelayCommand deleteCommand;
         //RelayCommand searchCommand;
+        public int? OldAmount { get; set; }
         private string searchResults;
 
         IEnumerable<ProductList> productLists;
@@ -49,6 +51,33 @@ namespace Warehouse.ViewModel.Storage
             db.ProductLists.ToList();
         }
 
+        public RelayCommand AddCommand
+        {
+            get
+            {
+                return addCommand ??
+                    (addCommand = new RelayCommand((o) =>
+                    {
+                        AddProductFromDictionary addProductFromDict = new AddProductFromDictionary(new ProductList());
+                        addProductFromDict.Owner = Application.Current.MainWindow;
+                        if (addProductFromDict.ShowDialog() == true)
+                        {
+                            try
+                            {
+                                ////Category category = productWindow.Category;
+                                //Client client = addProductFromDict.Client;
+                                //db.Clients.Add(client);
+                            }
+                            catch
+                            {
+
+                            }
+                        }
+                        db.SaveChanges();
+                    }));
+            }
+        }
+
         public RelayCommand EditCommand
         {
             get
@@ -64,19 +93,22 @@ namespace Warehouse.ViewModel.Storage
                             ProductListID = productList.ProductListID,
                             Amount = productList.Amount,
                         };
-                        ChangeProductAmountWindow updateProductList = new ChangeProductAmountWindow(productList);
+
+                        OldAmount = productList1.Amount;
+                        ChangeProductAmountWindow updateProductList = new ChangeProductAmountWindow(productList1, OldAmount);
+                        updateProductList.Owner = Application.Current.MainWindow;
 
                         if (updateProductList.ShowDialog() == true)
                         {
                             productList = db.ProductLists.Find(updateProductList.ProductList.ProductListID);
                             if (productList != null)
                             {
-                                productList.Amount = updateProductList.ProductList.Amount;
-
-                                db.Entry(productList).State = EntityState.Modified;
-                                db.SaveChanges();
+                                //productList.Amount = updateProductList.ProductList.
+                                productList.Amount = updateProductList.ProductList.Amount;                                
                             }
                         }
+                        db.Entry(productList).State = EntityState.Modified;
+                        db.SaveChanges();
                     }));
             }
         }

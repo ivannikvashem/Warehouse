@@ -8,20 +8,28 @@ using System.Windows.Data;
 
 namespace Warehouse.Converters
 {
-    public class AmConv : IValueConverter
+    class ProductStatusMessageConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            decimal amount = (decimal)value;
-            decimal result = 20 * amount / 100;  
-
-            return result;
+            int status = (int)value;
+            if (status == 0)
+            {
+                return "Товар отсутствует";
+            }
+            else if (status < 10)
+            {
+                return "Мало товара";
+            }
+            else
+            {
+                return "Товара достаточно";
+            }
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
-            //return value;
         }
     }
 }

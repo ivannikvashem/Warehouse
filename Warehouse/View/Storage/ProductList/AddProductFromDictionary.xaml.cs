@@ -12,31 +12,20 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Warehouse.View.Storage
+namespace Warehouse.View.Storage.ProductList
 {
-    using Model;
     /// <summary>
-    /// Логика взаимодействия для ChangeProductAmountWindow.xaml
+    /// Логика взаимодействия для AddProductFromDictionary.xaml
     /// </summary>
-    public partial class ChangeProductAmountWindow : Window
+    public partial class AddProductFromDictionary : Window
     {
         bool restoreIfMove = false;
 
-        public Model.ProductList ProductList { get; private set; }
-        public int? OldAmountValue { get; set; }
-
-        public ChangeProductAmountWindow(Model.ProductList productList1, int? oldAmount)
+        public AddProductFromDictionary(Model.ProductList productList)
         {
             InitializeComponent();
-            ProductList = productList1;
-            OldAmountValue = oldAmount;
-            this.DataContext = ProductList;
-            CheangeAmountUpDown.Minimum = (short?)OldAmountValue;
         }
-        private void SaveBtnClick_Click(object sender, RoutedEventArgs e)
-        {
-            this.DialogResult = true;
-        }
+
         private void TurnWindowBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -46,6 +35,8 @@ namespace Warehouse.View.Storage
         {
             this.Close();
         }
+       
+        // Метод реализующий перетаскивание окна
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -66,6 +57,15 @@ namespace Warehouse.View.Storage
                 DragMove();
             };
         }
+        // Метод реализующий сворачивание окна
+        private void TurnBtn_Click(object sender, RoutedEventArgs e)
+        {
+            WindowState = WindowState.Minimized;
+        }
+        private void ResizeWindow_Click(object sender, RoutedEventArgs e)
+        {
+            SwitchState();
+        }
         private void SwitchState()
         {
             switch (WindowState)
@@ -80,6 +80,19 @@ namespace Warehouse.View.Storage
                         WindowState = WindowState.Normal;
                         break;
                     }
+            }
+        }
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Maximized)
+            {
+                this.BorderThickness = new System.Windows.Thickness(7);
+                this.ResizeMode = ResizeMode.CanResize;
+            }
+            else
+            {
+                this.BorderThickness = new System.Windows.Thickness(0);
+                this.ResizeMode = ResizeMode.CanResize;
             }
         }
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
