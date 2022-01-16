@@ -9,7 +9,7 @@ namespace Warehouse.Model
     using System.Runtime.CompilerServices;
 
     [Table("UserLoginPass")]
-    public partial class UserLoginPass
+    public partial class UserLoginPass : INotifyPropertyChanged
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public UserLoginPass()

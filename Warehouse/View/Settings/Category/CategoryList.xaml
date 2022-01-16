@@ -1,17 +1,12 @@
-﻿<Page x:Class="Warehouse.View.Client.ClientListPage"
+﻿<Page x:Class="Warehouse.View.Settings.Category.CategoryList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Warehouse.View.Client"
-      xmlns:ui="clr-namespace:Warehouse.ViewModel.Client" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:local="clr-namespace:Warehouse.View.Settings.Category" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800" Background="{StaticResource TransparentBckgr}" PreviewKeyDown="Window_PreviewKeyDown"
-      Title="ClientListPage">
-
-    <!--<Page.DataContext>
-        <ui:ClientViewModel/>
-    </Page.DataContext>-->
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="CategoryList">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -28,31 +23,31 @@
             <StackPanel Orientation="Horizontal" Grid.Column="1" VerticalAlignment="Top">
 
                 <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding AddCommand}">
-                    <Image Source="../../Images/InterfaceStuff/Navigation/Add96.png"/>
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Add96.png"/>
                     <Button.ToolTip>
-                        <ToolTip Content="Добавить клиента" Style="{StaticResource ToolTipStyle1}"/>
+                        <ToolTip Content="Добавить категорию" Style="{StaticResource ToolTipStyle1}"/>
                     </Button.ToolTip>
                 </Button>
                 <Separator Width="20" Opacity="0"/>
 
-                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}" Opacity="{Binding Converter={StaticResource BtnOpacityConv}}" IsEnabled="{Binding Converter={StaticResource BtnVisible}}">
-                    <Image Source="../../Images/InterfaceStuff/Navigation/Edit96.png"/>
+                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=CategoriesList, Path=SelectedItem}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
                     <Button.ToolTip>
-                        <ToolTip Content="Изменить клиента" Style="{StaticResource ToolTipStyle1}"/>
+                        <ToolTip Content="Изменить категорию" Style="{StaticResource ToolTipStyle1}"/>
                     </Button.ToolTip>
                 </Button>
                 <Separator Width="20" Opacity="0"/>
 
-                <!--<Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding DeleteCommand1}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
-                    <Image Source="../../Images/InterfaceStuff/Navigation/Delete96.png"/>
+                <!--<Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding }" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                    <Image Source="../../../Images/InterfaceStuff/Navigation/Delete96.png"/>
                     <Button.ToolTip>
                         <ToolTip Content="Удалить клиента" Style="{StaticResource ToolTipStyle1}"/>
                     </Button.ToolTip>
-                </Button>-->
+                </Button>
 
-                <!--<Separator Width="20" Opacity="0"/>-->
+                <Separator Width="20" Opacity="0"/>-->
 
-                <Border Background="{StaticResource TransparentBckgr}" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Right">
+                <!--<Border Background="{StaticResource TransparentBckgr}" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Right">
                     <Grid x:Name="SearchPanel"
               Grid.RowSpan="3"
               VerticalAlignment="Top"
@@ -62,6 +57,7 @@
               Grid.Row="0">
                         <StackPanel x:Name="SearchStckPnl" Orientation="Horizontal">
 
+
                             <Grid Height="35">
                                 <ToggleButton x:Name="SearchBtn"
                                   Grid.Column="0"
@@ -70,7 +66,7 @@
                                   Width="40"
                                   Height="35"
                                   BorderThickness="0"
-                                  Style="{StaticResource ToggleButtonStyle1}" Click="SearchBtn_Click">
+                                  Style="{StaticResource ToggleButtonStyle1}">
 
                                     <ToggleButton.Background>
                                         <ImageBrush ImageSource="../../../Images/InterfaceStuff/Navigation/Search96.png"/>
@@ -115,15 +111,14 @@
                                     </ToggleButton.InputBindings>
 
                                     <ToggleButton.ToolTip>
-                                        <ToolTip Content="Поиск" Style="{StaticResource ToolTipStyle1}"/>
+                                        <ToolTip x:Name="tt_Storage" Content="Поиск" Style="{StaticResource ToolTipStyle1}"/>
                                     </ToggleButton.ToolTip>
-
                                 </ToggleButton>
 
-                                <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}" FocusVisualStyle="{x:Null}"
-                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5" >
+                                <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}"
+                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5">
 
-                                    <!--Storage-->
+                                    --><!--Storage--><!--
                                     <ListViewItem FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ListBoxStyle1}">
                                         <TextBox Name="SearchBox" Text="{Binding SearchResults, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="30" FontSize="15" FontWeight="Bold">
                                             <i:Interaction.Triggers>
@@ -131,43 +126,85 @@
                                                     <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
                                                 </i:EventTrigger>
                                             </i:Interaction.Triggers>
-                                            <!--<TextBox.InputBindings>
-                                                <KeyBinding Command="{Binding SearchCommand}" Key="Return" />
-                                            </TextBox.InputBindings>-->
                                         </TextBox>
-
                                     </ListViewItem>
                                 </ListView>
                             </Grid>
-                        </StackPanel>
-                    </Grid>
 
-                </Border>
+
+                        </StackPanel>
+                    </Grid>-->
+
+                <!--</Border>-->
 
             </StackPanel>
         </Grid>
 
-        <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
-            <DataGrid x:Name="StorageGrid" ItemsSource="{Binding Clients, Mode=OneWay,NotifyOnSourceUpdated=True, UpdateSourceTrigger=PropertyChanged}" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
-                      VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Visible"
-                      CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
-                      CanUserResizeColumns="False" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}"
-                      RowHeight="30" AlternationCount="2" SelectionMode="Single" ScrollViewer.CanContentScroll="True">
+        <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0" Margin="0,20,0,0">
+            <ListView ItemsSource="{Binding Categories, UpdateSourceTrigger=PropertyChanged}" Background="{StaticResource TransparentBckgr}" Foreground="White" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Name="CategoriesList">
+                <ListView.ItemTemplate> 
+                    <DataTemplate>
+                        <StackPanel HorizontalAlignment="Center" Height="50" Width="200" Orientation="Horizontal">
+                            <Image Source="../../../../Images/SettingsStuff/Category96s.png" />
+                            <TextBlock Text="{Binding Name}" FontSize="20" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+                <ListView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="2">
+                            
+                        </UniformGrid>
+                    </ItemsPanelTemplate>
+                </ListView.ItemsPanel>
+            </ListView>
+            <!--<DataGrid x:Name="StorageGrid" ItemsSource="{Binding OrderLists}" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
+                      VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
+                      CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
+                      CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}"
+                      RowHeight="30" AlternationCount="2" SelectionMode="Single" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="№" Binding="{Binding ClientID}"/>
-                    <DataGridTextColumn Header="Название организации"  Binding="{Binding Name}" MinWidth="280" Width="*"/>
-                    <DataGridTextColumn Header="Телефон" Binding="{Binding Phone}" Width="150"/>
-                    <DataGridTextColumn Header="Адрес" Binding="{Binding Address}" Width="*"/>
 
-                    <!--<DataGridTemplateColumn Header="" Width="80">
+                    <DataGridTextColumn Header="№" Binding="{Binding OrderListID}" />
+                    --><!--<DataGridTemplateColumn Header="№" Width="50" MinWidth="50" MaxWidth="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button  Name="OrderBtn" FontSize="10" HorizontalAlignment="Center" VerticalAlignment="Center" Content="Заказать"/>
+                                <TextBlock Text="{Binding OrderListID}" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>-->
+                    </DataGridTemplateColumn>--><!--
+
+                    <DataGridTemplateColumn Header="менеджер" Width="130" MinWidth="130">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding UserLoginPass.UserName}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTemplateColumn Header="клиент" Width="*">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Client.Name}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+
+                    <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}" Width="*">
+
+                    </DataGridTextColumn>
+
+                    <DataGridTemplateColumn Header="Общая сумма" Width="170">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding TotalValue, StringFormat=C,ConverterCulture=ru-RU}" HorizontalAlignment="Center"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
-            </DataGrid>
+            </DataGrid>-->
+
         </Border>
+        <!--<Rectangle Fill="#2ECC71" HorizontalAlignment="Right" Grid.Row="1"  Width="22" Height="25" VerticalAlignment="Top"/>-->
     </Grid>
 </Page>

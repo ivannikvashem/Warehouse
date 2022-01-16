@@ -32,7 +32,23 @@ namespace Warehouse.View.Client
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            if (TitleTxtBx.Text.Length == 0)
+            {
+                MessageBox.Show("Введите название", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if (PhoneTxtBx.Text.Length == 0)
+            {
+                MessageBox.Show("Введите номер телефона", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else if(AddressTxtBx.Text.Length == 0)
+            {
+                MessageBox.Show("Введите адрес", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            else
+            {
+                this.DialogResult = true;
+            }
+            
         }
 
         private void TurnBtn_Click(object sender, RoutedEventArgs e)

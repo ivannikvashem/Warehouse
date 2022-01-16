@@ -20,7 +20,7 @@ namespace Warehouse.Converters
                 //return brush;
                 return Brushes.Red;
             }
-            else if (status < 10)
+            else if (status < 15)
             {
                 //Brush brush = new SolidColorBrush(Color.FromRgb(255, 159, 0));
                 //return brush;

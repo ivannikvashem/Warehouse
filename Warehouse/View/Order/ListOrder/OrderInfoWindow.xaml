@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Warehouse.View.Order.ListOrder"
         mc:Ignorable="d"
-        Title="OrderInfoWindow" Height="Auto" Width="560" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" FontSize="15" ScrollViewer.VerticalScrollBarVisibility="Visible">
+        Title="Чек" Height="Auto" Width="560" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" WindowStyle="None" FontSize="15" ScrollViewer.VerticalScrollBarVisibility="Visible">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -60,7 +60,7 @@
                             <DataGridTemplateColumn Width="*" Header="Товар">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding ProductList.Product.Title}" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding ProductList.Product.Title}" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -76,7 +76,7 @@
                             <DataGridTemplateColumn Header="Цена"  Width="110">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding ProductList.Product.PriceForUnit,StringFormat=C,ConverterCulture=ru-RU}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                        <TextBlock Text="{Binding PriceForUnit,StringFormat=C,ConverterCulture=ru-RU}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
@@ -103,7 +103,9 @@
                             <RowDefinition Height="30"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="ИТОГ"/>
-                        <TextBlock Text="{Binding TotalValue, StringFormat=C,ConverterCulture=ru-RU}" Grid.Column="1"/>
+                        <TextBlock Text="{Binding TotalValue, StringFormat=C,ConverterCulture=ru-RU}" Grid.Column="1">
+                            <Run Text=""/>
+                        </TextBlock>
                         <TextBlock Text="Сумма НДС" Grid.Row="1"/>
                         <TextBlock Text="{Binding TotalValue, StringFormat=C,ConverterCulture=ru-RU, Converter={StaticResource AmConv}}" Grid.Row="1" Grid.Column="1"/>
                     </Grid>
@@ -149,7 +151,7 @@
                         <TextBlock Text="{Binding Client.Address}" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap" Margin="0,5"/>
                         <TextBlock Text="Свердловская область, г.Екатеринбург ул.Готвальда 6/1" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap" Margin="0,5"/>
                         <TextBlock Text="{Binding UserLoginPass.UserName}" Grid.Column="1" Grid.Row="3" Margin="0,5"/>
-                        <TextBlock Text="ООО 'ЧЕСТ'" Grid.Column="1" Grid.Row="5"/>
+                        <TextBlock Text="ООО 'ЧЕСТ'" Grid.Column="1" Grid.Row="5" Margin="0,5"/>
                     </Grid>
                     <Border BorderBrush="Black" BorderThickness="1" Margin="5"/>
                     <Grid Margin="20,-5" Height="170">
@@ -158,21 +160,21 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <StackPanel>
-                            <Label Content="СМЕНА №"/>
-                            <TextBlock Name="CheckNumber" Margin="5,0">
+                            <Label Content="СМЕНА № 1"/>
+                            <TextBlock Name="CheckNumber" Margin="5,5">
                             <Run Text="ЧЕК №"/>
                             <Run Text="{Binding OrderListID}"/>
                             </TextBlock>
 
-                            <TextBlock Margin="5,0">
+                            <TextBlock Margin="5,5">
                             <Run Text="ДАТА"/>
-                            <Run Text="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}"/>
+                            <Run Text="{Binding OrderDate, StringFormat='{}{0:dd/MM/yyyy H:mm}', ConverterCulture=ru-RU}"/>
                             </TextBlock>
                             <Label Content="ПРИХОД"/>
                             <Label Content="СНО:ЕНВД"/>
                         </StackPanel>
                         <StackPanel Grid.Column="1">
-                            <Label Content="ИНН:89012206814" HorizontalAlignment="Right"/>
+                            <Label Content="ИНН:8901220621" HorizontalAlignment="Right"/>
                             <Image Source="../../../Images/QRCode.gif" Height="120" Width="120"/>
                         </StackPanel>
                     </Grid>

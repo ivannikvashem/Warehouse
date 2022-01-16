@@ -51,7 +51,48 @@ namespace Warehouse.View.Order.MakeOrder
             //}
         }
 
-        private void MakeOrderBtn_Click(object sender, RoutedEventArgs e) { this.DialogResult = true; }
+        private void SelectedItem_Click(object sender, RoutedEventArgs e)
+        {
+            var cb = sender as CheckBox;
+            var item = cb.DataContext;
+            ProductListGrid.SelectedItem = item;
+            var itm = (ProductList)item;
+
+            if ((bool)!cb.IsChecked)
+            {
+                itm.CurrentAmount = 0;
+                CheckedItemsList.Remove(itm);
+            }
+            else if (CheckedItemsList.Contains(item)) { return; }
+            else if (item != null)
+            {
+                if (itm.CurrentAmount == 0) { itm.CurrentAmount = 1; }
+                CheckedItemsList.Add(itm);
+            }
+        }
+
+        private void MakeOrderBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (ClientCmbBx.SelectedIndex == -1)
+            {
+                MessageBox.Show("Выберите клиента","Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            else if (CheckedItemsList.Count == 0)
+            {
+                MessageBox.Show("Выберите товар", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+            else
+            {
+                MessageBoxResult result = MessageBox.Show("Подтвердите заказ", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    this.DialogResult = true;
+                }
+                else { }
+            }
+        }
 
         private void ComboBxItemsLoad()
         {
@@ -61,6 +102,7 @@ namespace Warehouse.View.Order.MakeOrder
             }
         }
 
+        //private void SearchBtn_Click(object sender, RoutedEventArgs e) { if (SearchBtn.IsChecked == false) { SearchBox.Text = null; } }
 
         private void TurnBtn_Click(object sender, RoutedEventArgs e)
         {
@@ -98,22 +140,6 @@ namespace Warehouse.View.Order.MakeOrder
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
             restoreIfMove = false;
-        }
-
-        private void SelectedItem_Click(object sender, RoutedEventArgs e)
-        {
-            var cb = sender as CheckBox;
-            var item = cb.DataContext;
-            ProductListGrid.SelectedItem = item;
-            if ((bool)!cb.IsChecked)
-            {
-                CheckedItemsList.Remove((ProductList)item);
-            }
-            else if (CheckedItemsList.Contains(item)) { return; }
-            else if (item != null)
-            {
-                CheckedItemsList.Add((ProductList)item);
-            }
         }
 
         private void EditAmount_Click(object sender, RoutedEventArgs e)

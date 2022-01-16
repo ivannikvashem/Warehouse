@@ -10,7 +10,7 @@
         xmlns:contxt="clr-namespace:Warehouse.Model"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="MakeOrderWindow" MinWidth="1000" MinHeight="600" Height="600" Width="1000" WindowStartupLocation="CenterScreen"
+        Title="Оформление заказа" MinWidth="1000" MinHeight="600" Height="600" Width="1000" WindowStartupLocation="CenterOwner"
         Background="{StaticResource TransparentBckgr}" Foreground="White"
         AllowsTransparency="True" WindowStyle="None">
 
@@ -48,26 +48,68 @@
         <Label Content="Заказ" Foreground="White" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1">
-            <TextBlock Text="Клиент" FontSize="20" Foreground="White" Name="TitleLbl" VerticalAlignment="Center"/>
-            <Separator Width="20" Opacity="0"/>
-            <xctk:WatermarkComboBox Watermark="Выберите клиента" Style="{StaticResource ComboBoxFlatStyle}" x:Name="ClientCmbBx" Width="Auto" MinWidth="850" FontSize="25" Height="40"/>
-        </StackPanel>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="340"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+
+            <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0">
+                <TextBlock Text="Поиск" FontSize="20" Foreground="White" VerticalAlignment="Center"/>
+                <Separator Width="20" Opacity="0"/>
+                <TextBox Name="SearchBox" VerticalContentAlignment="Center" TextChanged="SearchBox_TextChanged" Width="250" Height="30" FontSize="15" FontWeight="Bold">
+                    --><!--<i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>-->
+                    <!--<TextBox.InputBindings>
+                                                <KeyBinding Command="{Binding SearchCommand}" Key="Return" />
+                                            </TextBox.InputBindings>--><!--
+                </TextBox>
+            </StackPanel>-->
+            
+
+            <StackPanel Grid.Row="1" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,20,0">
+                <TextBlock Text="Клиент" FontSize="20" Foreground="White" Name="TitleLbl" VerticalAlignment="Center"/>
+                <Separator Width="20" Opacity="0"/>
+                
+                <xctk:WatermarkComboBox Foreground="White" Watermark="Выберите клиента" Style="{StaticResource ComboBoxFlatStyle}" IsEditable="True" x:Name="ClientCmbBx" Width="Auto" MinWidth="550" FontSize="25" Height="40" IsTextSearchEnabled="True" IsReadOnly="False">
+                    <!--<xctk:WatermarkComboBox.Triggers>
+                        <EventTrigger RoutedEvent="TextBoxBase.TextChanged">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsDropDownOpen">
+                                        <DiscreteBooleanKeyFrame Value="True" KeyTime="0:0:0"/>
+                                    </BooleanAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </xctk:WatermarkComboBox.Triggers>-->
+                </xctk:WatermarkComboBox>
+
+            </StackPanel>
+                
+            </Grid>
+            
+           
+        
 
 
 
-        <Border BorderBrush="#2ECC71" BorderThickness="5" Grid.Row="2" Margin="5,5,5,0">
-                <ListBox BorderThickness="0" Name="ProductListGrid" Background="{StaticResource MainBckgr}" ItemContainerStyle="{StaticResource ListBoxStyle}" AlternationCount="2">
+    <Border BorderBrush="#2ECC71" BorderThickness="5" Grid.Row="2" Margin="5,5,5,0">
+            <ListBox BorderThickness="0" Name="ProductListGrid" Background="{StaticResource MainBckgr}" ItemsSource="{Binding productLists}" ItemContainerStyle="{StaticResource ListBoxStyle}" AlternationCount="2">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                         <Grid MinHeight="40">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="70"/>
-                                <ColumnDefinition Width="350"/>
+                                <ColumnDefinition Width="*" MinWidth="400"/>
                                 <ColumnDefinition Width="70"/>
                                 <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="120"/>
                                 <ColumnDefinition Width="160"/>
+                                <ColumnDefinition Width="120"/>
                                 <ColumnDefinition/> 
                             </Grid.ColumnDefinitions>
                             <CheckBox x:Name="SelectedItem" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" IsEnabled="{Binding Amount, Converter={StaticResource MkOrderChckBxEnbl}}" Click="SelectedItem_Click">
@@ -82,7 +124,7 @@
                             </StackPanel>
                             <StackPanel Grid.Column="2" VerticalAlignment="Center">
                                 <!--<Label x:Name="Am" Content="{Binding ProductLists.Amount}" Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>-->
-                                <xctk:ShortUpDown Name="amount" Height="50" Value="{Binding CurrentAmount}" AllowTextInput="False" DefaultValue="0" TextAlignment="Center" Minimum="0" Maximum="{Binding Amount}" IsEnabled="{Binding Amount,Converter={StaticResource MkOrderChckBxEnbl}}" BorderThickness="2" BorderBrush="White" Background="Transparent" Foreground="White" FontSize="20"/>
+                                <xctk:ShortUpDown Name="amount" Height="50" Value="{Binding CurrentAmount}" AllowTextInput="True" DefaultValue="0" TextAlignment="Center" Minimum="1" Maximum="{Binding Amount}" IsEnabled="{Binding Amount,Converter={StaticResource MkOrderChckBxEnbl}}" BorderThickness="2" BorderBrush="White" Background="Transparent" Foreground="White" FontSize="20"/>
                             </StackPanel>
                             <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Text="В наличии" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
@@ -93,20 +135,22 @@
 
                             </StackPanel>
 
-                            <!--<Button Width="50" Grid.Column="3" Name="EditAmount"/>-->
-                            <StackPanel Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" >
-                                <TextBlock Text="Категория" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
-                                <TextBlock HorizontalAlignment="Center" Text="{Binding Product.Categories.Name}" Foreground="White" FontSize="20"/>
-                            </StackPanel>
 
-
-                            <StackPanel Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Text="Стоимость" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
                                 <TextBlock HorizontalAlignment="Center" Foreground="White">
                                     <Run Text="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" FontSize="20"/>
                                     <Run Text="/ шт"/>
                                 </TextBlock>
                             </StackPanel>
+
+                            <!--<Button Width="50" Grid.Column="3" Name="EditAmount"/>-->
+                            <StackPanel Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <TextBlock Text="Категория" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Product.Categories.Name}" Foreground="White" FontSize="20"/>
+                            </StackPanel>
+
+
 
                             <!--<StackPanel Grid.Column="6" HorizontalAlignment="Center" VerticalAlignment="Center">
                                 <TextBlock Text=" Общая стоимость" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>

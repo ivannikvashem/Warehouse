@@ -17,6 +17,7 @@ using Warehouse.View.Client;
 using Warehouse.View.Order.ListOrder;
 using Warehouse.View.Storage.ProductList;
 using Warehouse.View.Storage.Dictionary;
+using Warehouse.View.Settings;
 
 
 namespace Warehouse
@@ -55,6 +56,27 @@ namespace Warehouse
         private void GoToStorageDictionary_Click(object sender, RoutedEventArgs e)
         {
             MainFrame.Navigate(new MainDictionaryList());
+        }
+
+        private void GoToSettings_Click(object sender, RoutedEventArgs e)
+        {
+
+            SettingsWindow settingsWindow = new SettingsWindow();
+            settingsWindow.Owner = this;
+            settingsWindow.ShowDialog();
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult Result = MessageBox.Show("Вы действительно хотите завершить сеанс пользователя?", "Блокировка", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (Result == MessageBoxResult.Yes)
+            {
+                LoginWindow login = new LoginWindow();
+                Application.Current.MainWindow = login;
+                Application.Current.MainWindow.Show();
+                this.Close();
+            }
+            else if (Result == MessageBoxResult.No) { }
         }
 
         private void GoToPreviousPage_Click(object sender, RoutedEventArgs e)
@@ -239,24 +261,6 @@ namespace Warehouse
         private void Tgl_Btn_Unchecked(object sender, RoutedEventArgs e)
         {
             Logo.Opacity = 1;
-        }
-
-        private void LogOut_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBoxResult Result = MessageBox.Show("Вы действительно хотите завершить сеанс пользователя?", "Блокировка", MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (Result == MessageBoxResult.Yes)
-            {
-                LoginWindow login = new LoginWindow();
-                Application.Current.MainWindow = login;
-                Application.Current.MainWindow.Show();
-                this.Close();
-            }
-            else if (Result == MessageBoxResult.No) { }
-        }
-
-        private void GoToSettings_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

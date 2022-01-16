@@ -23,12 +23,30 @@ namespace Warehouse.View.Storage.ProductList
     /// </summary>
     public partial class MainProductList : Page
     {
+        //public List<Category> Category = new { get; set; }
+
+        //ApplicationContext db = new ApplicationContext();
         public MainProductList()
         {
             InitializeComponent();
-            this.DataContext = new StorageListViewModel();
+            //this.DataContext = new StorageListViewModel();
+            //LoadItems();
 
         }
+
+        private void SortCmbBx_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //StorageGrid.Items =  
+        }
+
+        //private void LoadItems()
+        //{
+        //    foreach (var item in db.Categories)
+        //    {
+        //        SortCmbBx.Items.Add(item);
+        //    }
+        //}
+
         private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.F && Keyboard.Modifiers == ModifierKeys.Control)
@@ -52,5 +70,6 @@ namespace Warehouse.View.Storage.ProductList
         private void GoToStorageDictionary_Click(object sender, RoutedEventArgs e) { NavigationService.Navigate(new Dictionary.MainDictionaryList()); }
 
         private void SearchBtn_Click(object sender, RoutedEventArgs e) { if (SearchBtn.IsChecked == false) { SearchBox.Text = null; } }
+
     }
 }

@@ -11,42 +11,45 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Warehouse.Model;
 
-namespace Warehouse.View.Storage.ProductList
+namespace Warehouse.View.Settings.Manager
 {
     using Model;
-    /// <summary>
-    /// Логика взаимодействия для AddProductFromDictionary.xaml
-    /// </summary>
-    public partial class AddProductFromDictionary : Window
+    public partial class EditMangerWindow : Window
     {
+        ApplicationContext context = new ApplicationContext();
         bool restoreIfMove = false;
-        ApplicationContext db = new ApplicationContext();
-        public List<ProductList> ProductLists { get; set; }
-        public List<Product> Products = new List<Product>();
-
-        public List<Product> Products1 = new List<Product>();
-
-
-
-        public AddProductFromDictionary(Model.ProductList productList)
+        public UserLoginPass UserLoginPass { get; internal set; }
+        public UserRoleDictionary UserRoleDictionary  { get; internal set; }
+        public EditMangerWindow(Model.UserLoginPass userLoginPass)
         {
             InitializeComponent();
-            //ProductLists = productList;
-            Products = db.Products.ToList();
-            ProductLists = db.ProductLists.ToList();
-
-            ProductListGrid.ItemsSource = Products;
-
-            //ProductListGrid.ItemsSource = Products.Join(ProductLists, x => x.ProductID, t => t.ProductID, (Products, ProductLists) => new
-            //{
-            //    Products = Products.ProductID,
-            //    Products1 = Products.ProductID,
-            //    ProductLists = ProductLists.Select(p=> p.ProductList)
-            //});
-
+            ComboBxItemsLoad();
+            UserLoginPass = userLoginPass;
+            DataContext = UserLoginPass;
+            if (userLoginPass.UserName != null)
+            {
+                RoleCmbBx.SelectedValue = context.UserRoleDictionaries.First(c => c.UserRoleID == userLoginPass.UserRoleId).RoleName;
+            }
         }
 
+        private void ComboBxItemsLoad()
+        {
+            foreach (UserRoleDictionary role in context.UserRoleDictionaries)
+            {
+                RoleCmbBx.Items.Add(role.RoleName);
+            }
+        }
+
+        private void SaveBtnClick_Click(object sender, RoutedEventArgs e)
+        {
+            if (UsrNameTxtBx.Text.Length == 0) {MessageBox.Show("Введите имя пользователя", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return;}
+            else if (LoginTxtBx.Text.Length == 0) { MessageBox.Show("Введите логин", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            else if (PasswordTxtBx.Password.Length == 0) { MessageBox.Show("Введите пароль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            else if (RoleCmbBx.SelectedIndex == -1 ) { MessageBox.Show("Выберите роль", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            else { this.DialogResult = true; }
+        }
         private void TurnWindowBtn_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
@@ -56,8 +59,6 @@ namespace Warehouse.View.Storage.ProductList
         {
             this.Close();
         }
-       
-        // Метод реализующий перетаскивание окна
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ClickCount == 2)
@@ -78,15 +79,6 @@ namespace Warehouse.View.Storage.ProductList
                 DragMove();
             };
         }
-        // Метод реализующий сворачивание окна
-        private void TurnBtn_Click(object sender, RoutedEventArgs e)
-        {
-            WindowState = WindowState.Minimized;
-        }
-        private void ResizeWindow_Click(object sender, RoutedEventArgs e)
-        {
-            SwitchState();
-        }
         private void SwitchState()
         {
             switch (WindowState)
@@ -101,19 +93,6 @@ namespace Warehouse.View.Storage.ProductList
                         WindowState = WindowState.Normal;
                         break;
                     }
-            }
-        }
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            if (this.WindowState == WindowState.Maximized)
-            {
-                this.BorderThickness = new System.Windows.Thickness(7);
-                this.ResizeMode = ResizeMode.CanResize;
-            }
-            else
-            {
-                this.BorderThickness = new System.Windows.Thickness(0);
-                this.ResizeMode = ResizeMode.CanResize;
             }
         }
         private void Border_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

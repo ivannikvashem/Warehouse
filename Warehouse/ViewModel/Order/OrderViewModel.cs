@@ -19,6 +19,8 @@ namespace Warehouse.ViewModel.Order
     using System.Windows.Input;
     using System.Windows.Controls;
     using Warehouse.View.Order.ListOrder;
+    using System.Windows.Controls.Primitives;
+    using System.Windows;
 
     public class OrderViewModel : INotifyPropertyChanged
     {
@@ -32,6 +34,7 @@ namespace Warehouse.ViewModel.Order
         IEnumerable<UserLoginPass> userLoginPasses;
         IEnumerable<Client> clients;
         IEnumerable<ProductList> productLists;
+        private string searchResults;
 
         public decimal? totalValueOfItems { get; set; } = 0;
         public int? OldAmount { get; set; }
@@ -41,28 +44,12 @@ namespace Warehouse.ViewModel.Order
 
         public ObservableCollection<object> SelectedItems = new ObservableCollection<object> { };
 
+        public string SearchResults
+        {
+            get { return searchResults; }
+            set { searchResults = value; OnPropertyChanged(nameof(SearchResults)); }
+        }
 
-        //class IsChecked
-        //{
-
-        //}
-        //ProductList IsChecked = new ProductList();
-
-        //public List<IsChecked> isCheckeds = new List<IsChecked>();
-
-        //private bool isChecked;
-        //public bool IsChecked
-        //{
-        //    get { return isChecked; }
-        //    set
-        //    {
-        //        if (isChecked == value) return;
-        //        {
-        //            isChecked = value;
-        //            OnPropertyChanged("IsChecked");
-        //        }
-        //    }
-        //}
 
 
         public IEnumerable<ProductList> ProductLists
@@ -110,8 +97,10 @@ namespace Warehouse.ViewModel.Order
         {
             db = new ApplicationContext();
             OrderLists = db.OrderLists.Local.ToBindingList();
+            ProductLists = db.ProductLists.Local.ToBindingList().Where(x => x.Amount > 0);
             db.UserLoginPasses.ToList();
             db.OrderLists.ToList();
+            db.ProductLists.ToList();
         }
 
         private bool _IsChecked = false;
@@ -168,6 +157,7 @@ namespace Warehouse.ViewModel.Order
         }
 
 
+
         public RelayCommand MakeOrderCommand
         {
             get
@@ -176,7 +166,7 @@ namespace Warehouse.ViewModel.Order
                     (makeOrderCommand = new RelayCommand((selectedItem) =>
                     {
                         View.Order.MakeOrder.OrderInfoWindow makeOrderWindow = new View.Order.MakeOrder.OrderInfoWindow(new OrderList(), OldAmount);
-
+                        makeOrderWindow.Owner = Application.Current.MainWindow;
                         if (makeOrderWindow.ShowDialog() == true)
                         {
                             if (makeOrderWindow.ClientCmbBx.SelectedItem != null)
@@ -185,7 +175,7 @@ namespace Warehouse.ViewModel.Order
                                 {
                                     ClientID = db.Clients.First(cl => cl.Name == makeOrderWindow.ClientCmbBx.SelectedValue.ToString()).ClientID,
                                     ManagerID = (int)ApplicationContext.Status,
-                                    OrderDate = DateTime.Today,
+                                    OrderDate = DateTime.Now,
                                     TotalValue = totalValueOfItems,
                                 };
                                 db.OrderLists.Add(orderList);
@@ -200,6 +190,8 @@ namespace Warehouse.ViewModel.Order
                                             OrderListID = orderList.OrderListID,
                                             ProductAmount = content.CurrentAmount,
                                             TotalAmount = content.CurrentAmount * content.Product.PriceForUnit,
+                                            PriceForUnit = content.Product.PriceForUnit
+                                            
                                         };
                                         ProductList prdctLstAmount = new ProductList(){};
                                         prdctLstAmount = db.ProductLists.Find(contentToAdd.ProductListID);
@@ -210,18 +202,52 @@ namespace Warehouse.ViewModel.Order
                                         db.Entry(prdctLstAmount).State = EntityState.Modified;
                                         db.OrderContents.Add(contentToAdd);
                                         totalValueOfItems = orderList.TotalValue += contentToAdd.TotalAmount;
-                                       
                                     }
                                 }
                                 else { return; }
                             }
                             else { return; }
+                            
                         }
                         db.SaveChanges();
+                        totalValueOfItems = 0;
                     }));
             }
         }
 
+        public RelayCommand SearchCommand => new RelayCommand((i) =>
+        {
+            if (string.IsNullOrEmpty(SearchResults))
+            {
+                OrderLists = db.OrderLists.ToList();
+            }
+            else
+            {
+                var found = SearchResults.ToString().Trim();
+                OrderLists = db.OrderLists.Where(x => x.Client.Name.Contains(found) ||  x.OrderDate.Value.ToString() == found || x.UserLoginPass.UserName.Contains(found)).ToList();
+            }
+        });
+
+        public RelayCommand OpenSearchBox => new RelayCommand((i) =>
+        {
+            if (i == null) return;
+
+            ToggleButton toggleButton = i as ToggleButton;
+
+            if (toggleButton.IsChecked == true)
+            {
+                toggleButton.IsChecked = false;
+                //toggleButton = null;
+                return;
+            }
+            else if (toggleButton.IsChecked == false)
+            {
+                toggleButton.IsChecked = true;
+                toggleButton.Focus();
+                return;
+            }
+
+        });
 
         public RelayCommand ShowOrderInfoCommand
         {
@@ -243,6 +269,7 @@ namespace Warehouse.ViewModel.Order
                             TotalValue = orderlsts.TotalValue,
                         };
                         OrderInfoWindow orderInfoWindow = new OrderInfoWindow(orderList);
+                        orderInfoWindow.Owner = Application.Current.MainWindow;
                         if (orderInfoWindow.ShowDialog() == true)
                         {
                             orderInfoWindow.Close();

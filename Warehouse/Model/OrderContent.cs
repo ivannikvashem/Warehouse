@@ -60,6 +60,17 @@ namespace Warehouse.Model
             }
         }
 
+        [Column(TypeName = "money")]
+        private decimal? priceForUnit;
+        public decimal? PriceForUnit
+        {
+            get { return priceForUnit; }
+            set
+            {
+                priceForUnit = value;
+                OnPropertyChanged("PriceForUnit");
+            }
+        }
 
         [Column("OrderID")]
         public virtual OrderList OrderListsID { get; set; }

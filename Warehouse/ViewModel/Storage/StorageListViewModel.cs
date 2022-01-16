@@ -23,8 +23,10 @@ namespace Warehouse.ViewModel.Storage
         RelayCommand editCommand;
         //RelayCommand deleteCommand;
         //RelayCommand searchCommand;
+        public List<Category> Category1 { get; set; } = new List<Category>();
         public int? OldAmount { get; set; }
         private string searchResults;
+        private Category sortResults;
 
         IEnumerable<ProductList> productLists;
 
@@ -38,6 +40,23 @@ namespace Warehouse.ViewModel.Storage
             }
         }
 
+        //IEnumerable<Category> categories;
+
+        //public IEnumerable<Category> Categories
+        //{
+        //    get { return categories; }
+        //    set
+        //    {
+        //        categories = value;
+        //        OnPropertyChanged("Categories");
+        //    }
+        //}
+        public Category SortResults
+        {
+            get { return sortResults; }
+            set { sortResults = value; OnPropertyChanged(nameof(SortResults)); }
+        }
+
         public string SearchResults
         {
             get { return searchResults; }
@@ -48,7 +67,9 @@ namespace Warehouse.ViewModel.Storage
         {
             db = new Warehouse.ApplicationContext();
             ProductLists = db.ProductLists.Local.ToBindingList();
+            //Categories = db.Categories.Local.ToBindingList(); 
             db.ProductLists.ToList();
+            db.Categories.ToList();
         }
 
         public RelayCommand AddCommand
@@ -123,10 +144,15 @@ namespace Warehouse.ViewModel.Storage
             else
             {
                 var found = SearchResults.ToString().Trim();
-                ProductLists = db.ProductLists.Where(x => x.Product.Title.Contains(found) || x.Product.Categories.Name.Contains(found)).ToList();
+                ProductLists = db.ProductLists.Where(x => x.Product.Title.Contains(found) || x.Product.Categories.Name.Contains(found) || x.Product.UnitOfMeasurement.Contains(found)).ToList();
             }
         });
 
+        public RelayCommand SortCommand => new RelayCommand((i) =>
+        {
+            //var found = SortResults;
+            ProductLists = db.ProductLists.Where(x => x.Product.Categories.Name == SortResults.Name);
+        });
 
 
         public RelayCommand OpenSearchBox => new RelayCommand((i) =>

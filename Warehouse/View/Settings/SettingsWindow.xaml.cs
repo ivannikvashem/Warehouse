@@ -11,40 +11,39 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Warehouse.View.Settings.Category;
+using Warehouse.View.Settings.Manager;
+using Warehouse.View.Storage.Dictionary;
 
-namespace Warehouse.View.Storage.ProductList
+namespace Warehouse.View.Settings
 {
-    using Model;
     /// <summary>
-    /// Логика взаимодействия для AddProductFromDictionary.xaml
+    /// Логика взаимодействия для SettingsWindow.xaml
     /// </summary>
-    public partial class AddProductFromDictionary : Window
+    public partial class SettingsWindow : Window
     {
         bool restoreIfMove = false;
-        ApplicationContext db = new ApplicationContext();
-        public List<ProductList> ProductLists { get; set; }
-        public List<Product> Products = new List<Product>();
 
-        public List<Product> Products1 = new List<Product>();
-
-
-
-        public AddProductFromDictionary(Model.ProductList productList)
+        public SettingsWindow()
         {
             InitializeComponent();
-            //ProductLists = productList;
-            Products = db.Products.ToList();
-            ProductLists = db.ProductLists.ToList();
+            MainFrame.Navigate(new CategoryList());
+        }
 
-            ProductListGrid.ItemsSource = Products;
 
-            //ProductListGrid.ItemsSource = Products.Join(ProductLists, x => x.ProductID, t => t.ProductID, (Products, ProductLists) => new
-            //{
-            //    Products = Products.ProductID,
-            //    Products1 = Products.ProductID,
-            //    ProductLists = ProductLists.Select(p=> p.ProductList)
-            //});
+        private void GoToCategory_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new CategoryList());
+        }
 
+        private void GoToManager_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new ManagerList());
+        }
+
+        private void GoToDictionary_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new MainDictionaryList());
         }
 
         private void TurnWindowBtn_Click(object sender, RoutedEventArgs e)
@@ -54,9 +53,25 @@ namespace Warehouse.View.Storage.ProductList
 
         private void CloseWindowBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
+            DialogResult = true;
         }
-       
+
+        private void GoToPreviousPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.CanGoBack == true)
+            {
+                MainFrame.GoBack();
+            }
+        }
+
+        private void GoToNextPage_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.CanGoForward == true)
+            {
+                MainFrame.GoForward();
+            }
+        }
+
         // Метод реализующий перетаскивание окна
         private void TitleBar_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {

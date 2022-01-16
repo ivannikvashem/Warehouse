@@ -48,6 +48,7 @@ namespace Warehouse.ViewModel.Client
                     (addCommand = new RelayCommand((o) =>
                     {
                         AddUpdateClientWindow updateClient = new AddUpdateClientWindow(new Client());
+                        updateClient.Owner = Application.Current.MainWindow;
                         if (updateClient.ShowDialog() == true)
                         {
                             try
@@ -84,6 +85,7 @@ namespace Warehouse.ViewModel.Client
                             Address = client.Address,
                         };
                         AddUpdateClientWindow updateClient = new AddUpdateClientWindow(client1);
+                        updateClient.Owner = Application.Current.MainWindow;
 
                         if (updateClient.ShowDialog() == true)
                         {

@@ -21,7 +21,7 @@ namespace Warehouse.ViewModel.Storage
         RelayCommand deleteCommand;
 
         IEnumerable<Product> products;
-        IEnumerable<Category> categories;
+        //IEnumerable<Category> categories;
 
         public IEnumerable<Product> Products
         {
@@ -33,15 +33,15 @@ namespace Warehouse.ViewModel.Storage
             }
         }
 
-        public IEnumerable<Category> Categories
-        {
-            get { return categories; }
-            set
-            {
-                categories = value;
-                OnPropertyChanged("Categories");
-            }
-        }
+        //public IEnumerable<Category> Categories
+        //{
+        //    get { return categories; }
+        //    set
+        //    {
+        //        categories = value;
+        //        OnPropertyChanged("Categories");
+        //    }
+        //}
 
 
 
@@ -72,6 +72,16 @@ namespace Warehouse.ViewModel.Storage
                             product.CategoryId = db.Categories.First(c => c.Name == productWindow.CategoryCmbBx.SelectedValue.ToString()).CategoryID;
 
                             db.Products.Add(product);
+
+                            //int Amnt =productWindow.
+
+                            ProductList list = new ProductList()
+                            {
+                                ProductID = product.ProductID,
+                                Amount = 0,
+                            };
+                            db.ProductLists.Add(list);
+
                             db.SaveChanges();
                         }
                     }));
@@ -113,9 +123,10 @@ namespace Warehouse.ViewModel.Storage
                                 product.CategoryId = db.Categories.First(c => c.Name == phoneWindow.CategoryCmbBx.SelectedValue.ToString()).CategoryID;
 
                                 db.Entry(product).State = EntityState.Modified;
-                                db.SaveChanges();
+                                
                             }
                         }
+                        db.SaveChanges();
                     }));
             }
         }
@@ -146,6 +157,27 @@ namespace Warehouse.ViewModel.Storage
                   }));
             }
         }
+
+        private string searchResults;
+
+        public string SearchResults
+        {
+            get { return searchResults; }
+            set { searchResults = value; OnPropertyChanged(nameof(SearchResults)); }
+        }
+
+        public RelayCommand SearchCommand => new RelayCommand((i) =>
+        {
+            if (string.IsNullOrEmpty(SearchResults))
+            {
+                Products = db.Products.ToList();
+            }
+            else
+            {
+                var found = SearchResults.ToString().Trim();
+                Products = db.Products.Where(x => x.Title.Contains(found) || x.Categories.Name.Contains(found)).ToList();
+            }
+        });
 
         public event PropertyChangedEventHandler PropertyChanged;
 

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Warehouse"
         mc:Ignorable="d"
-        Title="Склад" Height="600" Width="900" MinHeight="550" MinWidth="800" WindowStartupLocation="CenterScreen"
+        Title="Склад" Height="600" Width="900" MinHeight="550" MinWidth="900" WindowStartupLocation="CenterScreen"
         Background="{StaticResource TransparentBckgr}" Foreground="White"
         AllowsTransparency="True" WindowStyle="None" SizeChanged="Window_SizeChanged" PreviewKeyDown="Window_PreviewKeyDown">
     <Window.DataContext>
@@ -36,7 +36,7 @@
         <!--Background="DarkSlateGray"-->
         <Border Background="DarkSlateGray" Grid.ColumnSpan="2" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" MouseMove="Border_MouseMove">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,6,0">
-                <TextBlock Text="{Binding Converter={StaticResource UsrRoleConv}}" FontSize="15"/>
+                <TextBlock Text="{Binding Converter={StaticResource UsrRoleConv}}" FontSize="15" VerticalAlignment="Center"/>
                 <Button Width="50" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Margin="10,0" Click="LogOut_Click">
                     <Image Source="././Images/InterfaceStuff/TitleBar/lockWindow96(White).png"/>
                 </Button>
@@ -314,7 +314,7 @@
             </StackPanel>
 
             <!--Settings-->
-            <ListBoxItem Margin="0,0,0,15" HorizontalAlignment="Left" Visibility="{Binding Converter={StaticResource BtnVisible}}" VerticalAlignment="Bottom" Style="{StaticResource ListBoxStyle}">
+            <ListBoxItem Margin="0,0,0,15" HorizontalAlignment="Left" Opacity="{Binding Converter={StaticResource BtnOpacityConv}}" IsEnabled="{Binding Converter={StaticResource BtnVisible}}" VerticalAlignment="Bottom" Style="{StaticResource ListBoxStyle}">
                 <Button Width="230" BorderThickness="0" Background="{StaticResource TransparentBckgr}" Style="{StaticResource MenuBtnSyle}" Click="GoToSettings_Click">
                     <Grid>
                         <Grid.ColumnDefinitions>

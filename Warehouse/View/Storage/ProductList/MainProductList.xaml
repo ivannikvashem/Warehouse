@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Warehouse.View.Storage.ProductList"
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" xmlns:model="clr-namespace:Warehouse.Model"
+      xmlns:vm="clr-namespace:Warehouse.ViewModel.Storage"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MainProductList" PreviewKeyDown="Window_PreviewKeyDown">
@@ -12,6 +13,9 @@
     <!--<Page.CommandBindings>
         <CommandBinding Command="{Binding SearchCommand}" />
     </Page.CommandBindings>-->
+    <Page.DataContext>
+        <vm:StorageListViewModel/>
+    </Page.DataContext>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -29,14 +33,14 @@
 
             <StackPanel Orientation="Horizontal" Grid.Column="1" >
 
-                <Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding AddCommand}">
+                <!--<Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding AddCommand}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Add96.png"/>
 
                     <Button.ToolTip>
                         <ToolTip Content="Добавить товар из словаря" Style="{StaticResource ToolTipStyle1}"/>
                     </Button.ToolTip>
                 </Button>
-                <Separator Opacity="0" Width="20"/>
+                <Separator Opacity="0" Width="20"/>-->
                 
                 <Button VerticalAlignment="Top" Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding EditCommand}" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Edit96.png"/>
@@ -139,26 +143,48 @@
 
                 </Border>
             </StackPanel>
+
+            <!--<ComboBox HorizontalAlignment="Right" Grid.Column="1" Width="200" Margin="5"  Name="SortCmbBx"  SelectedItem="{Binding SortResults}" ItemsSource="{Binding Category1}" >
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <i:InvokeCommandAction Command="{Binding SortCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>-->
         </Grid>
 
         <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
             <DataGrid ItemsSource="{Binding ProductLists, UpdateSourceTrigger=PropertyChanged}" x:Name="StorageGrid" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}" VerticalScrollBarVisibility="Auto"
-                      ScrollViewer.HorizontalScrollBarVisibility="Hidden" CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True"
+                      ScrollViewer.HorizontalScrollBarVisibility="Hidden" CanUserSortColumns="True" CanUserDeleteRows="False" IsReadOnly="True"
                       CanUserReorderColumns="False" CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}" RowHeight="30"
-                      MinColumnWidth="65" AlternationCount="2" Grid.Row="1" SelectionMode="Single">
+                      MinColumnWidth="65" AlternationCount="2" Grid.Row="1" SelectionMode="Single" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="№" Binding="{Binding ProductID}" Width="*" MaxWidth="35" CanUserResize="False"/>
-                    <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350"/>
+                    <DataGridTextColumn Header="№" Binding="{Binding ProductID}" Width="*" MaxWidth="55" CanUserResize="False"/>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350" SortMemberPath="{Binding XPath=Product.Title}" CanUserSort="True"/>
 
-                    <DataGridTemplateColumn Header="Количество" Width="90" MinWidth="90" x:Name="yes" CanUserResize="False">
+                    <DataGridTextColumn Header="Количество" Binding="{Binding Amount}" Width="90" MinWidth="90">
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+
+                    <DataGridTemplateColumn Header="" Width="35" MinWidth="20" x:Name="yes" CanUserResize="False" CanUserSort="False">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Grid>
+                                <!--<Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="30"/>
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Amount}" HorizontalAlignment="Center" x:Name="This"/>
+                                    <TextBlock Text="{Binding Amount}" HorizontalAlignment="Center" x:Name="This"/>-->
 
                                     <Border Background="{Binding Amount, Converter={StaticResource PrStsConv}}" BorderBrush="Black" BorderThickness="2" Grid.Column="1" Height="20" Width="20">
                                         <Border.ToolTip>
@@ -166,16 +192,16 @@
                                         </Border.ToolTip>
                                     </Border>
                                    
-                                </Grid>
+                                <!--</Grid>-->
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
 
 
-                    <DataGridTextColumn Header="Ед. Изм." Binding="{Binding Product.UnitOfMeasurement}" Width="65" />
-                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" Width="100" />
+                    <DataGridTextColumn Header="Ед. Изм." Binding="{Binding Product.UnitOfMeasurement}" Width="85" MinWidth="85" CanUserSort="False"/>
+                    <DataGridTextColumn Header="Стоимость" Binding="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" Width="100" CanUserSort="False"/>
 
-                    <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name}" x:Name="CategoryColumn"/>
+                    <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name,Mode=OneWay}"  SortMemberPath="{Binding Name}" x:Name="CategoryColumn" CanUserSort="True"/>
 
                 </DataGrid.Columns>
             </DataGrid>

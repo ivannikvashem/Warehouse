@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Warehouse.View.Client" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="AddUpdateClientWindow" Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None" Foreground="White" Background="{StaticResource TransparentBckgr}"
-        AllowsTransparency="True" WindowStartupLocation="CenterScreen" FontSize="20" Topmost="False">
+        Title="Клиент" Height="450" Width="600" ResizeMode="NoResize" WindowStyle="None" Foreground="White" Background="{StaticResource TransparentBckgr}"
+        AllowsTransparency="True" WindowStartupLocation="CenterOwner" FontSize="20" Topmost="False">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
@@ -43,21 +43,21 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Телефон" Foreground="White" Name="UnitOfMeasurementLbl"/>
                 <Separator Width="20" Opacity="0"/>
-                <xctk:MaskedTextBox Text="{Binding Phone}" Width="250" Name="UnitOfMeasurementCmbBx" Mask="+0(000)000-00-00"/>
+                <xctk:MaskedTextBox Text="{Binding Phone}" Width="250" Name="PhoneTxtBx" Mask="+0(000)000-00-00"/>
             </StackPanel>
 
             <Separator Height="10" Opacity="0"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Адрес" Foreground="White" Name="PriceForUnitLbl"/>
                 <Separator Width="20" Opacity="0"/>
-                <TextBox Text="{Binding Address}" Width="250" FontSize="20" Name="PriceForUnitTxtBx" TextWrapping="Wrap" MaxHeight="100"/>
+                <TextBox Text="{Binding Address}" Width="250" FontSize="20" Name="AddressTxtBx" TextWrapping="Wrap" MaxHeight="100"/>
             </StackPanel>
 
             <Separator Height="20" Opacity="0"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <Button Width="200" Content="Сохранить" Style="{StaticResource MainBtnStyle}" Name="SaveButton" Click="SaveButton_Click"/>
                 <Separator Width="20" Opacity="0"/>
-                <Button Width="200" Content="Назад" Style="{StaticResource  MainBtnStyle}"/>
+                <Button Width="200" Content="Назад" Style="{StaticResource  MainBtnStyle}" Click="ExitBtn_Click"/>
             </StackPanel>
         </StackPanel>
     </Grid>

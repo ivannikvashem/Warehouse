@@ -44,7 +44,24 @@ namespace Warehouse.View.Storage.Dictionary
         }
         private void AddProductBtn_Click(object sender, RoutedEventArgs e)
         {
-            this.DialogResult = true;
+            if (TitleTxtBx.Text.Length == 0) { MessageBox.Show("Введите название товара", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            else if (UnitOfMeasurementCmbBx.Text.Length == 0) { MessageBox.Show("Введите единицу измерения товара", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            else if (PriceForUnitTxtBx.Text.Length == 0) { MessageBox.Show("Введите стоимость товара", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            else if (CategoryCmbBx.SelectedIndex == -1) { MessageBox.Show("Выберите категорию товара", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error); return; }
+            else
+            {
+                MessageBoxResult Result = MessageBox.Show("Подтвердите верность введненных данных:\n" +
+                   $"\nНазвание - {TitleTxtBx.Text}\n" +
+                   $"Единица измерения - {UnitOfMeasurementCmbBx.Text}\n" +
+                   $"Стоимость - {PriceForUnitTxtBx.Text}\n" +
+                   $"Категория - {CategoryCmbBx.SelectedItem}\n" +
+                   $"Описание - {DescriptionTxtBx.Text}\n", "Подтверждение", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (Result == MessageBoxResult.Yes)
+                {
+                    this.DialogResult = true;
+                }
+            }
+            
         }
 
 

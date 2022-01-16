@@ -3,14 +3,16 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Warehouse.View.Storage.ProductList"
+        xmlns:local="clr-namespace:Warehouse.View.Storage.ProductList" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="AddProductFromDictionary" Height="450" Width="800" WindowStartupLocation="CenterOwner" Background="{StaticResource TransparentBckgr}" Foreground="White"
-        AllowsTransparency="True" WindowStyle="None" SizeChanged="Window_SizeChanged" >
+        Title="AddProductFromDictionary" MinWidth="1000" MinHeight="600" Height="600" Width="1000" WindowStartupLocation="CenterOwner"
+        Background="{StaticResource TransparentBckgr}" Foreground="White"
+        AllowsTransparency="True" WindowStyle="None">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
 
 
@@ -32,6 +34,77 @@
                     </Button>
                 </StackPanel>
             </Border>
+            
         </Border>
+
+        <Border BorderBrush="#2ECC71" BorderThickness="5" Grid.Row="1" Margin="5,0,5,0">
+            <ListBox BorderThickness="0" Name="ProductListGrid" Background="{StaticResource MainBckgr}" ItemContainerStyle="{StaticResource ListBoxStyle}" AlternationCount="2" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid MinHeight="40">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="350"/>
+                                <ColumnDefinition Width="70"/>
+                                <ColumnDefinition Width="100"/>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="160"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <CheckBox x:Name="SelectedItem" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Path=IsChecked, Mode=TwoWay}" IsEnabled="{Binding Amount, Converter={StaticResource MkOrderChckBxEnbl}}">
+                                <CheckBox.LayoutTransform>
+                                    <ScaleTransform ScaleX="2" ScaleY="2" />
+                                </CheckBox.LayoutTransform>
+                            </CheckBox>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <Border Height="50" Width="0" Background="Black"/>
+                                <TextBlock Text="{Binding Title}" Foreground="White" FontSize="20" Margin="5,0" TextWrapping="Wrap" Width="330"/>
+                                <!--<Border Height="50" Width="2" Background="Red"/>-->
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                                <!--<Label x:Name="Am" Content="{Binding ProductLists.Amount}" Grid.Column="2" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>-->
+                                <xctk:ShortUpDown Name="amount" Height="50" Value="{Binding CurrentAmount}" AllowTextInput="True" DefaultValue="0" TextAlignment="Center" Minimum="1" Maximum="{Binding Amount}" IsEnabled="{Binding Amount,Converter={StaticResource MkOrderChckBxEnbl}}" BorderThickness="2" BorderBrush="White" Background="Transparent" Foreground="White" FontSize="20"/>
+                            </StackPanel>
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="В наличии" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Foreground="White">
+                                    <Run Text="{Binding Amount}" FontSize="20"/>
+                                    <Run Text="шт" />
+                                </TextBlock>
+
+                            </StackPanel>
+
+                            <!--<Button Width="50" Grid.Column="3" Name="EditAmount"/>-->
+                            <StackPanel Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                                <TextBlock Text="Категория" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Text="{Binding Categories.Name}" Foreground="White" FontSize="20"/>
+                            </StackPanel>
+
+
+                            <StackPanel Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <TextBlock Text="Стоимость" Foreground="White" FontSize="15" HorizontalAlignment="Center"/>
+                                <TextBlock HorizontalAlignment="Center" Foreground="White">
+                                    <Run Text="{Binding PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" FontSize="20"/>
+                                    <Run Text="/ шт"/>
+                                </TextBlock>
+                            </StackPanel>
+
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2">
+            <Button Width="200" Height="35" Content="Сохранить" FontSize="20" Style="{StaticResource ResizeAndMinimizeBtnStyle}"  Cursor="Hand"/>
+            <Separator Width="20" Opacity="0"/>
+            <Button Width="200" Height="35" Content="Назад" FontSize="20" Style="{StaticResource  ResizeAndMinimizeBtnStyle}" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Top">
+
+        </StackPanel>
+
     </Grid>
 </Window>

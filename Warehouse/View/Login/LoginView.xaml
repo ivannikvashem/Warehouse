@@ -29,25 +29,24 @@
             <StackPanel Margin="0,20">
                 <StackPanel Width="180">
                     <Label Content="Логин" Foreground="White" FontSize="15" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Height="30" FontSize="20" VerticalContentAlignment="Center"/>
+                    <TextBox Text="{Binding Username, UpdateSourceTrigger=PropertyChanged}" Height="30" FontSize="20" VerticalContentAlignment="Center">
+                        <TextBox.InputBindings>
+                            <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
+                        </TextBox.InputBindings>
+                    </TextBox>
                 </StackPanel>
 
                 <StackPanel Width="180">
                     <Label Content="Пароль" Foreground="White" FontSize="15" HorizontalAlignment="Left"/>
-                    <components:BindablePasswordBox Password="{Binding Password}" Height="30" FontSize="20" VerticalContentAlignment="Center"/>
+                    <components:BindablePasswordBox Password="{Binding Password}" Height="30" FontSize="20" VerticalContentAlignment="Center">
+                        <components:BindablePasswordBox.InputBindings>
+                            <KeyBinding Command="{Binding LoginCommand}" Key="Return" />
+                        </components:BindablePasswordBox.InputBindings>
+                    </components:BindablePasswordBox>
                 </StackPanel>
 
 
-                <Button Content="Войти" Margin="0,20,0,0" Style="{StaticResource MainBtnStyle}" Name="LoginButton" Height="35" Width="150" Command="{Binding LoginCommand}">
-                    <!--<i:Interaction.Triggers>
-                        <i:EventTrigger EventName="Click">
-                            <i:CallMethodAction MethodName="Close"
-                           TargetObject="{Binding RelativeSource={RelativeSource
-                                                  Mode=FindAncestor,
-                                                  AncestorType=Window}}" />
-                        </i:EventTrigger>
-                    </i:Interaction.Triggers>-->
-                </Button>
+                <Button Content="Войти" Margin="0,20,0,0" Style="{StaticResource MainBtnStyle}" Name="LoginButton" Height="35" Width="150" Command="{Binding LoginCommand}"/>
             </StackPanel>
 
 

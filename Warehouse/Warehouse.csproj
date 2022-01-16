@@ -114,13 +114,17 @@
     <Compile Include="Converters\ProductStatusMessageConverter.cs" />
     <Compile Include="Converters\TotalAmountConverter.cs" />
     <Compile Include="Converters\UserRoleButtonConverter.cs" />
+    <Compile Include="Converters\UserRoleButtonOpacityConv.cs" />
     <Compile Include="Converters\UserRoleConverter.cs" />
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="ViewModel\Category\CategoryViewModel.cs" />
     <Compile Include="ViewModel\Client\ClientViewModel.cs" />
     <Compile Include="ViewModel\Login\LoginViewModel.cs" />
+    <Compile Include="ViewModel\Manager\ManagerViewModel.cs" />
     <Compile Include="ViewModel\Order\OrderViewModel.cs" />
     <Compile Include="ViewModel\Storage\StorageListViewModel.cs" />
     <Compile Include="ViewModel\Storage\StorageViewModel.cs" />
+    <Compile Include="ViewModel\Supply\SupplyViewModel.cs" />
     <Compile Include="View\Client\AddUpdateClientWindow.xaml.cs">
       <DependentUpon>AddUpdateClientWindow.xaml</DependentUpon>
     </Compile>
@@ -138,6 +142,21 @@
     </Compile>
     <Compile Include="View\Order\MakeOrder\MakeOrderWindow.xaml.cs">
       <DependentUpon>MakeOrderWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\Category\CategoryList.xaml.cs">
+      <DependentUpon>CategoryList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\Category\ChangeCategoryNameWindow.xaml.cs">
+      <DependentUpon>ChangeCategoryNameWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\Manager\EditMangerWindow.xaml.cs">
+      <DependentUpon>EditMangerWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\Manager\ManagerList.xaml.cs">
+      <DependentUpon>ManagerList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Settings\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="View\Storage\Dictionary\AddProductToDictionaryWindow.xaml.cs">
       <DependentUpon>AddProductToDictionaryWindow.xaml</DependentUpon>
@@ -199,6 +218,26 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="View\Order\MakeOrder\MakeOrderWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\Category\CategoryList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\Category\ChangeCategoryNameWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\Manager\EditMangerWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\Manager\ManagerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Settings\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -370,6 +409,27 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\InterfaceStuff\Navigation\Print96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SettingsStuff\Category96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SettingsStuff\Manager96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SettingsStuff\Dictionary96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="View\Supply\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Category\bedroom96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SettingsStuff\Category96s.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\SettingsStuff\ManagerImage96.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

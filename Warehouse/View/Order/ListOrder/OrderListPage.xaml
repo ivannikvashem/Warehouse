@@ -4,10 +4,10 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Warehouse.View.Order.ListOrder"
-      xmlns:ui="clr-namespace:Warehouse.ViewModel.Order"
+      xmlns:ui="clr-namespace:Warehouse.ViewModel.Order" xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800" Background="{StaticResource TransparentBckgr}"
-      Title="OrderListPage">
+      Title="OrderListPage" PreviewKeyDown="Window_PreviewKeyDown">
 
     <Page.DataContext>
         <ui:OrderViewModel/>
@@ -43,15 +43,104 @@
                 </Button>
                 <Separator Width="20" Opacity="0"/>
 
-                <Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding }" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
+                <!--<Button Width="40" Height="35" Style="{StaticResource ArrowsBtnStyle}" Command="{Binding }" CommandParameter="{Binding ElementName=StorageGrid, Path=SelectedItem}">
                     <Image Source="../../../Images/InterfaceStuff/Navigation/Delete96.png"/>
                     <Button.ToolTip>
                         <ToolTip Content="Удалить клиента" Style="{StaticResource ToolTipStyle1}"/>
                     </Button.ToolTip>
                 </Button>
 
-                <Separator Width="20" Opacity="0"/>
+                <Separator Width="20" Opacity="0"/>-->
 
+                <Border Background="{StaticResource TransparentBckgr}" Grid.RowSpan="3" Grid.Column="1" HorizontalAlignment="Right">
+                    <Grid x:Name="SearchPanel"
+              Grid.RowSpan="3"
+              VerticalAlignment="Top"
+              Background="Transparent"
+              Width="40"
+              Height="35"
+              Grid.Row="0">
+                        <StackPanel x:Name="SearchStckPnl" Orientation="Horizontal">
+
+
+                            <Grid Height="35">
+                                <ToggleButton x:Name="SearchBtn"
+                                  Grid.Column="0"
+                                  Margin="0,0,0,0"
+                                  HorizontalAlignment="Left"
+                                  Width="40"
+                                  Height="35"
+                                  BorderThickness="0"
+                                  Style="{StaticResource ToggleButtonStyle1}">
+
+                                    <ToggleButton.Background>
+                                        <ImageBrush ImageSource="../../../Images/InterfaceStuff/Navigation/Search96.png"/>
+                                    </ToggleButton.Background>
+
+                                    <ToggleButton.Triggers>
+                                        <EventTrigger RoutedEvent="ToggleButton.Unchecked">
+                                            <BeginStoryboard>
+                                                <Storyboard x:Name="HideSearchPnl">
+                                                    <DoubleAnimation Storyboard.TargetName="SearchPanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="250" To="45"
+                                                         Duration="0:0:0.3">
+
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+
+
+                                        <EventTrigger RoutedEvent="ToggleButton.Checked">
+                                            <BeginStoryboard>
+                                                <Storyboard x:Name="ShowSearchPnl">
+                                                    <DoubleAnimation Storyboard.TargetName="SearchPanel"
+                                                         Storyboard.TargetProperty="Width"
+                                                         BeginTime="0:0:0"
+                                                         From="40" To="250"
+                                                         Duration="0:0:0.3">
+
+                                                    </DoubleAnimation>
+                                                </Storyboard>
+                                            </BeginStoryboard>
+
+
+                                        </EventTrigger>
+
+                                    </ToggleButton.Triggers>
+                                    
+                                    <ToggleButton.InputBindings>
+                                        <KeyBinding Command="{Binding OpenSearchBox}" Modifiers="Ctrl" Key="F"/>
+                                    </ToggleButton.InputBindings>
+
+                                    <ToggleButton.ToolTip>
+                                        <ToolTip x:Name="tt_Storage" Content="Поиск" Style="{StaticResource ToolTipStyle1}"/>
+                                    </ToggleButton.ToolTip>
+                                </ToggleButton>
+
+                                <ListView x:Name="Search" Background="{StaticResource TransparentBckgr}"
+                          BorderBrush="{StaticResource TransparentBckgr}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"  Height="35" Margin="45,5,10,5">
+
+                                    <!--Storage-->
+                                    <ListViewItem FocusVisualStyle="{x:Null}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Style="{StaticResource ListBoxStyle1}">
+                                        <TextBox Name="SearchBox" Text="{Binding SearchResults, UpdateSourceTrigger=PropertyChanged}" Width="250" Height="30" FontSize="15" FontWeight="Bold">
+                                            <i:Interaction.Triggers>
+                                                <i:EventTrigger EventName="TextChanged">
+                                                    <i:InvokeCommandAction Command="{Binding SearchCommand}"/>
+                                                </i:EventTrigger>
+                                            </i:Interaction.Triggers>
+                                        </TextBox>
+                                    </ListViewItem>
+                                </ListView>
+                            </Grid>
+
+
+                        </StackPanel>
+                    </Grid>
+
+                </Border>
 
             </StackPanel>
         </Grid>
@@ -59,18 +148,19 @@
         <Border Grid.Row="1" BorderBrush="#2ECC71" BorderThickness="5" CornerRadius="0,5,5,0">
             <DataGrid x:Name="StorageGrid" ItemsSource="{Binding OrderLists}" BorderThickness="0" BorderBrush="Black" Background="{StaticResource TransparentBckgr}"
                       VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Hidden"
-                      CanUserSortColumns="False" CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
+                      CanUserDeleteRows="False" IsReadOnly="True" CanUserReorderColumns="False"
                       CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}"
-                      RowHeight="30" AlternationCount="2" SelectionMode="Single">
+                      RowHeight="30" AlternationCount="2" SelectionMode="Single" >
                 <DataGrid.Columns>
 
-                    <DataGridTemplateColumn Header="№" Width="50" MinWidth="50" MaxWidth="80">
+                    <DataGridTextColumn Header="№" Binding="{Binding OrderListID}" />
+                    <!--<DataGridTemplateColumn Header="№" Width="50" MinWidth="50" MaxWidth="80">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <TextBlock Text="{Binding OrderListID}" HorizontalAlignment="Center"/>
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    </DataGridTemplateColumn>-->
 
                     <DataGridTemplateColumn Header="менеджер" Width="130" MinWidth="130">
                         <DataGridTemplateColumn.CellTemplate>
@@ -87,16 +177,11 @@
                             </DataTemplate>
                         </DataGridTemplateColumn.CellTemplate>
                     </DataGridTemplateColumn>
-                    
-                    <!--<DataGridTextColumn Header="Общая сумма заказа" Binding="{Binding TotalPrice, StringFormat=C, ConverterCulture=ru-RU}" Width="*"/>-->
-                    <DataGridTemplateColumn Header="Дата заказа" Width="130" MinWidth="130">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}" HorizontalAlignment="Center"/>
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    
+
+                    <DataGridTextColumn Header="Дата заказа" Binding="{Binding OrderDate, StringFormat=D, ConverterCulture=ru-RU}" Width="*">
+
+                    </DataGridTextColumn>
+
                     <DataGridTemplateColumn Header="Общая сумма" Width="170">
                         <DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
