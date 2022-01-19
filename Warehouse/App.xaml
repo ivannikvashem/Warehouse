@@ -7,7 +7,7 @@
              xmlns:OrdInfo="clr-namespace:Warehouse.View.Order.ListOrder"
              xmlns:Strg="clr-namespace:Warehouse.View.Storage.ProductList"
              xmlns:St="clr-namespace:Warehouse.View.Settings"
-             StartupUri="MainWindow.xaml">
+             StartupUri="LoginWindow.xaml">
     <Application.Resources>
 
         <!--<converters:UserRoleConverter x:Name="UsrRoleConv"/>-->

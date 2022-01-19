@@ -164,8 +164,8 @@
                       CanUserReorderColumns="False" CanUserResizeColumns="True" FontSize="15" AutoGenerateColumns="False" Style="{StaticResource MainGridStyle}" RowHeight="30"
                       MinColumnWidth="65" AlternationCount="2" Grid.Row="1" SelectionMode="Single" >
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="№" Binding="{Binding ProductID}" Width="*" MaxWidth="55" CanUserResize="False"/>
-                    <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350" SortMemberPath="{Binding XPath=Product.Title}" CanUserSort="True"/>
+                    <DataGridTextColumn Header="№" Binding="{Binding ProductID}" Width="*" MaxWidth="55" CanUserResize="True"/>
+                    <DataGridTextColumn Header="Наименование" Binding="{Binding Product.Title}" Width="*" MinWidth="350" SortMemberPath="{Binding XPath=Product.Title}" CanUserSort="False"/>
 
                     <DataGridTextColumn Header="Количество" Binding="{Binding Amount}" Width="90" MinWidth="90">
                         <DataGridTextColumn.ElementStyle>
@@ -201,7 +201,7 @@
                     <DataGridTextColumn Header="Ед. Изм." Binding="{Binding Product.UnitOfMeasurement}" Width="85" MinWidth="85" CanUserSort="False"/>
                     <DataGridTextColumn Header="Стоимость" Binding="{Binding Product.PriceForUnit, StringFormat=C, ConverterCulture=ru-RU}" Width="100" CanUserSort="False"/>
 
-                    <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name,Mode=OneWay}"  SortMemberPath="{Binding Name}" x:Name="CategoryColumn" CanUserSort="True"/>
+                    <DataGridTextColumn Header="Категория" Width="*" Binding="{Binding Product.Categories.Name,Mode=OneWay}"  SortMemberPath="{Binding Name}" x:Name="CategoryColumn" CanUserSort="False"/>
 
                 </DataGrid.Columns>
             </DataGrid>

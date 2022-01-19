@@ -223,8 +223,9 @@ namespace Warehouse.ViewModel.Order
             }
             else
             {
+                //int found2 = Convert.ToInt32(SearchResults.Trim());
                 var found = SearchResults.ToString().Trim();
-                OrderLists = db.OrderLists.Where(x => x.Client.Name.Contains(found) ||  x.OrderDate.Value.ToString() == found || x.UserLoginPass.UserName.Contains(found)).ToList();
+                OrderLists = db.OrderLists.Where(x => x.Client.Name.Contains(found) || x.OrderListID.ToString().Contains(found) ||  x.OrderDate.Value.ToString().Contains(found) || x.UserLoginPass.UserName.Contains(found)).ToList();
             }
         });
 
