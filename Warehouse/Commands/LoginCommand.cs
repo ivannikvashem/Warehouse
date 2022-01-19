@@ -72,9 +72,12 @@ namespace Warehouse.Commands
                 if (currentUser != null)
                 {
                     ApplicationContext.Status = (ApplicationContext.UserStatus)currentUser.UserRoleId;
+                    Application.Current.Properties["CurrentUser"] = currentUser.ManagerId;
+                    db.SaveChanges();
                     MainWindow main = new MainWindow();
                     main.Show();
                     Application.Current.MainWindow.Close();
+                    
                 }
                 if (currentUser == null) { MessageBox.Show($"Неправильный логин или пароль", "Вход", MessageBoxButton.OK, MessageBoxImage.Error); }
             }

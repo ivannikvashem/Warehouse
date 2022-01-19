@@ -96,7 +96,18 @@ namespace Warehouse.ViewModel.Order
         public OrderViewModel()
         {
             db = new ApplicationContext();
-            OrderLists = db.OrderLists.Local.ToBindingList();
+
+            int User = (int)Application.Current.Properties["CurrentUser"];
+            if ((int)ApplicationContext.Status == 1)
+            {
+                OrderLists = db.OrderLists.Local.ToBindingList();
+            }
+            else
+            {
+                OrderLists = db.OrderLists.Local.ToBindingList().Where(c => c.ManagerID == User);
+
+                //OrderLists = db.OrderLists.Local.ToBindingList().Where(c => c.ManagerID == (int)ApplicationContext.Status);
+            }
             ProductLists = db.ProductLists.Local.ToBindingList().Where(x => x.Amount > 0);
             db.UserLoginPasses.ToList();
             db.OrderLists.ToList();

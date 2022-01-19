@@ -36,6 +36,7 @@
         <!--Background="DarkSlateGray"-->
         <Border Background="DarkSlateGray" Grid.ColumnSpan="2" MouseLeftButtonUp="Border_MouseLeftButtonUp" MouseLeftButtonDown="TitleBar_MouseLeftButtonDown" MouseMove="Border_MouseMove">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,6,0">
+                <TextBlock FontSize="15" VerticalAlignment="Center" Name="UserNameTxtBlck"/>
                 <TextBlock Text="{Binding Converter={StaticResource UsrRoleConv}}" FontSize="15" VerticalAlignment="Center"/>
                 <Button Width="50" Style="{StaticResource ResizeAndMinimizeBtnStyle}" Margin="10,0" Click="LogOut_Click">
                     <Image Source="././Images/InterfaceStuff/TitleBar/lockWindow96(White).png"/>

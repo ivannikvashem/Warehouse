@@ -24,6 +24,7 @@ namespace Warehouse
 {
     public partial class MainWindow : Window
     {
+        ApplicationContext db = new ApplicationContext();
         bool restoreIfMove = false;
 
         public MainWindow()
@@ -33,6 +34,8 @@ namespace Warehouse
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             this.MaxWidth = SystemParameters.MaximizedPrimaryScreenWidth;
             DataContext = ApplicationContext.Status;
+            //var CurrentUserName = db.UserLoginPasses.Where(x => x.ManagerId == (int)ApplicationContext.Status);
+            //UserNameTxtBlck.Text = ApplicationContext.Status.ToString();
             //if (ApplicationContext.Status.ToString() == "Администратор") { GoToStorageDictionary.Visibility = Visibility.Visible; }
             //else { GoToStorageDictionary.Visibility = Visibility.Collapsed; }
 
@@ -130,6 +133,7 @@ namespace Warehouse
             if (Result == MessageBoxResult.Yes)
             {
                 Environment.Exit(0);
+                //Application.Current.Shutdown();
             }
             else if (Result == MessageBoxResult.No)
             {

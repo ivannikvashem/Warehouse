@@ -82,5 +82,6 @@ namespace Warehouse.Model
                 PropertyChanged(this, new PropertyChangedEventArgs(prop));
         }
         public event PropertyChangedEventHandler PropertyChanged;
+
     }
 }

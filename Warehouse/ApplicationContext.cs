@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
 using System.Text;
@@ -23,5 +24,6 @@ namespace Warehouse
         public DbSet<UserRoleDictionary> UserRoleDictionaries { get; set; }
         public enum UserStatus { Unlogged = 0, Администратор = 1, Менеджер = 2 };
         public static UserStatus Status { get; set; }
+
     }
 }
